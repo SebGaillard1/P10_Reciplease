@@ -16,7 +16,6 @@ class SearchViewController: UIViewController {
     
     //MARK: - Properties
     private let repository = IngredientRepository()
-    
     private var ingredientsArray = [Ingredient]()
         
     //MARK: - View life cycle
@@ -26,8 +25,6 @@ class SearchViewController: UIViewController {
         ingredientTableView.dataSource = self
         
         getIngredient()
-        let recipeservcie = RecipeService()
-        recipeservcie.fetchRecipes()
     }
     
     //MARK: - IBActions
@@ -40,6 +37,13 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func SearchForRecipesButtonPressed(_ sender: Any) {
+        RecipeService.shared.fetchRecipes(withIngredients: ingredientsArray) { success in
+            if success {
+                
+            } else {
+                
+            }
+        }
     }
     
     //MARK: - Private

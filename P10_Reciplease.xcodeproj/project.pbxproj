@@ -143,8 +143,8 @@
 			isa = PBXGroup;
 			children = (
 				57C2C03F27906FB800EF509E /* RecipeService.swift */,
-				57C2C043279074FD00EF509E /* IngredientRepository.swift */,
 				5769F62D2790952C009726F7 /* Recipe.swift */,
+				57C2C043279074FD00EF509E /* IngredientRepository.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
