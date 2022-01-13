@@ -23,7 +23,6 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ingredientTableView.delegate = self
         ingredientTableView.dataSource = self
         
         getIngredient()
@@ -85,13 +84,4 @@ extension SearchViewController: UITableViewDataSource {
         
         return cell
     }
-    
-    
 }
-
-extension SearchViewController: UITableViewDelegate {
-    
-}
-
-
-
