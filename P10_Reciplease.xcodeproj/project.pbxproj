@@ -10,12 +10,17 @@
 		3F5A1222FF3142681E45BF00 /* Pods_P10_Reciplease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189AA09E19746D0339E76A69 /* Pods_P10_Reciplease.framework */; };
 		571647F927905E9D00FE7BFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571647F827905E9D00FE7BFA /* AppDelegate.swift */; };
 		571647FB27905E9D00FE7BFA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571647FA27905E9D00FE7BFA /* SceneDelegate.swift */; };
-		571647FD27905E9D00FE7BFA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571647FC27905E9D00FE7BFA /* ViewController.swift */; };
+		571647FD27905E9D00FE7BFA /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571647FC27905E9D00FE7BFA /* SearchViewController.swift */; };
 		5716480027905E9E00FE7BFA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 571647FE27905E9E00FE7BFA /* Main.storyboard */; };
 		5716480327905E9E00FE7BFA /* P10_Reciplease.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5716480127905E9E00FE7BFA /* P10_Reciplease.xcdatamodeld */; };
 		5716480527905E9F00FE7BFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5716480427905E9F00FE7BFA /* Assets.xcassets */; };
 		5716480827905E9F00FE7BFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5716480627905E9F00FE7BFA /* LaunchScreen.storyboard */; };
 		5716481327905E9F00FE7BFA /* P10_RecipleaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5716481227905E9F00FE7BFA /* P10_RecipleaseTests.swift */; };
+		5769F62C27907C73009726F7 /* IngredientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5769F62B27907C73009726F7 /* IngredientTableViewCell.swift */; };
+		57C2C04027906FB800EF509E /* RecipeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C2C03F27906FB800EF509E /* RecipeService.swift */; };
+		57C2C0422790724100EF509E /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C2C0412790724100EF509E /* Ingredient.swift */; };
+		57C2C044279074FD00EF509E /* IngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C2C043279074FD00EF509E /* IngredientRepository.swift */; };
+		57C2C0462790754A00EF509E /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C2C0452790754A00EF509E /* CoreDataStack.swift */; };
 		86E4D751874B52EED89239A8 /* Pods_P10_RecipleaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCBB49463E0CC6BB55DEE3E /* Pods_P10_RecipleaseTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +41,7 @@
 		571647F527905E9D00FE7BFA /* P10_Reciplease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = P10_Reciplease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		571647F827905E9D00FE7BFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		571647FA27905E9D00FE7BFA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		571647FC27905E9D00FE7BFA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		571647FC27905E9D00FE7BFA /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		571647FF27905E9E00FE7BFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5716480227905E9E00FE7BFA /* P10_Reciplease.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = P10_Reciplease.xcdatamodel; sourceTree = "<group>"; };
 		5716480427905E9F00FE7BFA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -44,6 +49,11 @@
 		5716480927905E9F00FE7BFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = P10_Reciplease/SupportingFiles/Info.plist; sourceTree = SOURCE_ROOT; };
 		5716480E27905E9F00FE7BFA /* P10_RecipleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = P10_RecipleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5716481227905E9F00FE7BFA /* P10_RecipleaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P10_RecipleaseTests.swift; sourceTree = "<group>"; };
+		5769F62B27907C73009726F7 /* IngredientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientTableViewCell.swift; sourceTree = "<group>"; };
+		57C2C03F27906FB800EF509E /* RecipeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeService.swift; sourceTree = "<group>"; };
+		57C2C0412790724100EF509E /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
+		57C2C043279074FD00EF509E /* IngredientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientRepository.swift; sourceTree = "<group>"; };
+		57C2C0452790754A00EF509E /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		5F0A1E115EE9BD15107113AE /* Pods-P10_Reciplease.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-P10_Reciplease.release.xcconfig"; path = "Target Support Files/Pods-P10_Reciplease/Pods-P10_Reciplease.release.xcconfig"; sourceTree = "<group>"; };
 		A15581FB9952C5A1D3CA2AC1 /* Pods-P10_Reciplease.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-P10_Reciplease.debug.xcconfig"; path = "Target Support Files/Pods-P10_Reciplease/Pods-P10_Reciplease.debug.xcconfig"; sourceTree = "<group>"; };
 		ECCBB49463E0CC6BB55DEE3E /* Pods_P10_RecipleaseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_P10_RecipleaseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,7 +122,7 @@
 		5716482B27905EC700FE7BFA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				571647FC27905E9D00FE7BFA /* ViewController.swift */,
+				571647FC27905E9D00FE7BFA /* SearchViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -122,6 +132,7 @@
 			children = (
 				571647FE27905E9E00FE7BFA /* Main.storyboard */,
 				5716480627905E9F00FE7BFA /* LaunchScreen.storyboard */,
+				5769F62B27907C73009726F7 /* IngredientTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -129,6 +140,8 @@
 		5716482D27905EDB00FE7BFA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				57C2C03F27906FB800EF509E /* RecipeService.swift */,
+				57C2C043279074FD00EF509E /* IngredientRepository.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -137,6 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				5716480127905E9E00FE7BFA /* P10_Reciplease.xcdatamodeld */,
+				57C2C0452790754A00EF509E /* CoreDataStack.swift */,
+				57C2C0412790724100EF509E /* Ingredient.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -160,7 +175,6 @@
 				1CB042983539FE6405B6098E /* Pods-P10_RecipleaseTests.debug.xcconfig */,
 				08F41544424959F7064BDC5D /* Pods-P10_RecipleaseTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -341,10 +355,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57C2C044279074FD00EF509E /* IngredientRepository.swift in Sources */,
 				5716480327905E9E00FE7BFA /* P10_Reciplease.xcdatamodeld in Sources */,
-				571647FD27905E9D00FE7BFA /* ViewController.swift in Sources */,
+				571647FD27905E9D00FE7BFA /* SearchViewController.swift in Sources */,
+				57C2C04027906FB800EF509E /* RecipeService.swift in Sources */,
 				571647F927905E9D00FE7BFA /* AppDelegate.swift in Sources */,
+				57C2C0422790724100EF509E /* Ingredient.swift in Sources */,
 				571647FB27905E9D00FE7BFA /* SceneDelegate.swift in Sources */,
+				57C2C0462790754A00EF509E /* CoreDataStack.swift in Sources */,
+				5769F62C27907C73009726F7 /* IngredientTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
