@@ -26,6 +26,8 @@ class SearchViewController: UIViewController {
         ingredientTableView.dataSource = self
         
         getIngredient()
+        let recipeservcie = RecipeService()
+        recipeservcie.fetchRecipes()
     }
     
     //MARK: - IBActions
