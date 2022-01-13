@@ -14,7 +14,7 @@ class SearchResultTableViewCell: UITableViewCell {
     @IBOutlet weak var topRightView: UIView!
     @IBOutlet weak var recipeRateLabel: UILabel!
     @IBOutlet weak var recipeTimeLabel: UILabel!
-    
+        
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

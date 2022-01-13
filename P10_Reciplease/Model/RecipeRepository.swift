@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 final class RecipeRepository {
     //MARK: - Properties
@@ -16,4 +17,33 @@ final class RecipeRepository {
         self.coreDataStack = coreDataStack
     }
     
+    //MARK: - Repository
+    func saveRecipe(title: String, ingredient: String, rate: String, imageUrl: String, duration: Double, completion: (_ success: Bool) -> Void) {
+        let recipe = Recipe(context: coreDataStack.viewContext)
+        recipe.title = title
+        recipe.ingredient = ingredient
+        recipe.rate = rate
+        recipe.imageUrl = imageUrl
+        recipe.duration = duration
+        
+        do {
+            try coreDataStack.viewContext.save()
+            completion(true)
+        } catch {
+            print("We were unable to save recipe")
+            completion(false)
+        }
+    }
+    
+    func getRecipes(completion: (_ success: Bool, _ recipes: [Recipe]) -> Void) {
+        let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
+        
+        guard let recipes = try? coreDataStack.viewContext.fetch(request) else {
+            completion(false, [])
+            return
+        }
+        
+        completion(true, recipes)
+    }
+
 }

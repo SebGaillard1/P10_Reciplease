@@ -18,17 +18,6 @@ final class IngredientRepository {
     }
     
     //MARK: - Repository
-    func getIngredients(completion: (_ success: Bool, _ ingredients: [Ingredient]) -> Void) {
-        let request: NSFetchRequest<Ingredient> = Ingredient.fetchRequest()
-        
-        guard let ingredients = try? coreDataStack.viewContext.fetch(request) else {
-            completion(false, [])
-            return
-        }
-        
-        completion(true, ingredients)
-    }
-    
     func saveIngredient(named name: String, completion: (_ success: Bool) -> Void) {
         let ingredient = Ingredient(context: coreDataStack.viewContext)
         ingredient.name = name
@@ -40,6 +29,17 @@ final class IngredientRepository {
             print("We were unable to save \(name)")
             completion(false)
         }
+    }
+    
+    func getIngredients(completion: (_ success: Bool, _ ingredients: [Ingredient]) -> Void) {
+        let request: NSFetchRequest<Ingredient> = Ingredient.fetchRequest()
+        
+        guard let ingredients = try? coreDataStack.viewContext.fetch(request) else {
+            completion(false, [])
+            return
+        }
+        
+        completion(true, ingredients)
     }
     
     func removeAllIngredient(completion: (_ success: Bool) -> Void) {

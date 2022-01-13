@@ -8,4 +8,4 @@
 import Foundation
 import CoreData
 
-class Recipe: NSManagedObjectModel {}
+class Recipe: NSManagedObject {}

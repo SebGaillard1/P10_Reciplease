@@ -174,10 +174,10 @@
             </objects>
             <point key="canvasLocation" x="1720" y="-508"/>
         </scene>
-        <!--View Controller-->
+        <!--Search Result View Controller-->
         <scene sceneID="Z3O-6E-uij">
             <objects>
-                <viewController id="jgx-83-aRB" sceneMemberID="viewController">
+                <viewController id="jgx-83-aRB" customClass="SearchResultViewController" customModule="P10_Reciplease" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="h1S-mk-A2L">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -197,6 +197,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="TSO-3r-8kD"/>
+                    <connections>
+                        <outlet property="resultRecipesTableView" destination="PJq-zI-gry" id="mRb-M3-yt2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y1a-1l-m0b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -19,13 +19,13 @@ struct Hit: Codable {
 // MARK: - Recipe
 struct RecipeType: Codable {
     let label: String
-    let image: String?
+    let image: String
     let yield: Int
     let ingredientLines: [String]
     let ingredients: [IngredientType]
     let calories: Double
     let totalWeight: Double
-    let totalTime: Int
+    let totalTime: Double
     let cuisineType: [String]
 }
 
@@ -38,11 +38,9 @@ struct IngredientType: Codable {
     let weight: Double
     let foodCategory: String?
     let foodID: String
-    let image: String?
 
     enum CodingKeys: String, CodingKey {
         case text, quantity, measure, food, weight, foodCategory
         case foodID = "foodId"
-        case image
     }
 }

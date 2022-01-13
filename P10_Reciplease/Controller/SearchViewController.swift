@@ -15,7 +15,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var ingredientTableView: UITableView!
     
     //MARK: - Properties
-    private let repository = IngredientRepository()
+    private let ingredientRepository = IngredientRepository()
     private var ingredientsArray = [Ingredient]()
         
     //MARK: - View life cycle
@@ -39,7 +39,7 @@ class SearchViewController: UIViewController {
     @IBAction func SearchForRecipesButtonPressed(_ sender: Any) {
         RecipeService.shared.fetchRecipes(withIngredients: ingredientsArray) { success in
             if success {
-                
+                self.performSegue(withIdentifier: "segueToSearchResult", sender: self)
             } else {
                 
             }
@@ -50,7 +50,7 @@ class SearchViewController: UIViewController {
     private func addIngredient() {
         guard let ingredientName = ingredientTextField.text else { return }
         
-        repository.saveIngredient(named: ingredientName) { success in
+        ingredientRepository.saveIngredient(named: ingredientName) { success in
             if success {
                 getIngredient()
             }
@@ -58,7 +58,7 @@ class SearchViewController: UIViewController {
     }
     
     private func getIngredient() {
-        repository.getIngredients { success, ingredients  in
+        ingredientRepository.getIngredients { success, ingredients  in
             if success {
                 ingredientsArray = ingredients
                 ingredientTableView.reloadData()
@@ -67,7 +67,7 @@ class SearchViewController: UIViewController {
     }
     
     private func clearIngredient() {
-        repository.removeAllIngredient { success in
+        ingredientRepository.removeAllIngredient { success in
             if success {
                 ingredientsArray.removeAll()
                 ingredientTableView.reloadData()

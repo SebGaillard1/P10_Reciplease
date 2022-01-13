@@ -18,6 +18,8 @@ class RecipeService {
     private let appKey = "6eb213ece561751aedcd1e4aa3a02dc8"
     private let type = "public"
     
+    private let recipeRepository = RecipeRepository()
+    
     //MARK: - Public
     func fetchRecipes(withIngredients ingredients: [Ingredient], completion: @escaping (_ success: Bool) -> Void) {
         let ingredients = getIngredientsString(from: ingredients)
@@ -35,8 +37,24 @@ class RecipeService {
                 return
             }
             
-            let title = recipes.hits[0].recipe.label
-            print(title)
+            for oneRecipe in recipes.hits {
+                let title = oneRecipe.recipe.label
+                var allIngredients = ""
+                for ingredient in oneRecipe.recipe.ingredients {
+                    allIngredients += ingredient.food
+                }
+                let rate = "5/5"
+                let imageUrl = oneRecipe.recipe.image
+                let duration = oneRecipe.recipe.totalTime
+                
+                self.recipeRepository.saveRecipe(title: title, ingredient: allIngredients, rate: rate, imageUrl: imageUrl, duration: duration) { success in
+                    if !success {
+                        completion(false)
+                        return
+                    }
+                }
+            }
+            
             completion(true)
         }
     }

@@ -8,10 +8,51 @@
 import UIKit
 
 class SearchResultViewController: UIViewController {
+    //MARK: - IBOutlets
+    @IBOutlet weak var resultRecipesTableView: UITableView!
     
+    //MARK: - Properties
+    private let recipeRepository = RecipeRepository()
+    private var recipes = [Recipe]()
+    
+    private let cellId = "SearchResultTableViewCell"
+    
+    //MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        resultRecipesTableView.dataSource = self
+        resultRecipesTableView.register(UINib.init(nibName: cellId, bundle: nil), forCellReuseIdentifier: cellId)
+        
+        getRecipes()
     }
+    
+    //MARK: - Private
+    private func getRecipes() {
+        recipeRepository.getRecipes { success, recipes in
+            if success {
+                self.recipes = recipes
+                resultRecipesTableView.reloadData()
+            }
+        }
+    }
+}
+
+extension SearchResultViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return recipes.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SearchResultTableViewCell else { return UITableViewCell() }
+        cell.recipeTitleLabel.text = recipes[indexPath.row].title
+        cell.recipeIngredientsLabel.text = recipes[indexPath.row].ingredient
+        cell.recipeRateLabel.text = recipes[indexPath.row].rate
+        cell.recipeTimeLabel.text = "\(recipes[indexPath.row].duration)"
+        cell.recipeImageView.image = nil
+        
+        return cell
+    }
+    
+    
 }

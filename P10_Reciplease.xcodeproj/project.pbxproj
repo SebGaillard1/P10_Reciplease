@@ -157,8 +157,8 @@
 			children = (
 				57C2C03F27906FB800EF509E /* RecipeService.swift */,
 				5769F62D2790952C009726F7 /* RecipeData.swift */,
-				57C2C043279074FD00EF509E /* IngredientRepository.swift */,
 				5769F6352790ACEA009726F7 /* RecipeRepository.swift */,
+				57C2C043279074FD00EF509E /* IngredientRepository.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
