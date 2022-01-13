@@ -74,6 +74,15 @@ class SearchViewController: UIViewController {
             }
         }
     }
+    
+    //MARK: - Public
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueToSearchResult" {
+            let destinationVC = segue.destination as! SearchResultViewController
+            //destinationVC.
+        }
+    }
+
 }
 
 //MARK: - Extensions

@@ -8,21 +8,21 @@
 import Foundation
 
 // MARK: - Welcome
-struct Welcome: Codable {
+struct RecipeData: Codable {
     let hits: [Hit]
 }
 
 // MARK: - Hit
 struct Hit: Codable {
-    let recipe: Recipe
+    let recipe: RecipeType
 }
 // MARK: - Recipe
-struct Recipe: Codable {
+struct RecipeType: Codable {
     let label: String
     let image: String?
     let yield: Int
     let ingredientLines: [String]
-    let ingredients: [Ingrediento]
+    let ingredients: [IngredientType]
     let calories: Double
     let totalWeight: Double
     let totalTime: Int
@@ -30,7 +30,7 @@ struct Recipe: Codable {
 }
 
 // MARK: - Ingredient
-struct Ingrediento: Codable {
+struct IngredientType: Codable {
     let text: String
     let quantity: Double
     let measure: String?

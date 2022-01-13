@@ -29,7 +29,7 @@ class RecipeService {
         
         let parameters: [String: String] = ["app_id": appId, "app_key": appKey, "type": type, "q": ingredients]
         
-        AF.request(url, parameters: parameters).validate().responseDecodable(of: Welcome.self) { response in
+        AF.request(url, parameters: parameters).validate().responseDecodable(of: RecipeData.self) { response in
             guard let recipes = response.value else {
                 completion(false)
                 return
