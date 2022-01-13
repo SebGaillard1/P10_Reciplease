@@ -37,11 +37,15 @@ class RecipeService {
                 return
             }
             
+            self.recipeRepository.removeAllRecipes { _ in
+                
+            }
+            
             for oneRecipe in recipes.hits {
                 let title = oneRecipe.recipe.label
                 var allIngredients = ""
                 for ingredient in oneRecipe.recipe.ingredients {
-                    allIngredients += ingredient.food
+                    allIngredients += "\(ingredient.food), "
                 }
                 let rate = "5/5"
                 let imageUrl = oneRecipe.recipe.image

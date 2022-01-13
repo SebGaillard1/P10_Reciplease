@@ -45,5 +45,25 @@ final class RecipeRepository {
         
         completion(true, recipes)
     }
+    
+    func removeAllRecipes(_ completion: (Bool) -> Void) {
+        getRecipes { success, recipes in
+            if success {
+                for recipe in recipes {
+                    coreDataStack.viewContext.delete(recipe)
+                }
+            } else {
+                completion(false)
+            }
+        }
+        
+        do {
+            try coreDataStack.viewContext.save()
+            completion(true)
+        } catch {
+            completion(false)
+            print("We were unable to remove the ingredients")
+        }
+    }
 
 }
