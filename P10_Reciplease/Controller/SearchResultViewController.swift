@@ -12,8 +12,7 @@ class SearchResultViewController: UIViewController {
     @IBOutlet weak var resultRecipesTableView: UITableView!
     
     //MARK: - Properties
-    private let recipeRepository = RecipeRepository()
-    private var recipes = [Recipe]()
+    var recipes = [RecipeModel]()
     
     private let cellId = "SearchResultTableViewCell"
     
@@ -23,18 +22,6 @@ class SearchResultViewController: UIViewController {
         
         resultRecipesTableView.dataSource = self
         resultRecipesTableView.register(UINib.init(nibName: cellId, bundle: nil), forCellReuseIdentifier: cellId)
-        
-        getRecipes()
-    }
-    
-    //MARK: - Private
-    private func getRecipes() {
-        recipeRepository.getRecipes { success, recipes in
-            if success {
-                self.recipes = recipes
-                resultRecipesTableView.reloadData()
-            }
-        }
     }
 }
 
@@ -49,7 +36,7 @@ extension SearchResultViewController: UITableViewDataSource {
         cell.recipeIngredientsLabel.text = recipes[indexPath.row].ingredient
         cell.recipeRateLabel.text = recipes[indexPath.row].rate
         cell.recipeTimeLabel.text = "\(recipes[indexPath.row].duration)"
-        cell.recipeImageView.image = nil
+        cell.recipeImageView.image = recipes[indexPath.row].image
         
         return cell
     }

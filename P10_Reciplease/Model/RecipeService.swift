@@ -19,47 +19,22 @@ class RecipeService {
     private let type = "public"
     
     private let recipeRepository = RecipeRepository()
-    
-    //MARK: - Public
-    func fetchRecipes(withIngredients ingredients: [Ingredient], completion: @escaping (_ success: Bool) -> Void) {
-        let ingredients = getIngredientsString(from: ingredients)
         
-        if ingredients.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            completion(false)
-            return
-        }
+    //MARK: - Public
+    func fetchRecipes(withIngredients ingredients: [Ingredient], completion: @escaping (_ success: Bool, _ recipes: [RecipeModel]) -> Void) {
+        let ingredients = getIngredientsString(from: ingredients)
         
         let parameters: [String: String] = ["app_id": appId, "app_key": appKey, "type": type, "q": ingredients]
         
         AF.request(url, parameters: parameters).validate().responseDecodable(of: RecipeData.self) { response in
-            guard let recipes = response.value else {
-                completion(false)
+            guard let recipesData = response.value else {
+                completion(false, [])
                 return
             }
             
-            self.recipeRepository.removeAllRecipes { _ in
-                
+            self.createRecipes(withData: recipesData) { recipes in
+                completion(true, recipes)
             }
-            
-            for oneRecipe in recipes.hits {
-                let title = oneRecipe.recipe.label
-                var allIngredients = ""
-                for ingredient in oneRecipe.recipe.ingredients {
-                    allIngredients += "\(ingredient.food), "
-                }
-                let rate = "5/5"
-                let imageUrl = oneRecipe.recipe.image
-                let duration = oneRecipe.recipe.totalTime
-                
-                self.recipeRepository.saveRecipe(title: title, ingredient: allIngredients, rate: rate, imageUrl: imageUrl, duration: duration) { success in
-                    if !success {
-                        completion(false)
-                        return
-                    }
-                }
-            }
-            
-            completion(true)
         }
     }
     
@@ -74,5 +49,35 @@ class RecipeService {
         }
         
         return ingredientsString
+    }
+    
+    private func getImage(from url: String, completion: @escaping (_ recipeImage: UIImage) -> Void) {
+        AF.request(url).responseData { response in
+            if response.error == nil {
+                if let data = response.data {
+                    completion(UIImage(data: data)!)
+                }
+            } else {
+                completion(UIImage(named: "Food")!)
+            }
+        }
+    }
+    
+    private func createRecipes(withData data: RecipeData, completion: (_ recipes: [RecipeModel]) -> Void) {
+        var allRecipes = [RecipeModel]()
+        
+        for oneRecipe in data.hits {
+            let title = oneRecipe.recipe.label
+            var allIngredients = ""
+            for ingredient in oneRecipe.recipe.ingredients {
+                allIngredients += "\(ingredient.food), "
+            }
+            let rate = "5/5"
+            let imageUrl = oneRecipe.recipe.image
+            let duration = oneRecipe.recipe.totalTime
+            self.getImage(from: imageUrl) { recipeImage in
+                allRecipes.append(RecipeModel(title: title, ingredient: allIngredients, rate: rate, image: recipeImage, duration: duration))
+            }
+        }
     }
 }

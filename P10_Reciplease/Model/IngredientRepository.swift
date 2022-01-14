@@ -19,6 +19,11 @@ final class IngredientRepository {
     
     //MARK: - Repository
     func saveIngredient(named name: String, completion: (_ success: Bool) -> Void) {
+        if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            completion(false)
+            return
+        }
+        
         let ingredient = Ingredient(context: coreDataStack.viewContext)
         ingredient.name = name
         

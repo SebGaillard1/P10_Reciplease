@@ -17,6 +17,8 @@ class SearchViewController: UIViewController {
     //MARK: - Properties
     private let ingredientRepository = IngredientRepository()
     private var ingredientsArray = [Ingredient]()
+    
+    private var recipes = [RecipeModel]()
         
     //MARK: - View life cycle
     override func viewDidLoad() {
@@ -37,8 +39,9 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func SearchForRecipesButtonPressed(_ sender: Any) {
-        RecipeService.shared.fetchRecipes(withIngredients: ingredientsArray) { success in
+        RecipeService.shared.fetchRecipes(withIngredients: ingredientsArray) { success, recipes  in
             if success {
+                self.recipes = recipes
                 self.performSegue(withIdentifier: "segueToSearchResult", sender: self)
             } else {
                 
@@ -76,13 +79,12 @@ class SearchViewController: UIViewController {
     }
     
     //MARK: - Public
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "segueToSearchResult" {
-//            let destinationVC = segue.destination as! SearchResultViewController
-//            //destinationVC.
-//        }
-//    }
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueToSearchResult" {
+            let destinationVC = segue.destination as! SearchResultViewController
+            destinationVC.recipes = recipes
+        }
+    }
 }
 
 //MARK: - Extensions
