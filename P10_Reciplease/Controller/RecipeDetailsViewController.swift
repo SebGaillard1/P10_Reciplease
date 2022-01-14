@@ -23,8 +23,8 @@ class RecipeDetailsViewController: UIViewController {
     //MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "star"), style: .plain, target: self, action: #selector(setFavorite))
-        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(setFavorite))
+    
         setupUI()
     }
     
@@ -35,12 +35,13 @@ class RecipeDetailsViewController: UIViewController {
     @IBAction func getDirectionsButtonPressed(_ sender: Any) {
     }
     
+    //MARK: - Private
     private func setupUI() {
         recipeImageImageView.image = recipe.image
         addGradient(to: recipeImageImageView)
         
         recipeTitleLabel.text = recipe.title
-        recipeIngredientsLabel.text = recipe.ingredientListAsString
+        recipeIngredientsLabel.text = recipe.detailIngredientsList
         recipeRateLabel.text = "👍\(recipe.rate)"
         recipeDurationLabel.text = "⏱\(recipe.duration)"
         topRightView.layer.cornerRadius = 10

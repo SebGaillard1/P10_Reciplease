@@ -15,10 +15,18 @@ struct RecipeModel {
     let image: UIImage
     let duration: Double
     
-    var ingredientListAsString: String {
+    var simpleIngredientsList: String {
         var string = ""
         for ing in ingredient {
             string += "\(ing.food.capitalized), "
+        }
+        return string
+    }
+    
+    var detailIngredientsList: String {
+        var string = ""
+        for ing in ingredient {
+            string += "- \(ing.text)\n\n"
         }
         return string
     }
