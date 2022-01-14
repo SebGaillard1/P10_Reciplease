@@ -63,10 +63,14 @@ class RecipeService {
         }
     }
     
-    private func createRecipes(withData data: RecipeData, completion: (_ recipes: [RecipeModel]) -> Void) {
+    private func createRecipes(withData data: RecipeData, completion: @escaping (_ recipes: [RecipeModel]) -> Void) {
         var allRecipes = [RecipeModel]()
         
+        let myGroup = DispatchGroup()
+        
         for oneRecipe in data.hits {
+            myGroup.enter()
+            
             let title = oneRecipe.recipe.label
             var allIngredients = ""
             for ingredient in oneRecipe.recipe.ingredients {
@@ -77,7 +81,13 @@ class RecipeService {
             let duration = oneRecipe.recipe.totalTime
             self.getImage(from: imageUrl) { recipeImage in
                 allRecipes.append(RecipeModel(title: title, ingredient: allIngredients, rate: rate, image: recipeImage, duration: duration))
+                myGroup.leave()
             }
+        }
+        
+        // Execute completionHandler asyncronously when all request are finished
+        myGroup.notify(queue: .main) {
+            completion(allRecipes)
         }
     }
 }
