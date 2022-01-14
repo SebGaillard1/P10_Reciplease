@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 final class FavoriteRecipeRepository {
     //MARK: - Properties
@@ -35,7 +36,7 @@ final class FavoriteRecipeRepository {
         }
     }
     
-    func getFavoriteRecipes(completion: (_ success: Bool, _ recipes: [Recipe]) -> Void) {
+    func getFavoriteRecipesWithImageData(completion: (_ success: Bool, _ recipes: [Recipe]) -> Void) {
         let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         
         guard let recipes = try? coreDataStack.viewContext.fetch(request) else {
@@ -46,25 +47,41 @@ final class FavoriteRecipeRepository {
         completion(true, recipes)
     }
     
-//    func removeAllFavoriteRecipes(_ completion: (Bool) -> Void) {
-//        getFavoriteRecipes { success, recipes in
+//    func getFavoriteRecipiesWithUIImage() {
+//        getFavoriteRecipesWithImageData { success, recipes in
 //            if success {
+//                var recipesWithUIImage = [RecipeModel]()
+//
 //                for recipe in recipes {
-//                    coreDataStack.viewContext.delete(recipe)
+//                    recipesWithUIImage.append(RecipeModel(title: recipe.title,
+//                                                          ingredient: recipe.ingredient,
+//                                                          rate: recipe.rate,
+//                                                          image: UIImage(data: recipe.imageData),
+//                                                          duration: ))
 //                }
-//            } else {
-//                completion(false)
 //            }
 //        }
-//        
-//        do {
-//            try coreDataStack.viewContext.save()
-//            completion(true)
-//        } catch {
-//            completion(false)
-//            print("We were unable to remove the ingredients")
-//        }
 //    }
+    
+    func removeAllFavoriteRecipes(_ completion: (Bool) -> Void) {
+        getFavoriteRecipesWithImageData { success, recipes in
+            if success {
+                for recipe in recipes {
+                    coreDataStack.viewContext.delete(recipe)
+                }
+            } else {
+                completion(false)
+            }
+        }
+        
+        do {
+            try coreDataStack.viewContext.save()
+            completion(true)
+        } catch {
+            completion(false)
+            print("We were unable to remove the ingredients")
+        }
+    }
     
     func removeFromFavorite(recipe: RecipeModel, completion: (_ success: Bool) -> Void) {
         let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
@@ -103,4 +120,6 @@ final class FavoriteRecipeRepository {
             completion(false)
         }
     }
+    
+    
 }

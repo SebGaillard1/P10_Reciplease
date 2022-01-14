@@ -45,7 +45,7 @@ class RecipeDetailsViewController: UIViewController {
                                                       imageData: data,
                                                       duration: recipe.duration) { success in
             if success {
-                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: nil)
+                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(removeFavorite))
             }
         }
         

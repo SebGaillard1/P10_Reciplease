@@ -28,15 +28,30 @@
         <!--Favorite-->
         <scene sceneID="VV3-cm-v4F">
             <objects>
-                <viewController id="1jm-fu-Scv" sceneMemberID="viewController">
+                <viewController id="1jm-fu-Scv" customClass="FavoriteViewController" customModule="P10_Reciplease" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eHW-0N-6kM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="0wi-Kk-X6E">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="xEs-Af-61n"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="0wi-Kk-X6E" firstAttribute="leading" secondItem="xEs-Af-61n" secondAttribute="leading" id="T2d-Os-9Go"/>
+                            <constraint firstItem="xEs-Af-61n" firstAttribute="trailing" secondItem="0wi-Kk-X6E" secondAttribute="trailing" id="hPz-SD-E9L"/>
+                            <constraint firstItem="xEs-Af-61n" firstAttribute="bottom" secondItem="0wi-Kk-X6E" secondAttribute="bottom" id="n7d-UL-78R"/>
+                            <constraint firstItem="0wi-Kk-X6E" firstAttribute="top" secondItem="xEs-Af-61n" secondAttribute="top" id="xMj-9t-BCl"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Favorite" image="star" catalog="system" selectedImage="star.fill" id="b8b-wi-kUZ"/>
                     <navigationItem key="navigationItem" id="vXB-rP-L9k"/>
+                    <connections>
+                        <outlet property="favoriteTableView" destination="0wi-Kk-X6E" id="vnn-eJ-29O"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6ey-5h-26c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -327,7 +342,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aAz-mT-2du" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3373.913043478261" y="-508.25892857142856"/>
+            <point key="canvasLocation" x="3387" y="-82"/>
         </scene>
         <!--Reciplease-->
         <scene sceneID="S8H-IO-rGN">
