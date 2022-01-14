@@ -23,6 +23,21 @@ class SearchResultViewController: UIViewController {
         resultRecipesTableView.dataSource = self
         resultRecipesTableView.register(UINib.init(nibName: cellId, bundle: nil), forCellReuseIdentifier: cellId)
     }
+    
+    //MARK: - Private
+    private func addGradient(to imageView: UIImageView) {
+        imageView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        
+        let width = imageView.bounds.width
+        let height = imageView.bounds.height
+        let sHeight:CGFloat = height/3
+        let shadow = UIColor.black.withAlphaComponent(1).cgColor
+
+        let bottomImageGradient = CAGradientLayer()
+        bottomImageGradient.frame = CGRect(x: 0, y: height - sHeight, width: width + 100, height: sHeight)
+        bottomImageGradient.colors = [UIColor.clear.cgColor, shadow]
+        imageView.layer.insertSublayer(bottomImageGradient, at: 0)
+    }
 }
 
 extension SearchResultViewController: UITableViewDataSource {
@@ -37,9 +52,9 @@ extension SearchResultViewController: UITableViewDataSource {
         cell.recipeRateLabel.text = recipes[indexPath.row].rate
         cell.recipeTimeLabel.text = "\(recipes[indexPath.row].duration)"
         cell.recipeImageView.image = recipes[indexPath.row].image
+        cell.recipeImageView.contentMode = .scaleAspectFill
+        addGradient(to: cell.recipeImageView)
         
         return cell
     }
-    
-    
 }

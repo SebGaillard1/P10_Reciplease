@@ -116,6 +116,7 @@
 		571647F727905E9D00FE7BFA /* P10_Reciplease */ = {
 			isa = PBXGroup;
 			children = (
+				579322702791C8D4008922F8 /* Extensions */,
 				5716482E27905EEB00FE7BFA /* CoreData */,
 				5716482D27905EDB00FE7BFA /* Model */,
 				5716482B27905EC700FE7BFA /* Controller */,
@@ -186,6 +187,13 @@
 				5716480927905E9F00FE7BFA /* Info.plist */,
 			);
 			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		579322702791C8D4008922F8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		BBD9F0CA14551D6AE93760DE /* Pods */ = {
