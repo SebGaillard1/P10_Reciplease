@@ -46,15 +46,37 @@ final class FavoriteRecipeRepository {
         completion(true, recipes)
     }
     
-    func removeAllFavoriteRecipes(_ completion: (Bool) -> Void) {
-        getFavoriteRecipes { success, recipes in
-            if success {
-                for recipe in recipes {
-                    coreDataStack.viewContext.delete(recipe)
-                }
-            } else {
-                completion(false)
-            }
+//    func removeAllFavoriteRecipes(_ completion: (Bool) -> Void) {
+//        getFavoriteRecipes { success, recipes in
+//            if success {
+//                for recipe in recipes {
+//                    coreDataStack.viewContext.delete(recipe)
+//                }
+//            } else {
+//                completion(false)
+//            }
+//        }
+//        
+//        do {
+//            try coreDataStack.viewContext.save()
+//            completion(true)
+//        } catch {
+//            completion(false)
+//            print("We were unable to remove the ingredients")
+//        }
+//    }
+    
+    func removeFromFavorite(recipe: RecipeModel, completion: (_ success: Bool) -> Void) {
+        let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
+        request.predicate = NSPredicate(format: "title == %@", recipe.title)
+        
+        guard let recipes = try? coreDataStack.viewContext.fetch(request) else {
+            completion(false)
+            return
+        }
+        
+        for recipe in recipes {
+            coreDataStack.viewContext.delete(recipe)
         }
         
         do {
@@ -62,8 +84,23 @@ final class FavoriteRecipeRepository {
             completion(true)
         } catch {
             completion(false)
-            print("We were unable to remove the ingredients")
+            print("We were unable to remove recipe from favorite")
+        }
+        
+    }
+    
+    func isRecipeAlreadyFavorite(recipe: RecipeModel,completion: (_ favorite: Bool) -> Void) {
+        let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
+        request.predicate = NSPredicate(format: "title == %@", recipe.title)
+        
+        guard let recipes = try? coreDataStack.viewContext.fetch(request) else {
+            completion(false)
+            return
+        }
+        if !recipes.isEmpty {
+            completion(true)
+        } else {
+            completion(false)
         }
     }
-
 }

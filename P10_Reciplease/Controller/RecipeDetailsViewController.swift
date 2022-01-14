@@ -25,7 +25,14 @@ class RecipeDetailsViewController: UIViewController {
     //MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(setFavorite))
+        
+        favoriteRecipeRepository.isRecipeAlreadyFavorite(recipe: recipe) { favorite in
+            if favorite {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(removeFavorite))
+            } else {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(setFavorite))
+            }
+        }
     
         setupUI()
     }
@@ -42,6 +49,14 @@ class RecipeDetailsViewController: UIViewController {
             }
         }
         
+    }
+    
+    @objc func removeFavorite() {
+        favoriteRecipeRepository.removeFromFavorite(recipe: recipe) { success in
+            if success {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(setFavorite))
+            }
+        }
     }
     
     @IBAction func getDirectionsButtonPressed(_ sender: Any) {
