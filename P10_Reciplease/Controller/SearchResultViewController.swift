@@ -30,7 +30,7 @@ class SearchResultViewController: UIViewController {
         
         let width = imageView.bounds.width
         let height = imageView.bounds.height
-        let sHeight:CGFloat = height/3
+        let sHeight:CGFloat = height/2.5
         let shadow = UIColor.black.withAlphaComponent(1).cgColor
 
         let bottomImageGradient = CAGradientLayer()
@@ -49,8 +49,8 @@ extension SearchResultViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SearchResultTableViewCell else { return UITableViewCell() }
         cell.recipeTitleLabel.text = recipes[indexPath.row].title
         cell.recipeIngredientsLabel.text = recipes[indexPath.row].ingredient
-        cell.recipeRateLabel.text = recipes[indexPath.row].rate
-        cell.recipeTimeLabel.text = "\(recipes[indexPath.row].duration)"
+        cell.recipeRateLabel.text = "👍\(recipes[indexPath.row].rate)"
+        cell.recipeTimeLabel.text = "⏱\(recipes[indexPath.row].duration)"
         cell.recipeImageView.image = recipes[indexPath.row].image
         cell.recipeImageView.contentMode = .scaleAspectFill
         addGradient(to: cell.recipeImageView)

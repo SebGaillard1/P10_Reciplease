@@ -23,14 +23,14 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFJ-lH-oOT">
-                        <rect key="frame" x="4" y="119" width="322" height="18"/>
+                        <rect key="frame" x="4" y="114" width="322" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7n-0h-CdK">
-                        <rect key="frame" x="4" y="94" width="322" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="4" y="89" width="322" height="21"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -68,7 +68,7 @@
                     <constraint firstItem="ng0-Xj-c1e" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="LBH-st-kxR"/>
                     <constraint firstAttribute="trailing" secondItem="m7n-0h-CdK" secondAttribute="trailing" constant="4" id="MWo-Ca-wOY"/>
                     <constraint firstItem="ng0-Xj-c1e" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="NoH-hn-JCx"/>
-                    <constraint firstItem="ng0-Xj-c1e" firstAttribute="bottom" secondItem="qFJ-lH-oOT" secondAttribute="bottom" constant="3" id="O53-fC-YrQ"/>
+                    <constraint firstItem="ng0-Xj-c1e" firstAttribute="bottom" secondItem="qFJ-lH-oOT" secondAttribute="bottom" constant="8" id="O53-fC-YrQ"/>
                     <constraint firstItem="09P-xg-FGf" firstAttribute="top" secondItem="ng0-Xj-c1e" secondAttribute="top" constant="10" id="Ps9-rb-OvW"/>
                     <constraint firstItem="m7n-0h-CdK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="cop-DM-a4p"/>
                     <constraint firstItem="qFJ-lH-oOT" firstAttribute="top" secondItem="m7n-0h-CdK" secondAttribute="bottom" constant="4" id="fI3-zv-XfU"/>

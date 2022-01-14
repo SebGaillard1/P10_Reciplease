@@ -74,7 +74,7 @@ class RecipeService {
             let title = oneRecipe.recipe.label
             var allIngredients = ""
             for ingredient in oneRecipe.recipe.ingredients {
-                allIngredients += "\(ingredient.food), "
+                allIngredients += "\(ingredient.food.capitalized), "
             }
             let rate = "5/5"
             let imageUrl = oneRecipe.recipe.image
