@@ -40,7 +40,7 @@ class RecipeDetailsViewController: UIViewController {
         addGradient(to: recipeImageImageView)
         
         recipeTitleLabel.text = recipe.title
-        recipeIngredientsLabel.text = recipe.ingredient
+        recipeIngredientsLabel.text = recipe.ingredientListAsString
         recipeRateLabel.text = "👍\(recipe.rate)"
         recipeDurationLabel.text = "⏱\(recipe.duration)"
         topRightView.layer.cornerRadius = 10

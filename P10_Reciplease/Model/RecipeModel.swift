@@ -10,8 +10,25 @@ import UIKit
 
 struct RecipeModel {
     let title: String
-    let ingredient: String
+    let ingredient: [IngredientModel]
     let rate: String
     let image: UIImage
     let duration: Double
+    
+    var ingredientListAsString: String {
+        var string = ""
+        for ing in ingredient {
+            string += "\(ing.food.capitalized), "
+        }
+        return string
+    }
+}
+
+struct IngredientModel {
+    let text: String
+    let quantity: Double
+    let measure: String
+    let food: String
+    let weight: Double
+    let foodCategory: String
 }

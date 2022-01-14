@@ -71,14 +71,21 @@ class RecipeService {
         for oneRecipe in data.hits {
             myGroup.enter()
             
-            var allIngredients = ""
+            var allIngredients = [IngredientModel]()
             for ingredient in oneRecipe.recipe.ingredients {
-                allIngredients += "\(ingredient.food.capitalized), "
+                let newIngredient = IngredientModel(text: ingredient.text,
+                                                    quantity: ingredient.quantity,
+                                                    measure: ingredient.measure ?? "",
+                                                    food: ingredient.food,
+                                                    weight: ingredient.weight,
+                                                    foodCategory: ingredient.foodCategory ?? "")
+                allIngredients.append(newIngredient)
             }
             
             let title = oneRecipe.recipe.label
             let rate = "5/5"
             let duration = oneRecipe.recipe.totalTime
+
             let imageUrl = oneRecipe.recipe.image
             self.getImage(from: imageUrl) { recipeImage in
                 allRecipes.append(RecipeModel(title: title, ingredient: allIngredients, rate: rate, image: recipeImage, duration: duration))
