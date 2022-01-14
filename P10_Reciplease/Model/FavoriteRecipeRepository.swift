@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-final class RecipeRepository {
+final class FavoriteRecipeRepository {
     //MARK: - Properties
     private let coreDataStack: CoreDataStack
     
@@ -18,12 +18,12 @@ final class RecipeRepository {
     }
     
     //MARK: - Repository
-    func saveRecipe(title: String, ingredient: String, rate: String, imageUrl: String, duration: Double, completion: (_ success: Bool) -> Void) {
+    func saveRecipeAsFavorite(title: String, ingredient: String, rate: String, imageData: Data, duration: Double, completion: (_ success: Bool) -> Void) {
         let recipe = Recipe(context: coreDataStack.viewContext)
         recipe.title = title
         recipe.ingredient = ingredient
         recipe.rate = rate
-        recipe.imageUrl = imageUrl
+        recipe.imageData = imageData
         recipe.duration = duration
         
         do {
@@ -35,7 +35,7 @@ final class RecipeRepository {
         }
     }
     
-    func getRecipes(completion: (_ success: Bool, _ recipes: [Recipe]) -> Void) {
+    func getFavoriteRecipes(completion: (_ success: Bool, _ recipes: [Recipe]) -> Void) {
         let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         
         guard let recipes = try? coreDataStack.viewContext.fetch(request) else {
@@ -46,8 +46,8 @@ final class RecipeRepository {
         completion(true, recipes)
     }
     
-    func removeAllRecipes(_ completion: (Bool) -> Void) {
-        getRecipes { success, recipes in
+    func removeAllFavoriteRecipes(_ completion: (Bool) -> Void) {
+        getFavoriteRecipes { success, recipes in
             if success {
                 for recipe in recipes {
                     coreDataStack.viewContext.delete(recipe)

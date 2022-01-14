@@ -252,7 +252,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBG-0j-ts2">
                                 <rect key="frame" x="30" y="749" width="354" height="54"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Get directions"/>
                                 <connections>
                                     <action selector="getDirectionsButtonPressed:" destination="mb6-cg-XuQ" eventType="touchUpInside" id="hyq-Og-c5M"/>
                                 </connections>

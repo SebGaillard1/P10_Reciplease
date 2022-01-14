@@ -18,7 +18,7 @@ class RecipeService {
     private let appKey = "6eb213ece561751aedcd1e4aa3a02dc8"
     private let type = "public"
     
-    private let recipeRepository = RecipeRepository()
+    private let recipeRepository = FavoriteRecipeRepository()
         
     //MARK: - Public
     func fetchRecipes(withIngredients ingredients: [Ingredient], completion: @escaping (_ success: Bool, _ recipes: [RecipeModel]) -> Void) {
