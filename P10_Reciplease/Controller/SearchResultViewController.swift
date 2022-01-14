@@ -14,6 +14,7 @@ class SearchResultViewController: UIViewController {
     //MARK: - Properties
     var recipes = [RecipeModel]()
     
+    private var selectedRecipeIndex: Int?
     private let cellId = "SearchResultTableViewCell"
     
     //MARK: - View life cycle
@@ -21,6 +22,7 @@ class SearchResultViewController: UIViewController {
         super.viewDidLoad()
         
         resultRecipesTableView.dataSource = self
+        resultRecipesTableView.delegate = self
         resultRecipesTableView.register(UINib.init(nibName: cellId, bundle: nil), forCellReuseIdentifier: cellId)
     }
     
@@ -37,6 +39,14 @@ class SearchResultViewController: UIViewController {
         bottomImageGradient.frame = CGRect(x: 0, y: height - sHeight, width: width + 100, height: sHeight)
         bottomImageGradient.colors = [UIColor.clear.cgColor, shadow]
         imageView.layer.insertSublayer(bottomImageGradient, at: 0)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueToRecipeDetails" {
+            guard let selectedRecipe = selectedRecipeIndex else { return }
+            guard let destinationVC = segue.destination as? RecipeDetailsViewController else { return }
+            destinationVC.recipe = recipes[selectedRecipe]
+        }
     }
 }
 
@@ -56,5 +66,12 @@ extension SearchResultViewController: UITableViewDataSource {
         addGradient(to: cell.recipeImageView)
         
         return cell
+    }
+}
+
+extension SearchResultViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedRecipeIndex = indexPath.row
+        performSegue(withIdentifier: "segueToRecipeDetails", sender: self)
     }
 }

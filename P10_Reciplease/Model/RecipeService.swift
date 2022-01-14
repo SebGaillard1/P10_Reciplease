@@ -32,7 +32,7 @@ class RecipeService {
                 return
             }
             
-            self.createRecipes(withData: recipesData) { recipes in
+            self.createRecipeModelObjects(from: recipesData) { recipes in
                 completion(true, recipes)
             }
         }
@@ -63,7 +63,7 @@ class RecipeService {
         }
     }
     
-    private func createRecipes(withData data: RecipeData, completion: @escaping (_ recipes: [RecipeModel]) -> Void) {
+    private func createRecipeModelObjects(from data: RecipeData, completion: @escaping (_ recipes: [RecipeModel]) -> Void) {
         var allRecipes = [RecipeModel]()
         
         let myGroup = DispatchGroup()
@@ -71,14 +71,15 @@ class RecipeService {
         for oneRecipe in data.hits {
             myGroup.enter()
             
-            let title = oneRecipe.recipe.label
             var allIngredients = ""
             for ingredient in oneRecipe.recipe.ingredients {
                 allIngredients += "\(ingredient.food.capitalized), "
             }
+            
+            let title = oneRecipe.recipe.label
             let rate = "5/5"
-            let imageUrl = oneRecipe.recipe.image
             let duration = oneRecipe.recipe.totalTime
+            let imageUrl = oneRecipe.recipe.image
             self.getImage(from: imageUrl) { recipeImage in
                 allRecipes.append(RecipeModel(title: title, ingredient: allIngredients, rate: rate, image: recipeImage, duration: duration))
                 myGroup.leave()
