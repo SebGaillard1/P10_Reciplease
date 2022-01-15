@@ -26,7 +26,13 @@ class RecipeDetailsViewController: UIViewController {
     //MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
+        setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
         favoriteRecipeRepository.isRecipeAlreadyFavorite(recipe: recipe) { favorite in
             if favorite {
                 navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(removeFavorite))
@@ -34,8 +40,6 @@ class RecipeDetailsViewController: UIViewController {
                 navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(setFavorite))
             }
         }
-    
-        setupUI()
     }
     
     @objc func setFavorite() {

@@ -13,8 +13,6 @@ final class FavoriteRecipeRepository {
     //MARK: - Properties
     private let coreDataStack: CoreDataStack
     
-    //private let recipeIngredientRepository = RecipeIngredientRepository()
-    
     //MARK: - Init
     init(coreDataStack: CoreDataStack = CoreDataStack.sharedInstance) {
         self.coreDataStack = coreDataStack
@@ -72,16 +70,44 @@ final class FavoriteRecipeRepository {
                 var recipesWithUIImage = [RecipeModel]()
 
                 for recipe in recipes {
-                    recipesWithUIImage.append(RecipeModel(title: recipe.title!,
-                                                          ingredients: [RecipeIngredientModel](),//recipeIngredientRepository.getIngredients(forRecipe: recipe),
-                                                          rate: recipe.rate!,
-                                                          image: (UIImage(data: recipe.imageData!) ?? UIImage(named: "Food"))!,
-                                                          duration: recipe.duration))
+                    getIngredients(forRecipe: recipe) { success, ingredients in
+                        if success {
+                            recipesWithUIImage.append(RecipeModel(title: recipe.title!,
+                                                                  ingredients: ingredients,
+                                                                  rate: recipe.rate!,
+                                                                  image: (UIImage(data: recipe.imageData!) ?? UIImage(named: "Food"))!,
+                                                                  duration: recipe.duration))
+                        } else {
+                            completion(false, [])
+                        }
+                    }
                 }
                 completion(true, recipesWithUIImage)
             }
             completion(false, [])
         }
+    }
+    
+    func getIngredients(forRecipe recipe: Recipe, completion: (_ success: Bool, _ ingredients: [RecipeIngredientModel]) -> Void) {
+        let request: NSFetchRequest<RecipeIngredient> = RecipeIngredient.fetchRequest()
+        request.predicate = NSPredicate(format: "recipe.title == %@", recipe.title!)
+        
+        guard let ingredients = try? coreDataStack.viewContext.fetch(request) else {
+            completion(false, [])
+            return
+        }
+
+        var allIngredients = [RecipeIngredientModel]()
+        for ingredient in ingredients {
+            allIngredients.append(RecipeIngredientModel(text: ingredient.text!,
+                                                     quantity: ingredient.quantity,
+                                                        measure: ingredient.measure!,
+                                                        food: ingredient.food!,
+                                                     weight: ingredient.weight,
+                                                        foodCategory: ingredient.foodCategory!))
+        }
+        
+        completion(true, allIngredients)
     }
     
     func removeAllFavoriteRecipes(_ completion: (Bool) -> Void) {
