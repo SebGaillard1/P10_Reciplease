@@ -15,8 +15,8 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var ingredientTableView: UITableView!
     
     //MARK: - Properties
-    private let ingredientRepository = IngredientRepository()
-    private var ingredientsArray = [Ingredient]()
+    private let ingredientRepository = FridgeIngredientRepository()
+    private var ingredientsArray = [FridgeIngredient]()
     
     private var recipes = [RecipeModel]()
         
@@ -53,7 +53,7 @@ class SearchViewController: UIViewController {
     private func addIngredient() {
         guard let ingredientName = ingredientTextField.text else { return }
         
-        ingredientRepository.saveIngredient(named: ingredientName) { success in
+        ingredientRepository.saveFridgeIngredient(named: ingredientName) { success in
             if success {
                 getIngredient()
             }
@@ -61,7 +61,7 @@ class SearchViewController: UIViewController {
     }
     
     private func getIngredient() {
-        ingredientRepository.getIngredients { success, ingredients  in
+        ingredientRepository.getFridgeIngredients { success, ingredients  in
             if success {
                 ingredientsArray = ingredients
                 ingredientTableView.reloadData()

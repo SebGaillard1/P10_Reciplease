@@ -21,7 +21,7 @@ class RecipeService {
     private let recipeRepository = FavoriteRecipeRepository()
         
     //MARK: - Public
-    func fetchRecipes(withIngredients ingredients: [Ingredient], completion: @escaping (_ success: Bool, _ recipes: [RecipeModel]) -> Void) {
+    func fetchRecipes(withIngredients ingredients: [FridgeIngredient], completion: @escaping (_ success: Bool, _ recipes: [RecipeModel]) -> Void) {
         let ingredients = getIngredientsString(from: ingredients)
         
         let parameters: [String: String] = ["app_id": appId, "app_key": appKey, "type": type, "q": ingredients]
@@ -41,7 +41,7 @@ class RecipeService {
     //MARK: - Private
     private init() {}
     
-    private func getIngredientsString(from ingredients: [Ingredient]) -> String {
+    private func getIngredientsString(from ingredients: [FridgeIngredient]) -> String {
         var ingredientsString = ""
         
         for ingredient in ingredients {

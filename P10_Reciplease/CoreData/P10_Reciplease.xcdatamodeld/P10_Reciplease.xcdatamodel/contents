@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Ingredient" representedClassName=".Ingredient" syncable="YES" codeGenerationType="category">
+    <entity name="FridgeIngredient" representedClassName=".FridgeIngredient" syncable="YES" codeGenerationType="category">
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Recipe" representedClassName=".Recipe" syncable="YES" codeGenerationType="category">
@@ -11,7 +11,7 @@
         <attribute name="title" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Ingredient" positionX="-63" positionY="-18" width="128" height="44"/>
+        <element name="FridgeIngredient" positionX="160" positionY="192" width="128" height="44"/>
         <element name="Recipe" positionX="212.87158203125" positionY="-30.11712646484375" width="128" height="118"/>
     </elements>
 </model>

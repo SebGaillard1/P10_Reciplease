@@ -8,4 +8,4 @@
 import Foundation
 import CoreData
 
-class Ingredient: NSManagedObject {}
+class FridgeIngredient: NSManagedObject {}
