@@ -26,6 +26,9 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapRecognizer)
+        
         ingredientTableView.dataSource = self
         ingredientTextField.delegate = self
         
@@ -94,6 +97,10 @@ class SearchViewController: UIViewController {
             let destinationVC = segue.destination as! SearchResultViewController
             destinationVC.recipes = recipes
         }
+    }
+    
+    @objc func hideKeyboard() {
+        ingredientTextField.resignFirstResponder()
     }
 }
 
