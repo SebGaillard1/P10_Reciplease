@@ -28,8 +28,16 @@ class FavoriteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        favoriteRecipeRepository.getFavoriteRecipiesWithUIImage { success, recipies in
+            if success {
+                favoriteRecipes = recipies
+                favoriteTableView.reloadData()
+            }
+        }
     }
     
+    //MARK: - Private
     private func addGradient(to imageView: UIImageView) {
         imageView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
         

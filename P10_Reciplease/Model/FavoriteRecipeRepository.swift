@@ -64,21 +64,26 @@ final class FavoriteRecipeRepository {
         completion(true, recipes)
     }
     
-//    func getFavoriteRecipiesWithUIImage() {
-//        getFavoriteRecipesWithImageData { success, recipes in
-//            if success {
-//                var recipesWithUIImage = [RecipeModel]()
-//
-//                for recipe in recipes {
-//                    recipesWithUIImage.append(RecipeModel(title: recipe.title,
-//                                                          ingredient: recipe.ingredient,
-//                                                          rate: recipe.rate,
-//                                                          image: UIImage(data: recipe.imageData),
-//                                                          duration: ))
-//                }
-//            }
-//        }
-//    }
+    func getFavoriteRecipiesWithUIImage(completion: (_ success: Bool, _ recipies: [RecipeModel]) -> Void) {
+        getAllFavoriteRecipesWithImageData { success, recipes in
+            if success {
+                var recipesWithUIImage = [RecipeModel]()
+
+                for recipe in recipes {
+//                    var ingredient = recipe.ingredients?.allObjects as? [RecipeIngredientModel]
+//                    print(ingredient)
+                    
+                    recipesWithUIImage.append(RecipeModel(title: recipe.title!,
+                                                          ingredients: [RecipeIngredientModel](),
+                                                          rate: recipe.rate!,
+                                                          image: (UIImage(data: recipe.imageData!) ?? UIImage(named: "Food"))!,
+                                                          duration: recipe.duration))
+                }
+                completion(true, recipesWithUIImage)
+            }
+            completion(false, [])
+        }
+    }
     
     func removeAllFavoriteRecipes(_ completion: (Bool) -> Void) {
         getAllFavoriteRecipesWithImageData { success, recipes in
