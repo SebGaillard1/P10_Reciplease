@@ -53,7 +53,7 @@ class SearchViewController: UIViewController {
     private func addIngredient() {
         guard let ingredientName = ingredientTextField.text else { return }
         
-        ingredientRepository.saveFridgeIngredient(named: ingredientName) { success in
+        ingredientRepository.saveFridgeIngredient(named: ingredientName.capitalized) { success in
             if success {
                 getIngredient()
             }

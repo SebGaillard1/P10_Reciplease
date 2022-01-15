@@ -10,24 +10,37 @@ import UIKit
 class FavoriteViewController: UIViewController {
     //MARK: - IBOutlets
     @IBOutlet weak var favoriteTableView: UITableView!
-
+    @IBOutlet weak var noRecipeLabel: UILabel!
+    
     //MARK: - Properties
     private let cellId = "SearchResultTableViewCell"
     
-    private var favoriteRecipes = [RecipeModel]()
     private let favoriteRecipeRepository = FavoriteRecipeRepository()
     private var selectedRecipe = 0
+    private var favoriteRecipes = [RecipeModel]() {
+        didSet {
+            if favoriteRecipes.isEmpty {
+                noRecipeLabel.isHidden = false
+                navigationItem.rightBarButtonItem?.isEnabled = false
+            } else {
+                noRecipeLabel.isHidden = true
+                navigationItem.rightBarButtonItem?.isEnabled = true
+            }
+        }
+    }
     
     //MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        noRecipeLabel.text = "No favorite recipe 😩 \n\n\nTry to add a recipe to your favorites by tapping the star button in a recipe ! ⭐️"
+        noRecipeLabel.frame = CGRect(x: self.view.bounds.minX, y: self.view.bounds.minY, width: self.view.bounds.width, height: self.view.bounds.height)
 
         favoriteTableView.dataSource = self
         favoriteTableView.delegate = self
         favoriteTableView.register(UINib.init(nibName: cellId, bundle: nil), forCellReuseIdentifier: cellId)
-//        favoriteRecipeRepository.removeAllFavoriteRecipes { _ in
-//
-//        }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(removeAllFavorites))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,6 +51,7 @@ class FavoriteViewController: UIViewController {
                 favoriteRecipes = recipies
                 favoriteTableView.reloadData()
             }
+            //setupNoFavoriteRecipeLabel()
         }
     }
     
@@ -45,6 +59,15 @@ class FavoriteViewController: UIViewController {
         if segue.identifier == "segueFromFavoriteToRecipeDetails" {
             let destinationVC = segue.destination as! RecipeDetailsViewController
             destinationVC.recipe = favoriteRecipes[selectedRecipe]
+        }
+    }
+    
+    @objc func removeAllFavorites() {
+        favoriteRecipeRepository.removeAllFavoriteRecipes { success in
+            if success {
+                favoriteRecipes.removeAll()
+                favoriteTableView.reloadData()
+            }
         }
     }
 }
