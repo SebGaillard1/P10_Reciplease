@@ -51,7 +51,6 @@ class FavoriteViewController: UIViewController {
                 favoriteRecipes = recipies
                 favoriteTableView.reloadData()
             }
-            //setupNoFavoriteRecipeLabel()
         }
     }
     
@@ -63,12 +62,17 @@ class FavoriteViewController: UIViewController {
     }
     
     @objc func removeAllFavorites() {
-        favoriteRecipeRepository.removeAllFavoriteRecipes { success in
-            if success {
-                favoriteRecipes.removeAll()
-                favoriteTableView.reloadData()
+        let alertController = UIAlertController(title: "Remove all", message: "You are about to remove ALL of your favorites recipes. Are you sure you want to remove all recipes from your favorites ?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Yes, remove them", style: .destructive, handler: { _ in
+            self.favoriteRecipeRepository.removeAllFavoriteRecipes { success in
+                if success {
+                    self.favoriteRecipes.removeAll()
+                    self.favoriteTableView.reloadData()
+                }
             }
-        }
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alertController, animated: true)
     }
 }
 
@@ -97,5 +101,16 @@ extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRecipe = indexPath.row
         performSegue(withIdentifier: "segueFromFavoriteToRecipeDetails", sender: self)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            favoriteRecipeRepository.removeFromFavorite(recipe: favoriteRecipes[indexPath.row]) { success in
+                if success {
+                    favoriteRecipes.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                }
+            }
+        }
     }
 }
