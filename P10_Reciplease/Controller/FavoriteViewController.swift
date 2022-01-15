@@ -47,21 +47,6 @@ class FavoriteViewController: UIViewController {
             destinationVC.recipe = favoriteRecipes[selectedRecipe]
         }
     }
-    
-    //MARK: - Private
-    private func addGradient(to imageView: UIImageView) {
-        imageView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
-        
-        let width = imageView.bounds.width
-        let height = imageView.bounds.height
-        let sHeight:CGFloat = height/2.5
-        let shadow = UIColor.black.withAlphaComponent(1).cgColor
-
-        let bottomImageGradient = CAGradientLayer()
-        bottomImageGradient.frame = CGRect(x: 0, y: height - sHeight, width: width, height: sHeight)
-        bottomImageGradient.colors = [UIColor.clear.cgColor, shadow]
-        imageView.layer.insertSublayer(bottomImageGradient, at: 0)
-    }
 }
 
 //MARK: - Extensions
@@ -79,7 +64,7 @@ extension FavoriteViewController: UITableViewDataSource {
         cell.recipeTimeLabel.text = "⏱\(favoriteRecipes[indexPath.row].duration)"
         cell.recipeImageView.image = favoriteRecipes[indexPath.row].image
         cell.recipeImageView.contentMode = .scaleAspectFill
-        addGradient(to: cell.recipeImageView)
+        cell.recipeImageView.addGradient()
         
         return cell
     }

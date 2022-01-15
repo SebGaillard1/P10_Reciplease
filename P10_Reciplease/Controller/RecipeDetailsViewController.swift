@@ -68,7 +68,7 @@ class RecipeDetailsViewController: UIViewController {
     //MARK: - Private
     private func setupUI() {
         recipeImageImageView.image = recipe.image
-        addGradient(to: recipeImageImageView)
+        recipeImageImageView.addGradient()
         
         recipeTitleLabel.text = recipe.title
         recipeIngredientsLabel.text = recipe.detailIngredientsList
@@ -76,19 +76,4 @@ class RecipeDetailsViewController: UIViewController {
         recipeDurationLabel.text = "⏱\(recipe.duration)"
         topRightView.layer.cornerRadius = 10
     }
-    
-    private func addGradient(to imageView: UIImageView) {
-        imageView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
-        
-        let width = imageView.bounds.width
-        let height = imageView.bounds.height
-        let sHeight:CGFloat = height/2.5
-        let shadow = UIColor.black.withAlphaComponent(1).cgColor
-
-        let bottomImageGradient = CAGradientLayer()
-        bottomImageGradient.frame = CGRect(x: 0, y: height - sHeight, width: width, height: sHeight)
-        bottomImageGradient.colors = [UIColor.clear.cgColor, shadow]
-        imageView.layer.insertSublayer(bottomImageGradient, at: 0)
-    }
-    
 }
