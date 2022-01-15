@@ -44,5 +44,26 @@ final class RecipeIngredientRepository {
             }
         }
     }
+    
+//    func getIngredients(forRecipe recipe: Recipe) -> [RecipeIngredientModel] {
+//        let request: NSFetchRequest<RecipeIngredient> = RecipeIngredient.fetchRequest()
+//        request.predicate = NSPredicate(format: "recipe == %@", recipe.title!)
+//        
+//        guard let ingredients = try? coreDataStack.viewContext.fetch(request) else {
+//            return []
+//        }
+//
+//        var allIngredients = [RecipeIngredientModel]()
+//        for ingredient in ingredients {
+//            allIngredients.append(RecipeIngredientModel(text: ingredient.text!,
+//                                                     quantity: ingredient.quantity,
+//                                                        measure: ingredient.measure!,
+//                                                        food: ingredient.food!,
+//                                                     weight: ingredient.weight,
+//                                                        foodCategory: ingredient.foodCategory!))
+//        }
+//
+//        return allIngredients
+//    }
 }
 

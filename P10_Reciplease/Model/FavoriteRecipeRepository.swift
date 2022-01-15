@@ -13,6 +13,8 @@ final class FavoriteRecipeRepository {
     //MARK: - Properties
     private let coreDataStack: CoreDataStack
     
+    //private let recipeIngredientRepository = RecipeIngredientRepository()
+    
     //MARK: - Init
     init(coreDataStack: CoreDataStack = CoreDataStack.sharedInstance) {
         self.coreDataStack = coreDataStack
@@ -70,11 +72,8 @@ final class FavoriteRecipeRepository {
                 var recipesWithUIImage = [RecipeModel]()
 
                 for recipe in recipes {
-//                    var ingredient = recipe.ingredients?.allObjects as? [RecipeIngredientModel]
-//                    print(ingredient)
-                    print("regregbrygyurdyrbrbyfberb -------\(recipe.ingredients)")
                     recipesWithUIImage.append(RecipeModel(title: recipe.title!,
-                                                          ingredients: [RecipeIngredientModel](),
+                                                          ingredients: [RecipeIngredientModel](),//recipeIngredientRepository.getIngredients(forRecipe: recipe),
                                                           rate: recipe.rate!,
                                                           image: (UIImage(data: recipe.imageData!) ?? UIImage(named: "Food"))!,
                                                           duration: recipe.duration))
