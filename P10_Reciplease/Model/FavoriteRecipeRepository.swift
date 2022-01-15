@@ -31,6 +31,7 @@ final class FavoriteRecipeRepository {
         recipe.rate = recipeModel.rate
         recipe.imageData = data
         recipe.duration = recipeModel.duration
+        recipe.url = recipeModel.url
         
         do {
             try coreDataStack.viewContext.save()
@@ -76,7 +77,8 @@ final class FavoriteRecipeRepository {
                                                                   ingredients: ingredients,
                                                                   rate: recipe.rate!,
                                                                   image: (UIImage(data: recipe.imageData!) ?? UIImage(named: "Food"))!,
-                                                                  duration: recipe.duration))
+                                                                  duration: recipe.duration,
+                                                                  url: recipe.url!))
                         } else {
                             completion(false, [])
                         }

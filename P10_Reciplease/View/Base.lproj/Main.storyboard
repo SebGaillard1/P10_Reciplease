@@ -347,11 +347,28 @@
                         <outlet property="recipeRateLabel" destination="xHC-9s-sbR" id="AJP-gw-aBI"/>
                         <outlet property="recipeTitleLabel" destination="EfC-64-BJZ" id="Abm-pb-b5K"/>
                         <outlet property="topRightView" destination="piS-Df-TsF" id="eWv-nK-JLv"/>
+                        <segue destination="cL6-Jf-SB9" kind="show" identifier="detailsToDirectionSegue" id="RTi-TK-QAc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aAz-mT-2du" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3387" y="-82"/>
+        </scene>
+        <!--Direction Web View Controller-->
+        <scene sceneID="CcI-U7-nTG">
+            <objects>
+                <viewController id="cL6-Jf-SB9" customClass="DirectionWebViewController" customModule="P10_Reciplease" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ud9-We-Cf1">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="HfC-II-3mY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="jdk-7J-Kv6"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nMP-ng-Csd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4297" y="-82"/>
         </scene>
         <!--Reciplease-->
         <scene sceneID="S8H-IO-rGN">

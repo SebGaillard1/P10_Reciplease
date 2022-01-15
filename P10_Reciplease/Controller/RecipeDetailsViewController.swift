@@ -63,6 +63,14 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     @IBAction func getDirectionsButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: "detailsToDirectionSegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "detailsToDirectionSegue" {
+            let destinationVC = segue.destination as! DirectionWebViewController
+            destinationVC.url = recipe.url
+        }
     }
     
     //MARK: - Private

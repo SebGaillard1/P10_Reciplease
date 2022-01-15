@@ -27,6 +27,7 @@ struct RecipeType: Codable {
     let totalWeight: Double
     let totalTime: Double
     let cuisineType: [String]
+    let url: String
 }
 
 // MARK: - Ingredient

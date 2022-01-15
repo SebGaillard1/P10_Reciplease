@@ -14,6 +14,7 @@ struct RecipeModel {
     let rate: String
     let image: UIImage
     let duration: Double
+    let url: String
     
     var simpleIngredientsList: String {
         var string = ""
