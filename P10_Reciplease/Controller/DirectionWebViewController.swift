@@ -17,7 +17,6 @@ class DirectionWebViewController: UIViewController {
     override func loadView() {
         super.loadView()
         webView = WKWebView()
-        webView.navigationDelegate = self
         view = webView
     }
     
@@ -27,8 +26,4 @@ class DirectionWebViewController: UIViewController {
         guard let url = URL(string: url) else { return }
         webView.load(URLRequest(url: url))
     }
-}
-
-extension DirectionWebViewController: WKNavigationDelegate {
-    
 }
