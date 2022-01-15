@@ -29,9 +29,19 @@ class FavoriteViewController: UIViewController {
         }
     }
     
+    //MARK: - AlertController from notification
+    @objc private func presentAlert(notification: Notification) {
+        guard let alertMessage = notification.userInfo!["message"] as? String else { return }
+        let alert = UIAlertController(title: "Error", message: alertMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        present(alert, animated: true)
+    }
+    
     //MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(presentAlert(notification:)), name: Notification.Name("alert"), object: nil)
         
         noRecipeLabel.text = "No favorite recipe 😩 \n\n\nTry to add a recipe to your favorites by tapping the star button in a recipe ! ⭐️"
         noRecipeLabel.frame = CGRect(x: self.view.bounds.minX, y: self.view.bounds.minY, width: self.view.bounds.width, height: self.view.bounds.height)

@@ -18,9 +18,16 @@ final class FavoriteRecipeRepository {
         self.coreDataStack = coreDataStack
     }
     
+    //MARK: - Alert Notification
+    private func alertNotification(message: String) {
+        let alertName = Notification.Name("alert")
+        NotificationCenter.default.post(name: alertName, object: nil, userInfo: ["message": message])
+    }
+    
     //MARK: - Repository
     func saveRecipeAsFavorite(recipe recipeModel: RecipeModel, completion: (_ success: Bool) -> Void) {
         guard let data = recipeModel.image.pngData() else {
+            self.alertNotification(message: "Error while saving the recipe image!")
             completion(false)
             return
         }
@@ -37,7 +44,7 @@ final class FavoriteRecipeRepository {
             try coreDataStack.viewContext.save()
             completion(true)
         } catch {
-            print("We were unable to save recipe")
+            self.alertNotification(message: "Unable to save this recipe as favorite!")
             completion(false)
         }
     }
@@ -47,6 +54,7 @@ final class FavoriteRecipeRepository {
         request.predicate = NSPredicate(format: "title == %@", name)
         
         guard let recipes = try? coreDataStack.viewContext.fetch(request) else {
+            self.alertNotification(message: "Error while retrieving the favorite recipe!")
             completion(false, nil)
             return
         }
@@ -58,6 +66,7 @@ final class FavoriteRecipeRepository {
         let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         
         guard let recipes = try? coreDataStack.viewContext.fetch(request) else {
+            self.alertNotification(message: "Error while retrieving your favorites recipes!")
             completion(false, [])
             return
         }
@@ -80,12 +89,14 @@ final class FavoriteRecipeRepository {
                                                                   duration: recipe.duration,
                                                                   url: recipe.url!))
                         } else {
+                            self.alertNotification(message: "Error while retrieving the ingredients of your favorite(s) recipe(s)!")
                             completion(false, [])
                         }
                     }
                 }
                 completion(true, recipesWithUIImage)
             }
+            self.alertNotification(message: "Error while retrieving your favorites recipes!")
             completion(false, [])
         }
     }
@@ -95,6 +106,7 @@ final class FavoriteRecipeRepository {
         request.predicate = NSPredicate(format: "recipe.title == %@", recipe.title!)
         
         guard let ingredients = try? coreDataStack.viewContext.fetch(request) else {
+            self.alertNotification(message: "Error while retrieving the ingredients!")
             completion(false, [])
             return
         }
@@ -119,6 +131,7 @@ final class FavoriteRecipeRepository {
                     coreDataStack.viewContext.delete(recipe)
                 }
             } else {
+                self.alertNotification(message: "Error while removing your favorites recipes!")
                 completion(false)
             }
         }
@@ -127,8 +140,8 @@ final class FavoriteRecipeRepository {
             try coreDataStack.viewContext.save()
             completion(true)
         } catch {
+            self.alertNotification(message: "Error while removing your favorites recipes")
             completion(false)
-            print("We were unable to remove the ingredients")
         }
     }
     
@@ -137,6 +150,7 @@ final class FavoriteRecipeRepository {
         request.predicate = NSPredicate(format: "title == %@", recipe.title)
         
         guard let recipes = try? coreDataStack.viewContext.fetch(request) else {
+            self.alertNotification(message: "Error while removing the recipe from favorite!")
             completion(false)
             return
         }
@@ -150,7 +164,7 @@ final class FavoriteRecipeRepository {
             completion(true)
         } catch {
             completion(false)
-            print("We were unable to remove recipe from favorite")
+            self.alertNotification(message: "Unable to remove recipe from favorite!")
         }
         
     }
@@ -160,6 +174,7 @@ final class FavoriteRecipeRepository {
         request.predicate = NSPredicate(format: "title == %@", recipe.title)
         
         guard let recipes = try? coreDataStack.viewContext.fetch(request) else {
+            self.alertNotification(message: "Error while retrieving favorites recipes")
             completion(false)
             return
         }

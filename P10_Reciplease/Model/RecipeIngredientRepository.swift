@@ -18,6 +18,12 @@ final class RecipeIngredientRepository {
         self.coreDataStack = coreDataStack
     }
     
+    //MARK: - Alert Notification
+    private func alertNotification(message: String) {
+        let alertName = Notification.Name("alert")
+        NotificationCenter.default.post(name: alertName, object: nil, userInfo: ["message": message])
+    }
+    
     //MARK: - Repository
     func saveRecipeIngredients(forRecipe recipe: RecipeModel, ingredientModel: [RecipeIngredientModel], completion: (_ success: Bool) -> Void) {
         favoriteRecipeRepository.getFavoriteRecipe(named: recipe.title) { success, recipe in
@@ -35,7 +41,7 @@ final class RecipeIngredientRepository {
                     do {
                         try coreDataStack.viewContext.save()
                     } catch {
-                        print("We were unable to save \(ingredient.text ?? "an ingredient")")
+                        self.alertNotification(message: "Unable to save \(ingredient.text ?? "an ingredient")")
                         completion(false)
                         return
                     }

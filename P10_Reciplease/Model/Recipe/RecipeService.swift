@@ -19,6 +19,12 @@ class RecipeService {
     private let type = "public"
     
     private let recipeRepository = FavoriteRecipeRepository()
+    
+    //MARK: - Alert Notification
+    private func alertNotification(message: String) {
+        let alertName = Notification.Name("alert")
+        NotificationCenter.default.post(name: alertName, object: nil, userInfo: ["message": message])
+    }
         
     //MARK: - Public
     func fetchRecipes(withIngredients ingredients: [FridgeIngredient], completion: @escaping (_ success: Bool, _ recipes: [RecipeModel]) -> Void) {
@@ -28,12 +34,18 @@ class RecipeService {
         
         AF.request(url, parameters: parameters).validate().responseDecodable(of: RecipeData.self) { response in
             guard let recipesData = response.value else {
+                self.alertNotification(message: "Unable to fetch recipes data")
                 completion(false, [])
                 return
             }
             
             self.createRecipeModelObjects(from: recipesData) { recipes in
-                completion(true, recipes)
+                if !recipes.isEmpty {
+                    completion(true, recipes)
+                } else {
+                    self.alertNotification(message: "No recipes found for these ingredients!")
+                    completion(false, [])
+                }
             }
         }
     }

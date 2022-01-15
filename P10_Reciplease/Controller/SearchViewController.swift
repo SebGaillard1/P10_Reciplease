@@ -21,10 +21,20 @@ class SearchViewController: UIViewController {
     private var ingredientsArray = [FridgeIngredient]()
     
     private var recipes = [RecipeModel]()
+    
+    //MARK: - AlertController from notification
+    @objc private func presentAlert(notification: Notification) {
+        guard let alertMessage = notification.userInfo!["message"] as? String else { return }
+        let alert = UIAlertController(title: "Error", message: alertMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        present(alert, animated: true)
+    }
         
     //MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(presentAlert(notification:)), name: Notification.Name("alert"), object: nil)
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapRecognizer)
