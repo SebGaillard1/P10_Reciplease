@@ -13,6 +13,8 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var addIngredientButton: UIButton!
     @IBOutlet weak var clearIngredientButton: UIButton!
     @IBOutlet weak var ingredientTableView: UITableView!
+    @IBOutlet weak var activityIndictor: UIActivityIndicatorView!
+    @IBOutlet weak var searchForRecipesButton: UIButton!
     
     //MARK: - Properties
     private let ingredientRepository = FridgeIngredientRepository()
@@ -25,6 +27,7 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         ingredientTableView.dataSource = self
+        ingredientTextField.delegate = self
         
         getIngredient()
     }
@@ -38,15 +41,8 @@ class SearchViewController: UIViewController {
         clearIngredient()
     }
     
-    @IBAction func SearchForRecipesButtonPressed(_ sender: Any) {
-        RecipeService.shared.fetchRecipes(withIngredients: ingredientsArray) { success, recipes  in
-            if success {
-                self.recipes = recipes
-                self.performSegue(withIdentifier: "segueToSearchResult", sender: self)
-            } else {
-                
-            }
-        }
+    @IBAction func searchForRecipesButtonPressed(_ sender: Any) {
+        fetchRecipes()
     }
     
     //MARK: - Private
@@ -78,6 +74,20 @@ class SearchViewController: UIViewController {
         }
     }
     
+    private func fetchRecipes() {
+        searchForRecipesButton.isEnabled = false
+        activityIndictor.isHidden = false
+        
+        RecipeService.shared.fetchRecipes(withIngredients: ingredientsArray) { success, recipes  in
+            if success {
+                self.recipes = recipes
+                self.performSegue(withIdentifier: "segueToSearchResult", sender: self)
+            }
+            self.searchForRecipesButton.isEnabled = true
+            self.activityIndictor.isHidden = true
+        }
+    }
+    
     //MARK: - Public
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToSearchResult" {
@@ -100,5 +110,14 @@ extension SearchViewController: UITableViewDataSource {
         cell.configure(title: " - \(ingredientName)")
         
         return cell
+    }
+}
+
+extension SearchViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        addIngredient()
+        textField.text = ""
+        textField.resignFirstResponder()
+        return true
     }
 }

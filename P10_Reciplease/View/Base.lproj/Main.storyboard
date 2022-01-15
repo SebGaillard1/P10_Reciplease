@@ -83,7 +83,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="o3b-uS-7aU">
                                 <rect key="frame" x="10" y="143.5" width="394" height="34"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lemon, Cheese, Sausage..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ktq-E6-Nr6">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lemon, Cheese, Sausage..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ktq-E6-Nr6">
                                         <rect key="frame" x="0.0" y="0.0" width="285.5" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
@@ -106,7 +106,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Search for recipes"/>
                                 <connections>
-                                    <action selector="SearchForRecipesButtonPressed:" destination="cbm-Fx-5UB" eventType="touchUpInside" id="FDZ-dI-IqF"/>
+                                    <action selector="searchForRecipesButtonPressed:" destination="cbm-Fx-5UB" eventType="touchUpInside" id="KNx-8g-Jve"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="OWi-t5-WgX">
@@ -158,6 +158,9 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="3FR-1R-jbj">
+                                <rect key="frame" x="197" y="711" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aPP-Wc-4Ua"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -167,6 +170,7 @@
                             <constraint firstItem="o3b-uS-7aU" firstAttribute="top" secondItem="azB-fm-bKJ" secondAttribute="bottom" constant="20" id="5KP-aE-Ena"/>
                             <constraint firstItem="OWi-t5-WgX" firstAttribute="leading" secondItem="aPP-Wc-4Ua" secondAttribute="leading" constant="10" id="7ix-ne-5OT"/>
                             <constraint firstItem="u5G-LZ-h5S" firstAttribute="leading" secondItem="aPP-Wc-4Ua" secondAttribute="leading" constant="30" id="9np-Sz-U6l"/>
+                            <constraint firstItem="3FR-1R-jbj" firstAttribute="centerX" secondItem="ZzP-Y8-aLu" secondAttribute="centerX" id="BGo-xK-1Qu"/>
                             <constraint firstItem="azB-fm-bKJ" firstAttribute="leading" secondItem="aPP-Wc-4Ua" secondAttribute="leading" constant="10" id="E0O-tW-DgS"/>
                             <constraint firstItem="wDb-au-xwS" firstAttribute="width" secondItem="qOr-4Y-n5M" secondAttribute="width" id="ISy-fC-X4w"/>
                             <constraint firstItem="aPP-Wc-4Ua" firstAttribute="trailing" secondItem="azB-fm-bKJ" secondAttribute="trailing" constant="10" id="K9T-b3-h1h"/>
@@ -178,6 +182,7 @@
                             <constraint firstItem="4AD-HN-ori" firstAttribute="leading" secondItem="aPP-Wc-4Ua" secondAttribute="leading" constant="10" id="eoL-jK-ClS"/>
                             <constraint firstItem="aPP-Wc-4Ua" firstAttribute="trailing" secondItem="o3b-uS-7aU" secondAttribute="trailing" constant="10" id="fdw-4o-nUd"/>
                             <constraint firstItem="aPP-Wc-4Ua" firstAttribute="trailing" secondItem="u5G-LZ-h5S" secondAttribute="trailing" constant="30" id="r4X-gy-pMH"/>
+                            <constraint firstItem="u5G-LZ-h5S" firstAttribute="top" secondItem="3FR-1R-jbj" secondAttribute="bottom" constant="8" id="rP7-6F-ykU"/>
                             <constraint firstItem="o3b-uS-7aU" firstAttribute="leading" secondItem="aPP-Wc-4Ua" secondAttribute="leading" constant="10" id="uU6-XG-Ory"/>
                             <constraint firstItem="aPP-Wc-4Ua" firstAttribute="bottom" secondItem="u5G-LZ-h5S" secondAttribute="bottom" constant="20" id="v5J-Yo-DzH"/>
                         </constraints>
@@ -185,10 +190,12 @@
                     <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass.circle" catalog="system" selectedImage="magnifyingglass.circle.fill" id="Isn-Vg-XhY"/>
                     <navigationItem key="navigationItem" title="Reciplease" id="iuE-s5-OE9"/>
                     <connections>
+                        <outlet property="activityIndictor" destination="3FR-1R-jbj" id="yc3-qG-1u5"/>
                         <outlet property="addIngredientButton" destination="qOr-4Y-n5M" id="adJ-nh-hUX"/>
                         <outlet property="clearIngredientButton" destination="wDb-au-xwS" id="JHp-Px-3sy"/>
                         <outlet property="ingredientTableView" destination="4AD-HN-ori" id="iMF-OJ-MEM"/>
                         <outlet property="ingredientTextField" destination="ktq-E6-Nr6" id="oQN-7E-5Z1"/>
+                        <outlet property="searchForRecipesButton" destination="u5G-LZ-h5S" id="W4C-FO-19e"/>
                         <segue destination="jgx-83-aRB" kind="show" identifier="segueToSearchResult" id="8Vc-yi-Utf"/>
                     </connections>
                 </viewController>
