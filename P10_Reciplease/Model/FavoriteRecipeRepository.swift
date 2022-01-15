@@ -41,7 +41,19 @@ final class FavoriteRecipeRepository {
         }
     }
     
-    func getFavoriteRecipesWithImageData(completion: (_ success: Bool, _ recipes: [Recipe]) -> Void) {
+    func getFavoriteRecipe(named name: String, completion: (_ success: Bool, _ recipe: Recipe?) -> Void) {
+        let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
+        request.predicate = NSPredicate(format: "title == %@", name)
+        
+        guard let recipes = try? coreDataStack.viewContext.fetch(request) else {
+            completion(false, nil)
+            return
+        }
+        
+        completion(true, recipes[0])
+    }
+    
+    func getAllFavoriteRecipesWithImageData(completion: (_ success: Bool, _ recipes: [Recipe]) -> Void) {
         let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         
         guard let recipes = try? coreDataStack.viewContext.fetch(request) else {
@@ -69,7 +81,7 @@ final class FavoriteRecipeRepository {
 //    }
     
     func removeAllFavoriteRecipes(_ completion: (Bool) -> Void) {
-        getFavoriteRecipesWithImageData { success, recipes in
+        getAllFavoriteRecipesWithImageData { success, recipes in
             if success {
                 for recipe in recipes {
                     coreDataStack.viewContext.delete(recipe)

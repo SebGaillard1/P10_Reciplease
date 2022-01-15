@@ -11,6 +11,7 @@ import CoreData
 final class RecipeIngredientRepository {
     //MARK: - Properties
     private let coreDataStack: CoreDataStack
+    private let favoriteRecipeRepository = FavoriteRecipeRepository()
     
     //MARK: - Init
     init(coreDataStack: CoreDataStack = CoreDataStack.sharedInstance) {
@@ -18,24 +19,30 @@ final class RecipeIngredientRepository {
     }
     
     //MARK: - Repository
-    func saveRecipeIngredient(forRecipe recipe: Recipe, text: String, quantity: Double, measure: String, weight: Double, food: String, foodCategory: String, completion: (_ success: Bool) -> Void) {
-        let ingredient = RecipeIngredient(context: coreDataStack.viewContext)
-        ingredient.recipe = recipe
-        ingredient.text = text
-        ingredient.quantity = quantity
-        ingredient.measure = measure
-        ingredient.weight = weight
-        ingredient.food = food
-        ingredient.foodCategory = foodCategory
-        
-        do {
-            try coreDataStack.viewContext.save()
-            completion(true)
-        } catch {
-            print("We were unable to save \(ingredient.text ?? "an ingredient")")
-            completion(false)
+    func saveRecipeIngredients(forRecipe recipe: RecipeModel, ingredientModel: [RecipeIngredientModel], completion: (_ success: Bool) -> Void) {
+        favoriteRecipeRepository.getFavoriteRecipe(named: recipe.title) { success, recipe in
+            if success {
+                for ingredientModel in ingredientModel {
+                    let ingredient = RecipeIngredient(context: coreDataStack.viewContext)
+                    ingredient.recipe = recipe
+                    ingredient.text = ingredientModel.text
+                    ingredient.quantity = ingredientModel.quantity
+                    ingredient.measure = ingredientModel.measure
+                    ingredient.weight = ingredientModel.weight
+                    ingredient.food = ingredientModel.food
+                    ingredient.foodCategory = ingredientModel.foodCategory
+                    
+                    do {
+                        try coreDataStack.viewContext.save()
+                    } catch {
+                        print("We were unable to save \(ingredient.text ?? "an ingredient")")
+                        completion(false)
+                        return
+                    }
+                }
+                completion(true)
+            }
         }
     }
-
 }
 

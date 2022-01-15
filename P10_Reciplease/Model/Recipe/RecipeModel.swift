@@ -10,14 +10,14 @@ import UIKit
 
 struct RecipeModel {
     let title: String
-    let ingredient: [RecipeIngredientModel]
+    let ingredients: [RecipeIngredientModel]
     let rate: String
     let image: UIImage
     let duration: Double
     
     var simpleIngredientsList: String {
         var string = ""
-        for ing in ingredient {
+        for ing in ingredients {
             string += "\(ing.food.capitalized), "
         }
         return string
@@ -25,7 +25,7 @@ struct RecipeModel {
     
     var detailIngredientsList: String {
         var string = ""
-        for ing in ingredient {
+        for ing in ingredients {
             string += "- \(ing.text)\n\n"
         }
         return string

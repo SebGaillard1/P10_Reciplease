@@ -88,7 +88,7 @@ class RecipeService {
 
             let imageUrl = oneRecipe.recipe.image
             self.getImage(from: imageUrl) { recipeImage in
-                allRecipes.append(RecipeModel(title: title, ingredient: allIngredients, rate: rate, image: recipeImage, duration: duration))
+                allRecipes.append(RecipeModel(title: title, ingredients: allIngredients, rate: rate, image: recipeImage, duration: duration))
                 myGroup.leave()
             }
         }

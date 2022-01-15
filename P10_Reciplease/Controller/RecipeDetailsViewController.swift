@@ -21,6 +21,7 @@ class RecipeDetailsViewController: UIViewController {
     var recipe: RecipeModel!
     
     private let favoriteRecipeRepository = FavoriteRecipeRepository()
+    private let recipeIngredientRepository = RecipeIngredientRepository()
     
     //MARK: - View life cycle
     override func viewDidLoad() {
@@ -40,7 +41,11 @@ class RecipeDetailsViewController: UIViewController {
     @objc func setFavorite() {
         favoriteRecipeRepository.saveRecipeAsFavorite(recipe: recipe) { success in
             if success {
-                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(removeFavorite))
+                self.recipeIngredientRepository.saveRecipeIngredients(forRecipe: recipe, ingredientModel: recipe.ingredients) { success in
+                    if success {
+                        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(removeFavorite))
+                    }
+                }
             }
         }
     }
