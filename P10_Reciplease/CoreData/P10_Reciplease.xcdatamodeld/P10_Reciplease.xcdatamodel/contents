@@ -9,6 +9,7 @@
         <attribute name="ingredient" attributeType="String"/>
         <attribute name="rate" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
+        <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RecipeIngredient" inverseName="recipe" inverseEntity="RecipeIngredient"/>
     </entity>
     <entity name="RecipeIngredient" representedClassName=".RecipeIngredient" syncable="YES" codeGenerationType="category">
         <attribute name="food" optional="YES" attributeType="String"/>
@@ -17,10 +18,11 @@
         <attribute name="quantity" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="text" optional="YES" attributeType="String"/>
         <attribute name="weight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recipe" inverseName="ingredients" inverseEntity="Recipe"/>
     </entity>
     <elements>
-        <element name="FridgeIngredient" positionX="160" positionY="192" width="128" height="44"/>
-        <element name="Recipe" positionX="212.87158203125" positionY="-30.11712646484375" width="128" height="118"/>
-        <element name="RecipeIngredient" positionX="405.0140380859375" positionY="114.6171875" width="128" height="133"/>
+        <element name="FridgeIngredient" positionX="-41.16265869140625" positionY="5.852203369140625" width="128" height="58"/>
+        <element name="Recipe" positionX="220.88671875" positionY="-102.6404724121094" width="128" height="133"/>
+        <element name="RecipeIngredient" positionX="446.19384765625" positionY="-106.5736999511719" width="128" height="148"/>
     </elements>
 </model>
