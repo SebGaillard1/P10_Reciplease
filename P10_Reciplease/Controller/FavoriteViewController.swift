@@ -16,6 +16,7 @@ class FavoriteViewController: UIViewController {
     
     private var favoriteRecipes = [RecipeModel]()
     private let favoriteRecipeRepository = FavoriteRecipeRepository()
+    private var selectedRecipe = 0
     
     //MARK: - View life cycle
     override func viewDidLoad() {
@@ -24,6 +25,9 @@ class FavoriteViewController: UIViewController {
         favoriteTableView.dataSource = self
         favoriteTableView.delegate = self
         favoriteTableView.register(UINib.init(nibName: cellId, bundle: nil), forCellReuseIdentifier: cellId)
+//        favoriteRecipeRepository.removeAllFavoriteRecipes { _ in
+//
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,6 +38,13 @@ class FavoriteViewController: UIViewController {
                 favoriteRecipes = recipies
                 favoriteTableView.reloadData()
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueFromFavoriteToRecipeDetails" {
+            let destinationVC = segue.destination as! RecipeDetailsViewController
+            destinationVC.recipe = favoriteRecipes[selectedRecipe]
         }
     }
     
@@ -72,10 +83,11 @@ extension FavoriteViewController: UITableViewDataSource {
         
         return cell
     }
-    
-    
 }
 
 extension FavoriteViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedRecipe = indexPath.row
+        performSegue(withIdentifier: "segueFromFavoriteToRecipeDetails", sender: self)
+    }
 }

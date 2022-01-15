@@ -53,7 +53,7 @@ final class FavoriteRecipeRepository {
         completion(true, recipes[0])
     }
     
-    func getAllFavoriteRecipesWithImageData(completion: (_ success: Bool, _ recipes: [Recipe]) -> Void) {
+    private func getAllFavoriteRecipesWithImageData(completion: (_ success: Bool, _ recipes: [Recipe]) -> Void) {
         let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         
         guard let recipes = try? coreDataStack.viewContext.fetch(request) else {
@@ -72,7 +72,7 @@ final class FavoriteRecipeRepository {
                 for recipe in recipes {
 //                    var ingredient = recipe.ingredients?.allObjects as? [RecipeIngredientModel]
 //                    print(ingredient)
-                    
+                    print("regregbrygyurdyrbrbyfberb -------\(recipe.ingredients)")
                     recipesWithUIImage.append(RecipeModel(title: recipe.title!,
                                                           ingredients: [RecipeIngredientModel](),
                                                           rate: recipe.rate!,

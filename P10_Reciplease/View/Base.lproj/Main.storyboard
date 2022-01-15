@@ -51,6 +51,7 @@
                     <navigationItem key="navigationItem" id="vXB-rP-L9k"/>
                     <connections>
                         <outlet property="favoriteTableView" destination="0wi-Kk-X6E" id="vnn-eJ-29O"/>
+                        <segue destination="mb6-cg-XuQ" kind="show" identifier="segueFromFavoriteToRecipeDetails" id="EA1-MU-Q7e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6ey-5h-26c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -381,6 +382,9 @@
             <point key="canvasLocation" x="951" y="-508"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="EA1-MU-Q7e"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="magnifyingglass.circle" catalog="system" width="128" height="121"/>
         <image name="magnifyingglass.circle.fill" catalog="system" width="128" height="121"/>
