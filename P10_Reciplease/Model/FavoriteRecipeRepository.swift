@@ -19,13 +19,18 @@ final class FavoriteRecipeRepository {
     }
     
     //MARK: - Repository
-    func saveRecipeAsFavorite(title: String, ingredient: String, rate: String, imageData: Data, duration: Double, completion: (_ success: Bool) -> Void) {
+    func saveRecipeAsFavorite(recipe recipeModel: RecipeModel, completion: (_ success: Bool) -> Void) {
+        guard let data = recipeModel.image.pngData() else {
+            completion(false)
+            return
+        }
+        
         let recipe = Recipe(context: coreDataStack.viewContext)
-        recipe.title = title
-        recipe.ingredient = ingredient
-        recipe.rate = rate
-        recipe.imageData = imageData
-        recipe.duration = duration
+        recipe.title = recipeModel.title
+        recipe.ingredient = recipeModel.detailIngredientsList
+        recipe.rate = recipeModel.rate
+        recipe.imageData = data
+        recipe.duration = recipeModel.duration
         
         do {
             try coreDataStack.viewContext.save()

@@ -71,9 +71,9 @@ class RecipeService {
         for oneRecipe in data.hits {
             myGroup.enter()
             
-            var allIngredients = [IngredientModel]()
+            var allIngredients = [RecipeIngredientModel]()
             for ingredient in oneRecipe.recipe.ingredients {
-                let newIngredient = IngredientModel(text: ingredient.text,
+                let newIngredient = RecipeIngredientModel(text: ingredient.text,
                                                     quantity: ingredient.quantity,
                                                     measure: ingredient.measure ?? "",
                                                     food: ingredient.food,

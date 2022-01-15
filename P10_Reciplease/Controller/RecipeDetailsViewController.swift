@@ -38,17 +38,11 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     @objc func setFavorite() {
-        guard let data = recipe.image.pngData() else { return }
-        favoriteRecipeRepository.saveRecipeAsFavorite(title: recipe.title,
-                                                      ingredient: recipe.detailIngredientsList,
-                                                      rate: recipe.rate,
-                                                      imageData: data,
-                                                      duration: recipe.duration) { success in
+        favoriteRecipeRepository.saveRecipeAsFavorite(recipe: recipe) { success in
             if success {
                 navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(removeFavorite))
             }
         }
-        
     }
     
     @objc func removeFavorite() {

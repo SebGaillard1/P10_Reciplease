@@ -10,7 +10,7 @@ import UIKit
 
 struct RecipeModel {
     let title: String
-    let ingredient: [IngredientModel]
+    let ingredient: [RecipeIngredientModel]
     let rate: String
     let image: UIImage
     let duration: Double
@@ -32,7 +32,7 @@ struct RecipeModel {
     }
 }
 
-struct IngredientModel {
+struct RecipeIngredientModel {
     let text: String
     let quantity: Double
     let measure: String
