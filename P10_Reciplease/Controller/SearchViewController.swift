@@ -62,7 +62,7 @@ class SearchViewController: UIViewController {
     private func addIngredient() {
         guard let ingredientName = ingredientTextField.text else { return }
         
-        let ingredients = ingredientName.components(separatedBy: ",")
+        let ingredients = ingredientName.condenseWhitespace().onlyValidCharacters().components(separatedBy: ",")
         for ingredient in ingredients {
             ingredientRepository.saveFridgeIngredient(named: ingredient.trimmingCharacters(in: .whitespaces).capitalized) { success in
                 if success {
