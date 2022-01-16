@@ -28,6 +28,12 @@ class RecipeService {
         
     //MARK: - Public
     func fetchRecipes(withIngredients ingredients: [FridgeIngredient], completion: @escaping (_ success: Bool, _ recipes: [RecipeModel]) -> Void) {
+        if ingredients.isEmpty {
+            alertNotification(message: "Add ingredients before searching for a recipe!")
+            completion(false, [])
+            return
+        }
+        
         let ingredients = getIngredientsString(from: ingredients)
         
         let parameters: [String: String] = ["app_id": appId, "app_key": appKey, "type": type, "q": ingredients]
