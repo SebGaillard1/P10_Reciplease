@@ -30,7 +30,7 @@ class SearchViewController: UIViewController {
         
         present(alert, animated: true)
     }
-        
+    
     //MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,10 +62,13 @@ class SearchViewController: UIViewController {
     private func addIngredient() {
         guard let ingredientName = ingredientTextField.text else { return }
         
-        ingredientRepository.saveFridgeIngredient(named: ingredientName.capitalized) { success in
-            if success {
-                ingredientTextField.text = ""
-                getIngredient()
+        let ingredients = ingredientName.components(separatedBy: ",")
+        for ingredient in ingredients {
+            ingredientRepository.saveFridgeIngredient(named: ingredient.trimmingCharacters(in: .whitespaces).capitalized) { success in
+                if success {
+                    ingredientTextField.text = ""
+                    getIngredient()
+                }
             }
         }
     }

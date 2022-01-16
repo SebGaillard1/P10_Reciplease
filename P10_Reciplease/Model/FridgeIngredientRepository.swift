@@ -26,7 +26,6 @@ final class FridgeIngredientRepository {
     //MARK: - Repository
     func saveFridgeIngredient(named name: String, completion: (_ success: Bool) -> Void) {
         if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            self.alertNotification(message: "Enter ingredient before adding")
             completion(false)
             return
         }
