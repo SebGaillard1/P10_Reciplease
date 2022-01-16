@@ -12,13 +12,4 @@ extension String {
         let components = self.components(separatedBy: .whitespacesAndNewlines)
         return components.filter { !$0.isEmpty }.joined(separator: " ")
     }
-    
-    func onlyValidCharacters() -> String {
-        var charset = CharacterSet.alphanumerics
-        charset.insert(",")
-        charset.insert(" ")
-        charset = charset.inverted
-        
-        return components(separatedBy: charset).joined()
-    }
 }
