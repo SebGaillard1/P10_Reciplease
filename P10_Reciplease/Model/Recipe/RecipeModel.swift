@@ -27,7 +27,7 @@ struct RecipeModel {
     var detailIngredientsList: String {
         var string = ""
         for ing in ingredients {
-            string += "- \(ing.text)\n\n"
+            string += "- \(ing.text)\n"
         }
         return string
     }

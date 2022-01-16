@@ -165,7 +165,6 @@ final class FavoriteRecipeRepository {
             completion(false)
             self.alertNotification(message: "Unable to remove recipe from favorite!")
         }
-        
     }
     
     func isRecipeAlreadyFavorite(recipe: RecipeModel,completion: (_ favorite: Bool) -> Void) {

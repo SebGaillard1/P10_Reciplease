@@ -80,7 +80,7 @@ class SearchViewController: UIViewController {
     }
     
     private func clearIngredient() {
-        ingredientRepository.removeAllIngredient { success in
+        ingredientRepository.removeAllIngredients { success in
             if success {
                 ingredientsArray.removeAll()
                 ingredientTableView.reloadData()
@@ -122,12 +122,27 @@ extension SearchViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath) as? IngredientTableViewCell else { return UITableViewCell() }
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
         guard let ingredientName = ingredientsArray[indexPath.row].name else { return UITableViewCell() }
-        cell.configure(title: " - \(ingredientName)")
+        
+        var content = cell.defaultContentConfiguration()
+        content.text = ingredientName
+        cell.contentConfiguration = content
         
         return cell
+    }
+}
+
+extension SearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            ingredientRepository.removeIngredient(ingredient: ingredientsArray[indexPath.row]) { success in
+                if success {
+                    ingredientsArray.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                }
+            }
+        }
     }
 }
 

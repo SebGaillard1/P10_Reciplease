@@ -55,7 +55,7 @@ final class FridgeIngredientRepository {
         completion(true, ingredients)
     }
     
-    func removeAllIngredient(completion: (_ success: Bool) -> Void) {
+    func removeAllIngredients(completion: (_ success: Bool) -> Void) {
         getFridgeIngredients { success, ingredients in
             if success {
                 for ingredient in ingredients {
@@ -73,6 +73,18 @@ final class FridgeIngredientRepository {
         } catch {
             completion(false)
             self.alertNotification(message: "Unable to remove the ingredients")
+        }
+    }
+    
+    func removeIngredient(ingredient: FridgeIngredient, completion: (_ success: Bool) -> Void) {
+        coreDataStack.viewContext.delete(ingredient)
+        
+        do {
+            try coreDataStack.viewContext.save()
+            completion(true)
+        } catch {
+            completion(false)
+            self.alertNotification(message: "Unable to remove the ingredient!")
         }
     }
 }
