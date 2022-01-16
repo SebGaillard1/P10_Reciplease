@@ -64,6 +64,7 @@ class SearchViewController: UIViewController {
         
         ingredientRepository.saveFridgeIngredient(named: ingredientName.capitalized) { success in
             if success {
+                ingredientTextField.text = ""
                 getIngredient()
             }
         }
@@ -133,7 +134,6 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         addIngredient()
-        textField.text = ""
         textField.resignFirstResponder()
         return true
     }

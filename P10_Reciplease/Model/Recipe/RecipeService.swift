@@ -77,7 +77,6 @@ class RecipeService {
     
     private func createRecipeModelObjects(from data: RecipeData, completion: @escaping (_ recipes: [RecipeModel]) -> Void) {
         var allRecipes = [RecipeModel]()
-        
         let myGroup = DispatchGroup()
         
         for oneRecipe in data.hits {

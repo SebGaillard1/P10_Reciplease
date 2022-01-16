@@ -96,7 +96,6 @@ final class FavoriteRecipeRepository {
                 }
                 completion(true, recipesWithUIImage)
             }
-            self.alertNotification(message: "Error while retrieving your favorites recipes!")
             completion(false, [])
         }
     }
