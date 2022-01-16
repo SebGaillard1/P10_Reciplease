@@ -18,16 +18,16 @@ struct RecipeModel {
     
     var simpleIngredientsList: String {
         var string = ""
-        for ing in ingredients {
-            string += "\(ing.food.capitalized), "
+        for ingredient in ingredients {
+            string += "\(ingredient.food.capitalized), "
         }
         return string
     }
     
     var detailIngredientsList: String {
         var string = ""
-        for ing in ingredients {
-            string += "- \(ing.text)\n"
+        for ingredient in ingredients {
+            string += "- \(ingredient.text)\n"
         }
         return string
     }
