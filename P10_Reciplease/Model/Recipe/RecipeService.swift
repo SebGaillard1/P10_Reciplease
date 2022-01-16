@@ -100,7 +100,7 @@ class RecipeService {
             }
             
             let title = oneRecipe.recipe.label
-            let rate = "5/5"
+            let rate = "\(oneRecipe.recipe.yield)"
             let duration = oneRecipe.recipe.totalTime
             let url = oneRecipe.recipe.url
 
