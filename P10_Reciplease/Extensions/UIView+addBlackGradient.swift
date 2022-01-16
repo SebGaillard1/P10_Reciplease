@@ -2,14 +2,14 @@
 //  UIView+addGradient.swift
 //  P10_Reciplease
 //
-//  Created by Sebastien Gaillard on 15/01/2022.
+//  Created by Sebastien Gaillard on 16/01/2022.
 //
 
 import Foundation
 import UIKit
 
 extension UIImageView {
-    func addGradient() {
+    func addBlackGradient() {
         self.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
         
         let width = self.bounds.width
@@ -18,7 +18,7 @@ extension UIImageView {
         let shadow = UIColor.black.withAlphaComponent(1).cgColor
 
         let bottomImageGradient = CAGradientLayer()
-        bottomImageGradient.frame = CGRect(x: 0, y: height - sHeight, width: width + 100, height: sHeight)
+        bottomImageGradient.frame = CGRect(x: 0, y: height - sHeight, width: width, height: sHeight)
         bottomImageGradient.colors = [UIColor.clear.cgColor, shadow]
         self.layer.insertSublayer(bottomImageGradient, at: 0)
     }

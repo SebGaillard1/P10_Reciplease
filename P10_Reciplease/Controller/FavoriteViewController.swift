@@ -101,7 +101,6 @@ extension FavoriteViewController: UITableViewDataSource {
         cell.recipeTimeLabel.text = "⏱\(favoriteRecipes[indexPath.row].duration)"
         cell.recipeImageView.image = favoriteRecipes[indexPath.row].image
         cell.recipeImageView.contentMode = .scaleAspectFill
-        cell.recipeImageView.addGradient()
         
         return cell
     }

@@ -58,9 +58,12 @@ extension SearchResultViewController: UITableViewDataSource {
         cell.recipeTimeLabel.text = "⏱\(recipes[indexPath.row].duration)"
         cell.recipeImageView.image = recipes[indexPath.row].image
         cell.recipeImageView.contentMode = .scaleAspectFill
-        cell.recipeImageView.addGradient()
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
     }
 }
 

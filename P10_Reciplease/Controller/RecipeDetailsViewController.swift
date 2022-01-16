@@ -86,12 +86,12 @@ class RecipeDetailsViewController: UIViewController {
     //MARK: - Private
     private func setupUI() {
         recipeImageImageView.image = recipe.image
-        recipeImageImageView.addGradient()
-        
         recipeTitleLabel.text = recipe.title
         recipeIngredientsLabel.text = recipe.detailIngredientsList
         recipeRateLabel.text = "👍\(recipe.rate)"
         recipeDurationLabel.text = "⏱\(recipe.duration)"
         topRightView.layer.cornerRadius = 10
+        topRightView.addBlurEffect()
+        recipeImageImageView.addBlackGradient()
     }
 }
