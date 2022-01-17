@@ -15,7 +15,9 @@ struct RecipeData: Codable {
 // MARK: - Hit
 struct Hit: Codable {
     let recipe: RecipeType
+    let links: HitLinks
 }
+
 // MARK: - Recipe
 struct RecipeType: Codable {
     let label: String
@@ -44,4 +46,18 @@ struct IngredientType: Codable {
         case text, quantity, measure, food, weight, foodCategory
         case foodID = "foodId"
     }
+}
+
+// MARK: - HitLinks
+struct HitLinks: Codable {
+    let linksSelf: Next
+
+    enum CodingKeys: String, CodingKey {
+        case linksSelf = "self"
+    }
+}
+
+// MARK: - Next
+struct Next: Codable {
+    let href: String
 }
