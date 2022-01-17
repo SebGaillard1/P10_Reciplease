@@ -13,6 +13,7 @@ class RecipeService {
     static var shared = RecipeService()
 
     //MARK: - Properties
+    private let baseUrl = "https://api.edamam.com/api/recipes/v2"
     private let appId = "490915d3"
     private let appKey = "6eb213ece561751aedcd1e4aa3a02dc8"
     private let type = "public"
@@ -34,9 +35,8 @@ class RecipeService {
         }
         
         var urlString = ""
-        
         if url.isEmpty {
-            urlString = "https://api.edamam.com/api/recipes/v2"
+            urlString = baseUrl
         } else {
             urlString = url
         }
@@ -52,7 +52,7 @@ class RecipeService {
                 return
             }
             
-            self.createRecipeModelObjects(from: recipesData) { recipes in
+            self.createRecipeWithUIImage(from: recipesData) { recipes in
                 if !recipes.isEmpty {
                     completion(true, recipes, recipesData.links.next.href)
                 } else {
@@ -88,7 +88,7 @@ class RecipeService {
         }
     }
     
-    private func createRecipeModelObjects(from data: RecipeData, completion: @escaping (_ recipes: [RecipeModel]) -> Void) {
+    private func createRecipeWithUIImage(from data: RecipeData, completion: @escaping (_ recipes: [RecipeModel]) -> Void) {
         var allRecipes = [RecipeModel]()
         let myGroup = DispatchGroup()
         
