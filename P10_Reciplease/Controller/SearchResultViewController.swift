@@ -13,6 +13,7 @@ class SearchResultViewController: UIViewController {
     
     //MARK: - Properties
     var recipes = [RecipeModel]()
+    var nextPageUrl: String?
     
     private var selectedRecipeIndex: Int?
     private let cellId = "SearchResultTableViewCell"
@@ -71,5 +72,11 @@ extension SearchResultViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRecipeIndex = indexPath.row
         performSegue(withIdentifier: "segueToRecipeDetails", sender: self)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == indexPath.last {
+            print("derniere cellule")
+        }
     }
 }
