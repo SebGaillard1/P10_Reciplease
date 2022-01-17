@@ -21,6 +21,7 @@ class SearchViewController: UIViewController {
     private var ingredientsArray = [FridgeIngredient]()
     
     private var recipes = [RecipeModel]()
+    private var nextPageUrl = ""
     
     //MARK: - AlertController from notification
     @objc private func presentAlert(notification: Notification) {
@@ -95,9 +96,10 @@ class SearchViewController: UIViewController {
         searchForRecipesButton.isEnabled = false
         activityIndictor.isHidden = false
         
-        RecipeService.shared.fetchRecipes(withIngredients: ingredientsArray) { success, recipes  in
+        RecipeService.shared.fetchRecipes(atUrl: "", withIngredients: ingredientsArray) { success, recipes, nextPageUrl  in
             if success {
                 self.recipes = recipes
+                self.nextPageUrl = nextPageUrl ?? ""
                 self.performSegue(withIdentifier: "segueToSearchResult", sender: self)
             }
             self.searchForRecipesButton.isEnabled = true
@@ -110,6 +112,7 @@ class SearchViewController: UIViewController {
         if segue.identifier == "segueToSearchResult" {
             let destinationVC = segue.destination as! SearchResultViewController
             destinationVC.recipes = recipes
+            destinationVC.nextPageUrl = nextPageUrl
         }
     }
     

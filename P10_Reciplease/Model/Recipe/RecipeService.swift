@@ -13,7 +13,6 @@ class RecipeService {
     static var shared = RecipeService()
 
     //MARK: - Properties
-    private let url = "https://api.edamam.com/api/recipes/v2"
     private let appId = "490915d3"
     private let appKey = "6eb213ece561751aedcd1e4aa3a02dc8"
     private let type = "public"
@@ -27,30 +26,38 @@ class RecipeService {
     }
         
     //MARK: - Public
-    func fetchRecipes(withIngredients ingredients: [FridgeIngredient], completion: @escaping (_ success: Bool, _ recipes: [RecipeModel]) -> Void) {
-        if ingredients.isEmpty {
+    func fetchRecipes(atUrl url: String, withIngredients ingredients: [FridgeIngredient], completion: @escaping (_ success: Bool, _ recipes: [RecipeModel], _ nextPageUrl: String?) -> Void) {
+        if ingredients.isEmpty && url.isEmpty {
             alertNotification(message: "Add ingredients before searching for a recipe!")
-            completion(false, [])
+            completion(false, [], nil)
             return
+        }
+        
+        var urlString = ""
+        
+        if url.isEmpty {
+            urlString = "https://api.edamam.com/api/recipes/v2"
+        } else {
+            urlString = url
         }
         
         let ingredients = getIngredientsString(from: ingredients)
         
         let parameters: [String: String] = ["app_id": appId, "app_key": appKey, "type": type, "q": ingredients]
         
-        AF.request(url, parameters: parameters).validate().responseDecodable(of: RecipeData.self) { response in
+        AF.request(urlString, parameters: parameters).validate().responseDecodable(of: RecipeData.self) { response in
             guard let recipesData = response.value else {
                 self.alertNotification(message: "Unable to fetch recipes data")
-                completion(false, [])
+                completion(false, [], nil)
                 return
             }
             
             self.createRecipeModelObjects(from: recipesData) { recipes in
                 if !recipes.isEmpty {
-                    completion(true, recipes)
+                    completion(true, recipes, recipesData.links.next.href)
                 } else {
                     self.alertNotification(message: "No recipes found for these ingredients!")
-                    completion(false, [])
+                    completion(false, [], nil)
                 }
             }
         }
