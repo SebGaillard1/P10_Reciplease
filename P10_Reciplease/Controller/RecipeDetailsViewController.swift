@@ -36,13 +36,13 @@ class RecipeDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(presentAlert(notification:)), name: Notification.Name("alert"), object: nil)
-    
+        
         setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         favoriteRecipeRepository.isRecipeAlreadyFavorite(recipe: recipe) { favorite in
             if favorite {
                 navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(removeFavorite))
@@ -55,7 +55,7 @@ class RecipeDetailsViewController: UIViewController {
     @objc func setFavorite() {
         favoriteRecipeRepository.saveRecipeAsFavorite(recipe: recipe) { success in
             if success {
-                self.recipeIngredientRepository.saveRecipeIngredients(forRecipe: recipe, ingredientModel: recipe.ingredients) { success in
+                self.recipeIngredientRepository.saveRecipeIngredients(forRecipe: recipe, ingredientsModel: recipe.ingredients) { success in
                     if success {
                         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(removeFavorite))
                     }
@@ -89,7 +89,7 @@ class RecipeDetailsViewController: UIViewController {
         recipeTitleLabel.text = recipe.title
         recipeIngredientsLabel.text = recipe.detailIngredientsList
         recipeRateLabel.text = "👍\(recipe.rate)"
-        recipeDurationLabel.text = "⏱\(recipe.duration)"
+        recipeDurationLabel.text = "\(recipe.duration.getStringFormattedTime())"
         topRightView.layer.cornerRadius = 10
         topRightView.addBlurEffect()
         recipeImageImageView.addBlackGradient()

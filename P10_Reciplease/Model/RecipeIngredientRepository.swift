@@ -25,10 +25,10 @@ final class RecipeIngredientRepository {
     }
     
     //MARK: - Repository
-    func saveRecipeIngredients(forRecipe recipe: RecipeModel, ingredientModel: [RecipeIngredientModel], completion: (_ success: Bool) -> Void) {
+    func saveRecipeIngredients(forRecipe recipe: RecipeModel, ingredientsModel: [RecipeIngredientModel], completion: (_ success: Bool) -> Void) {
         favoriteRecipeRepository.getFavoriteRecipe(named: recipe.title) { success, recipe in
             if success {
-                for ingredientModel in ingredientModel {
+                for ingredientModel in ingredientsModel {
                     let ingredient = RecipeIngredient(context: coreDataStack.viewContext)
                     ingredient.recipe = recipe
                     ingredient.text = ingredientModel.text

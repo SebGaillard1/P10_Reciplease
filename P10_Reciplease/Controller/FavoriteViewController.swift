@@ -45,7 +45,7 @@ class FavoriteViewController: UIViewController {
         
         noRecipeLabel.text = "No favorite recipe 😩 \n\n\nTry to add a recipe to your favorites by tapping the star button in a recipe ! ⭐️"
         noRecipeLabel.frame = CGRect(x: self.view.bounds.minX, y: self.view.bounds.minY, width: self.view.bounds.width, height: self.view.bounds.height)
-
+        
         favoriteTableView.dataSource = self
         favoriteTableView.delegate = self
         favoriteTableView.register(UINib.init(nibName: cellId, bundle: nil), forCellReuseIdentifier: cellId)
@@ -55,7 +55,7 @@ class FavoriteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         favoriteRecipeRepository.getFavoriteRecipiesWithUIImage { success, recipies in
             if success {
                 favoriteRecipes = recipies
@@ -98,7 +98,7 @@ extension FavoriteViewController: UITableViewDataSource {
         cell.recipeTitleLabel.text = favoriteRecipes[indexPath.row].title
         cell.recipeIngredientsLabel.text = favoriteRecipes[indexPath.row].simpleIngredientsList
         cell.recipeRateLabel.text = "👍\(favoriteRecipes[indexPath.row].rate)"
-        cell.recipeTimeLabel.text = "⏱\(favoriteRecipes[indexPath.row].duration)"
+        cell.recipeTimeLabel.text = "\(favoriteRecipes[indexPath.row].duration.getStringFormattedTime())"
         cell.recipeImageView.image = favoriteRecipes[indexPath.row].image
         cell.recipeImageView.contentMode = .scaleAspectFill
         

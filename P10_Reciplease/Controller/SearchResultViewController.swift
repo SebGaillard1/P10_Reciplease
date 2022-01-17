@@ -55,7 +55,7 @@ extension SearchResultViewController: UITableViewDataSource {
         cell.recipeTitleLabel.text = recipes[indexPath.row].title
         cell.recipeIngredientsLabel.text = recipes[indexPath.row].simpleIngredientsList
         cell.recipeRateLabel.text = "👍\(recipes[indexPath.row].rate)"
-        cell.recipeTimeLabel.text = "⏱\(recipes[indexPath.row].duration)"
+        cell.recipeTimeLabel.text = "\(recipes[indexPath.row].duration.getStringFormattedTime())"
         cell.recipeImageView.image = recipes[indexPath.row].image
         cell.recipeImageView.contentMode = .scaleAspectFill
         
