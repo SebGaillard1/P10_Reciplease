@@ -102,5 +102,90 @@ class RecipeServiceTests: XCTestCase {
         wait(for: [expectation], timeout: 0.1)
     }
     
+    func testFetchRecipesShouldPostSuccessIfDataGoodResponseNoError() {
+        // Given
+        MockURLProtocol.loadingHandler = { request in
+            let data: Data? = FakeResponseData.recipeData
+            let response: HTTPURLResponse = FakeResponseData.responseOK
+            let error: Error? = nil
+            return (response, data, error)
+        }
+        
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        recipeService.fetchRecipes(atUrl: RecipeService.baseUrl, withIngredients: fridgeIngredients) { success, recipes, nextPageUrl in
+            // Then
+            XCTAssertTrue(success)
+            XCTAssertFalse(recipes.isEmpty)
+            XCTAssertNotNil(nextPageUrl)
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    func testGivenNoIngredientWhenFetchingRecipesThenShouldPostFail() {
+        // Given
+        MockURLProtocol.loadingHandler = { request in
+            let data: Data? = FakeResponseData.recipeData
+            let response: HTTPURLResponse = FakeResponseData.responseOK
+            let error: Error? = nil
+            return (response, data, error)
+        }
+        
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        recipeService.fetchRecipes(atUrl: RecipeService.baseUrl, withIngredients: []) { success, recipes, nextPageUrl in
+            // Then
+            XCTAssertFalse(success)
+            XCTAssertTrue(recipes.isEmpty)
+            XCTAssertNil(nextPageUrl)
+            expectation.fulfill()        }
+
+        wait(for: [expectation], timeout: 0.1)
+    }
+    
+    func testGivenIngredientsWithNoRecipeWhenFetchingRecipesThenShouldPostFail() {
+        // Given
+        MockURLProtocol.loadingHandler = { request in
+            let data: Data? = FakeResponseData.noRecipeData
+            let response: HTTPURLResponse = FakeResponseData.responseOK
+            let error: Error? = nil
+            return (response, data, error)
+        }
+        
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        recipeService.fetchRecipes(atUrl: RecipeService.baseUrl, withIngredients:fridgeIngredients) { success, recipes, nextPageUrl in
+            // Then
+            XCTAssertFalse(success)
+            XCTAssertTrue(recipes.isEmpty)
+            XCTAssertNil(nextPageUrl)
+            expectation.fulfill()        }
+
+        wait(for: [expectation], timeout: 0.1)
+    }
+    
+    func testGivenIngredientsWithNoNameWhenFetchingRecipesThenShouldReplaceByEmptyString() {
+        // Given
+        MockURLProtocol.loadingHandler = { request in
+            let data: Data? = FakeResponseData.noRecipeData
+            let response: HTTPURLResponse = FakeResponseData.responseOK
+            let error: Error? = nil
+            return (response, data, error)
+        }
+        
+        // When
+        fridgeIngredients.append(FridgeIngredient(context: coreDataStack.viewContext))
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        recipeService.fetchRecipes(atUrl: RecipeService.baseUrl, withIngredients:fridgeIngredients) { success, recipes, nextPageUrl in
+            // Then
+            XCTAssertFalse(success)
+            XCTAssertTrue(recipes.isEmpty)
+            XCTAssertNil(nextPageUrl)
+            expectation.fulfill()        }
+
+        wait(for: [expectation], timeout: 0.1)
+    }
     
 }

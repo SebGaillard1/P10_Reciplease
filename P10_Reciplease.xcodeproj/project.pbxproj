@@ -22,6 +22,7 @@
 		573FDEA527972B00003FE262 /* CoreDataTestStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573FDEA427972B00003FE262 /* CoreDataTestStack.swift */; };
 		573FDEAA27973499003FE262 /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573FDEA927973499003FE262 /* CoreDataTests.swift */; };
 		573FDEAC27975D61003FE262 /* FridgeIngredientRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573FDEAB27975D61003FE262 /* FridgeIngredientRepositoryTests.swift */; };
+		573FDEAE27977976003FE262 /* NoRecipe.json in Resources */ = {isa = PBXBuildFile; fileRef = 573FDEAD27977976003FE262 /* NoRecipe.json */; };
 		57446B632793787000230767 /* DirectionWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57446B622793787000230767 /* DirectionWebViewController.swift */; };
 		575158CE2794A9E000C2F951 /* UIView+addBlurEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575158CD2794A9E000C2F951 /* UIView+addBlurEffect.swift */; };
 		575158D02794ABF100C2F951 /* UIView+addBlackGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575158CF2794ABF100C2F951 /* UIView+addBlackGradient.swift */; };
@@ -77,6 +78,7 @@
 		573FDEA427972B00003FE262 /* CoreDataTestStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestStack.swift; sourceTree = "<group>"; };
 		573FDEA927973499003FE262 /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
 		573FDEAB27975D61003FE262 /* FridgeIngredientRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FridgeIngredientRepositoryTests.swift; sourceTree = "<group>"; };
+		573FDEAD27977976003FE262 /* NoRecipe.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = NoRecipe.json; sourceTree = "<group>"; };
 		57446B622793787000230767 /* DirectionWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionWebViewController.swift; sourceTree = "<group>"; };
 		575158CD2794A9E000C2F951 /* UIView+addBlurEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addBlurEffect.swift"; sourceTree = "<group>"; };
 		575158CF2794ABF100C2F951 /* UIView+addBlackGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addBlackGradient.swift"; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				573FDEA027971902003FE262 /* Recipes.json */,
+				573FDEAD27977976003FE262 /* NoRecipe.json */,
 				573FDEA2279721F1003FE262 /* RecipeServiceTests.swift */,
 				573FDEA927973499003FE262 /* CoreDataTests.swift */,
 				573FDEAB27975D61003FE262 /* FridgeIngredientRepositoryTests.swift */,
@@ -364,6 +367,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				573FDEAE27977976003FE262 /* NoRecipe.json in Resources */,
 				573FDEA127971902003FE262 /* Recipes.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
