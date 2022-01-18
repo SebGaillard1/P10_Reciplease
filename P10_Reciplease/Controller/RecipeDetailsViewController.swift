@@ -43,7 +43,7 @@ class RecipeDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        favoriteRecipeRepository.isRecipeAlreadyFavorite(recipe: recipe) { favorite in
+        favoriteRecipeRepository.isRecipeFavorite(recipe: recipe) { favorite in
             if favorite {
                 navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(removeFavorite))
             } else {

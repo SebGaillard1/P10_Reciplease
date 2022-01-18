@@ -64,27 +64,23 @@ final class FavoriteRecipeRepository {
     
     func getAllFavoriteRecipesModel(completion: (_ success: Bool, _ recipes: [RecipeModel]) -> Void) {
         getAllFavoriteRecipes { success, recipes in
-            if success {
-                var recipesWithUIImage = [RecipeModel]()
-
-                for recipe in recipes {
-                    getIngredients(forRecipe: recipe) { success, ingredients in
-                        if success {
-                            recipesWithUIImage.append(RecipeModel(title: recipe.title!,
-                                                                  ingredients: ingredients,
-                                                                  rate: recipe.rate!,
-                                                                  image: (UIImage(data: recipe.imageData!) ?? UIImage(named: "Food"))!,
-                                                                  duration: recipe.duration,
-                                                                  url: recipe.url!))
-                        } else {
-                            self.alertNotification(message: "Error while retrieving the ingredients of your favorite(s) recipe(s)!")
-                            completion(false, [])
-                        }
-                    }
+            guard success else { completion(false, []); return }
+            
+            var recipesWithUIImage = [RecipeModel]()
+            for recipe in recipes {
+                getIngredientModels(forRecipe: recipe) { success, ingredients in
+                    guard success else { completion(false, []); return }
+                    
+                    recipesWithUIImage.append(RecipeModel(title: recipe.title!,
+                                                          ingredients: ingredients,
+                                                          rate: recipe.rate!,
+                                                          image: (UIImage(data: recipe.imageData!) ?? UIImage(named: "Food"))!,
+                                                          duration: recipe.duration,
+                                                          url: recipe.url!))
                 }
-                completion(true, recipesWithUIImage)
             }
-            completion(false, [])
+            
+            completion(true, recipesWithUIImage)
         }
     }
     
@@ -100,7 +96,7 @@ final class FavoriteRecipeRepository {
         completion(true, recipes)
     }
     
-    func getIngredients(forRecipe recipe: Recipe, completion: (_ success: Bool, _ ingredients: [RecipeIngredientModel]) -> Void) {
+    func getIngredientModels(forRecipe recipe: Recipe, completion: (_ success: Bool, _ ingredients: [RecipeIngredientModel]) -> Void) {
         let request: NSFetchRequest<RecipeIngredient> = RecipeIngredient.fetchRequest()
         request.predicate = NSPredicate(format: "recipe.title == %@", recipe.title!)
         
@@ -109,14 +105,14 @@ final class FavoriteRecipeRepository {
             completion(false, [])
             return
         }
-
+        
         var allIngredients = [RecipeIngredientModel]()
         for ingredient in ingredients {
             allIngredients.append(RecipeIngredientModel(text: ingredient.text!,
-                                                     quantity: ingredient.quantity,
+                                                        quantity: ingredient.quantity,
                                                         measure: ingredient.measure!,
                                                         food: ingredient.food!,
-                                                     weight: ingredient.weight,
+                                                        weight: ingredient.weight,
                                                         foodCategory: ingredient.foodCategory!))
         }
         
@@ -167,7 +163,7 @@ final class FavoriteRecipeRepository {
         }
     }
     
-    func isRecipeAlreadyFavorite(recipe: RecipeModel,completion: (_ favorite: Bool) -> Void) {
+    func isRecipeFavorite(recipe: RecipeModel,completion: (_ favorite: Bool) -> Void) {
         let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         request.predicate = NSPredicate(format: "title == %@", recipe.title)
         
