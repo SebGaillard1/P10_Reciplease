@@ -40,13 +40,7 @@ final class FavoriteRecipeRepository {
         recipe.duration = recipeModel.duration
         recipe.url = recipeModel.url
         
-        do {
-            try viewContext.save()
-            completion(true)
-        } catch {
-            self.alertNotification(message: "Unable to save this recipe as favorite!")
-            completion(false)
-        }
+        saveContext() ? completion(true) : completion(false)
     }
     
     func getFavoriteRecipe(named name: String, completion: (_ success: Bool, _ recipe: Recipe?) -> Void) {
@@ -131,13 +125,7 @@ final class FavoriteRecipeRepository {
             }
         }
         
-        do {
-            try viewContext.save()
-            completion(true)
-        } catch {
-            self.alertNotification(message: "Error while removing your favorites recipes")
-            completion(false)
-        }
+        saveContext() ? completion(true) : completion(false)
     }
     
     func removeFromFavorite(recipe: RecipeModel, completion: (_ success: Bool) -> Void) {
@@ -154,13 +142,7 @@ final class FavoriteRecipeRepository {
             viewContext.delete(recipe)
         }
         
-        do {
-            try viewContext.save()
-            completion(true)
-        } catch {
-            completion(false)
-            self.alertNotification(message: "Unable to remove recipe from favorite!")
-        }
+        saveContext() ? completion(true) : completion(false)
     }
     
     func isRecipeFavorite(recipe: RecipeModel, completion: (_ favorite: Bool) -> Void) {
@@ -176,6 +158,16 @@ final class FavoriteRecipeRepository {
             completion(true)
         } else {
             completion(false)
+        }
+    }
+    
+    private func saveContext() -> Bool {
+        do {
+            try viewContext.save()
+            return true
+        } catch {
+            self.alertNotification(message: "Error while saving context!")
+            return false
         }
     }
 }
