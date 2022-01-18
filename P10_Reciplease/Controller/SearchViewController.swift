@@ -96,7 +96,7 @@ class SearchViewController: UIViewController {
         searchForRecipesButton.isEnabled = false
         activityIndictor.isHidden = false
         
-        RecipeService.shared.fetchRecipes(atUrl: "", withIngredients: ingredientsArray) { success, recipes, nextPageUrl  in
+        RecipeService.shared.fetchRecipes(atUrl: RecipeService.baseUrl, withIngredients: ingredientsArray) { success, recipes, nextPageUrl  in
             if success {
                 self.recipes = recipes
                 self.nextPageUrl = nextPageUrl ?? ""

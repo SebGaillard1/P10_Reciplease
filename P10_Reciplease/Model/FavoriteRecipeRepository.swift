@@ -26,7 +26,7 @@ final class FavoriteRecipeRepository {
     
     //MARK: - Repository
     func saveRecipeAsFavorite(recipe recipeModel: RecipeModel, completion: (_ success: Bool) -> Void) {
-        guard let data = recipeModel.image.pngData() else {
+        guard let imageData = recipeModel.image.pngData() else {
             self.alertNotification(message: "Error while saving the recipe image!")
             completion(false)
             return
@@ -36,7 +36,7 @@ final class FavoriteRecipeRepository {
         recipe.title = recipeModel.title
         recipe.ingredient = recipeModel.detailIngredientsList
         recipe.rate = recipeModel.rate
-        recipe.imageData = data
+        recipe.imageData = imageData
         recipe.duration = recipeModel.duration
         recipe.url = recipeModel.url
         
@@ -60,18 +60,6 @@ final class FavoriteRecipeRepository {
         }
         
         completion(true, recipes[0])
-    }
-    
-    private func getAllFavoriteRecipesWithImageData(completion: (_ success: Bool, _ recipes: [Recipe]) -> Void) {
-        let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
-        
-        guard let recipes = try? coreDataStack.viewContext.fetch(request) else {
-            self.alertNotification(message: "Error while retrieving your favorites recipes!")
-            completion(false, [])
-            return
-        }
-        
-        completion(true, recipes)
     }
     
     func getFavoriteRecipiesWithUIImage(completion: (_ success: Bool, _ recipies: [RecipeModel]) -> Void) {
@@ -98,6 +86,18 @@ final class FavoriteRecipeRepository {
             }
             completion(false, [])
         }
+    }
+    
+    private func getAllFavoriteRecipesWithImageData(completion: (_ success: Bool, _ recipes: [Recipe]) -> Void) {
+        let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
+        
+        guard let recipes = try? coreDataStack.viewContext.fetch(request) else {
+            self.alertNotification(message: "Error while retrieving your favorites recipes!")
+            completion(false, [])
+            return
+        }
+        
+        completion(true, recipes)
     }
     
     func getIngredients(forRecipe recipe: Recipe, completion: (_ success: Bool, _ ingredients: [RecipeIngredientModel]) -> Void) {
@@ -182,6 +182,4 @@ final class FavoriteRecipeRepository {
             completion(false)
         }
     }
-    
-    
 }

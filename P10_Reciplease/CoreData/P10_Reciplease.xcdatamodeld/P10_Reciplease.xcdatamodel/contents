@@ -24,6 +24,6 @@
     <elements>
         <element name="FridgeIngredient" positionX="-41.16265869140625" positionY="5.852203369140625" width="128" height="58"/>
         <element name="Recipe" positionX="220.88671875" positionY="-102.6404724121094" width="128" height="134"/>
-        <element name="RecipeIngredient" positionX="446.19384765625" positionY="-106.5736999511719" width="128" height="148"/>
+        <element name="RecipeIngredient" positionX="446.19384765625" positionY="-106.5736999511719" width="128" height="134"/>
     </elements>
 </model>
