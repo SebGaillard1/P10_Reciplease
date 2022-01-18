@@ -56,9 +56,9 @@ class FavoriteViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        favoriteRecipeRepository.getFavoriteRecipiesWithUIImage { success, recipies in
+        favoriteRecipeRepository.getAllFavoriteRecipesModel { success, recipes in
             if success {
-                favoriteRecipes = recipies
+                favoriteRecipes = recipes
                 favoriteTableView.reloadData()
             }
         }

@@ -62,8 +62,8 @@ final class FavoriteRecipeRepository {
         completion(true, recipes[0])
     }
     
-    func getFavoriteRecipiesWithUIImage(completion: (_ success: Bool, _ recipies: [RecipeModel]) -> Void) {
-        getAllFavoriteRecipesWithImageData { success, recipes in
+    func getAllFavoriteRecipesModel(completion: (_ success: Bool, _ recipes: [RecipeModel]) -> Void) {
+        getAllFavoriteRecipes { success, recipes in
             if success {
                 var recipesWithUIImage = [RecipeModel]()
 
@@ -88,7 +88,7 @@ final class FavoriteRecipeRepository {
         }
     }
     
-    private func getAllFavoriteRecipesWithImageData(completion: (_ success: Bool, _ recipes: [Recipe]) -> Void) {
+    private func getAllFavoriteRecipes(completion: (_ success: Bool, _ recipes: [Recipe]) -> Void) {
         let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         
         guard let recipes = try? coreDataStack.viewContext.fetch(request) else {
@@ -124,7 +124,7 @@ final class FavoriteRecipeRepository {
     }
     
     func removeAllFavoriteRecipes(_ completion: (Bool) -> Void) {
-        getAllFavoriteRecipesWithImageData { success, recipes in
+        getAllFavoriteRecipes { success, recipes in
             if success {
                 for recipe in recipes {
                     coreDataStack.viewContext.delete(recipe)
