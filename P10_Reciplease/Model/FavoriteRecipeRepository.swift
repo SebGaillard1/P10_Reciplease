@@ -163,7 +163,7 @@ final class FavoriteRecipeRepository {
         }
     }
     
-    func isRecipeFavorite(recipe: RecipeModel,completion: (_ favorite: Bool) -> Void) {
+    func isRecipeFavorite(recipe: RecipeModel, completion: (_ favorite: Bool) -> Void) {
         let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         request.predicate = NSPredicate(format: "title == %@", recipe.title)
         

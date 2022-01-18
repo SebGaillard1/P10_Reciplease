@@ -20,6 +20,12 @@ class RecipeService {
     
     private let recipeRepository = FavoriteRecipeRepository()
     
+    private var session = Session(configuration: .default)
+    
+    init(session: Session) {
+        self.session = session
+    }
+    
     //MARK: - Alert Notification
     private func alertNotification(message: String) {
         let alertName = Notification.Name("alert")
@@ -37,7 +43,7 @@ class RecipeService {
         let ingredients = getIngredientsString(from: ingredients)
         let parameters: [String: String] = ["app_id": appId, "app_key": appKey, "type": type, "q": ingredients]
         
-        AF.request(url, parameters: parameters).validate().responseDecodable(of: RecipeData.self) { response in
+        session.request(url, parameters: parameters).validate().responseDecodable(of: RecipeData.self) { response in
             guard let recipesData = response.value else {
                 self.alertNotification(message: "Unable to fetch recipes data")
                 completion(false, [], nil)

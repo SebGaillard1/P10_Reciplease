@@ -15,7 +15,11 @@
 		5716480327905E9E00FE7BFA /* P10_Reciplease.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5716480127905E9E00FE7BFA /* P10_Reciplease.xcdatamodeld */; };
 		5716480527905E9F00FE7BFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5716480427905E9F00FE7BFA /* Assets.xcassets */; };
 		5716480827905E9F00FE7BFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5716480627905E9F00FE7BFA /* LaunchScreen.storyboard */; };
-		5716481327905E9F00FE7BFA /* P10_RecipleaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5716481227905E9F00FE7BFA /* P10_RecipleaseTests.swift */; };
+		573FDE9D27971839003FE262 /* FakeResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573FDE9C27971839003FE262 /* FakeResponseData.swift */; };
+		573FDE9F2797184C003FE262 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573FDE9E2797184C003FE262 /* MockURLProtocol.swift */; };
+		573FDEA127971902003FE262 /* Recipes.json in Resources */ = {isa = PBXBuildFile; fileRef = 573FDEA027971902003FE262 /* Recipes.json */; };
+		573FDEA3279721F1003FE262 /* RecipeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573FDEA2279721F1003FE262 /* RecipeServiceTests.swift */; };
+		573FDEA527972B00003FE262 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573FDEA427972B00003FE262 /* TestCoreDataStack.swift */; };
 		57446B632793787000230767 /* DirectionWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57446B622793787000230767 /* DirectionWebViewController.swift */; };
 		575158CE2794A9E000C2F951 /* UIView+addBlurEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575158CD2794A9E000C2F951 /* UIView+addBlurEffect.swift */; };
 		575158D02794ABF100C2F951 /* UIView+addBlackGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575158CF2794ABF100C2F951 /* UIView+addBlackGradient.swift */; };
@@ -64,7 +68,11 @@
 		5716480727905E9F00FE7BFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5716480927905E9F00FE7BFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = P10_Reciplease/SupportingFiles/Info.plist; sourceTree = SOURCE_ROOT; };
 		5716480E27905E9F00FE7BFA /* P10_RecipleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = P10_RecipleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5716481227905E9F00FE7BFA /* P10_RecipleaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P10_RecipleaseTests.swift; sourceTree = "<group>"; };
+		573FDE9C27971839003FE262 /* FakeResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeResponseData.swift; sourceTree = "<group>"; };
+		573FDE9E2797184C003FE262 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		573FDEA027971902003FE262 /* Recipes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Recipes.json; sourceTree = "<group>"; };
+		573FDEA2279721F1003FE262 /* RecipeServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeServiceTests.swift; sourceTree = "<group>"; };
+		573FDEA427972B00003FE262 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		57446B622793787000230767 /* DirectionWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionWebViewController.swift; sourceTree = "<group>"; };
 		575158CD2794A9E000C2F951 /* UIView+addBlurEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addBlurEffect.swift"; sourceTree = "<group>"; };
 		575158CF2794ABF100C2F951 /* UIView+addBlackGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addBlackGradient.swift"; sourceTree = "<group>"; };
@@ -147,7 +155,11 @@
 		5716481127905E9F00FE7BFA /* P10_RecipleaseTests */ = {
 			isa = PBXGroup;
 			children = (
-				5716481227905E9F00FE7BFA /* P10_RecipleaseTests.swift */,
+				573FDEA027971902003FE262 /* Recipes.json */,
+				573FDEA2279721F1003FE262 /* RecipeServiceTests.swift */,
+				573FDE9C27971839003FE262 /* FakeResponseData.swift */,
+				573FDE9E2797184C003FE262 /* MockURLProtocol.swift */,
+				573FDEA427972B00003FE262 /* TestCoreDataStack.swift */,
 			);
 			path = P10_RecipleaseTests;
 			sourceTree = "<group>";
@@ -346,6 +358,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				573FDEA127971902003FE262 /* Recipes.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,7 +464,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5716481327905E9F00FE7BFA /* P10_RecipleaseTests.swift in Sources */,
+				573FDE9D27971839003FE262 /* FakeResponseData.swift in Sources */,
+				573FDE9F2797184C003FE262 /* MockURLProtocol.swift in Sources */,
+				573FDEA3279721F1003FE262 /* RecipeServiceTests.swift in Sources */,
+				573FDEA527972B00003FE262 /* TestCoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
