@@ -33,11 +33,9 @@ final class FridgeIngredientRepository {
         let ingredient = FridgeIngredient(context: viewContext)
         ingredient.name = name
         
-        do {
-            try viewContext.save()
+        if saveContext() {
             completion(true)
-        } catch {
-            self.alertNotification(message: "Unable to save \(name)")
+        } else {
             completion(false)
         }
     }
@@ -66,24 +64,30 @@ final class FridgeIngredientRepository {
             }
         }
         
-        do {
-            try viewContext.save()
+        if saveContext() {
             completion(true)
-        } catch {
+        } else {
             completion(false)
-            self.alertNotification(message: "Unable to remove the ingredients")
         }
     }
     
     func removeIngredient(ingredient: FridgeIngredient, completion: (_ success: Bool) -> Void) {
         viewContext.delete(ingredient)
         
+        if saveContext() {
+            completion(true)
+        } else {
+            completion(false)
+        }
+    }
+    
+    private func saveContext() -> Bool {
         do {
             try viewContext.save()
-            completion(true)
+            return true
         } catch {
-            completion(false)
-            self.alertNotification(message: "Unable to remove the ingredient!")
+            self.alertNotification(message: "Error while saving context!")
+            return false
         }
     }
 }
