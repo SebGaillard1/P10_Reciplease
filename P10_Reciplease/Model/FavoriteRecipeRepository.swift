@@ -154,11 +154,8 @@ final class FavoriteRecipeRepository {
             completion(false)
             return
         }
-        if !recipes.isEmpty {
-            completion(true)
-        } else {
-            completion(false)
-        }
+        
+        recipes.isEmpty ? completion(false) : completion(true)
     }
     
     private func saveContext() -> Bool {
