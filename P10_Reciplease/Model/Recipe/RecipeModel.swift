@@ -21,6 +21,8 @@ struct RecipeModel {
         for ingredient in ingredients {
             string += "\(ingredient.food.capitalized), "
         }
+        string.removeLast()
+        string.removeLast()
         return string
     }
     
