@@ -11,7 +11,7 @@ import Alamofire
 class RecipeService {
     //MARK: - Singleton
     static var shared = RecipeService()
-
+    
     //MARK: - Properties
     static let baseUrl = "https://api.edamam.com/api/recipes/v2"
     private let appId = "490915d3"
@@ -25,7 +25,7 @@ class RecipeService {
         let alertName = Notification.Name("alert")
         NotificationCenter.default.post(name: alertName, object: nil, userInfo: ["message": message])
     }
-        
+    
     //MARK: - Public
     func fetchRecipes(atUrl url: String, withIngredients ingredients: [FridgeIngredient], completion: @escaping (_ success: Bool, _ recipes: [RecipeModel], _ nextPageUrl: String?) -> Void) {
         if ingredients.isEmpty && url == RecipeService.baseUrl {
@@ -44,7 +44,7 @@ class RecipeService {
                 return
             }
             
-            self.createRecipeWithUIImage(from: recipesData) { recipes in
+            self.createRecipeModels(from: recipesData) { recipes in
                 if !recipes.isEmpty {
                     completion(true, recipes, recipesData.links.next.href)
                 } else {
@@ -80,32 +80,32 @@ class RecipeService {
         }
     }
     
-    private func createRecipeWithUIImage(from data: RecipeData, completion: @escaping (_ recipes: [RecipeModel]) -> Void) {
+    private func createRecipeModels(from data: RecipeData, completion: @escaping (_ recipes: [RecipeModel]) -> Void) {
         var recipes = [RecipeModel]()
         let myGroup = DispatchGroup()
         
-        for oneRecipe in data.hits {
+        for recipe in data.hits {
             myGroup.enter()
             
-            var allIngredients = [RecipeIngredientModel]()
-            for ingredient in oneRecipe.recipe.ingredients {
+            var ingredients = [RecipeIngredientModel]()
+            for ingredient in recipe.recipe.ingredients {
                 let newIngredient = RecipeIngredientModel(text: ingredient.text,
-                                                    quantity: ingredient.quantity,
-                                                    measure: ingredient.measure ?? "",
-                                                    food: ingredient.food,
-                                                    weight: ingredient.weight,
-                                                    foodCategory: ingredient.foodCategory ?? "")
-                allIngredients.append(newIngredient)
+                                                          quantity: ingredient.quantity,
+                                                          measure: ingredient.measure ?? "",
+                                                          food: ingredient.food,
+                                                          weight: ingredient.weight,
+                                                          foodCategory: ingredient.foodCategory ?? "")
+                ingredients.append(newIngredient)
             }
             
-            let title = oneRecipe.recipe.label
-            let rate = "\(oneRecipe.recipe.yield)"
-            let duration = oneRecipe.recipe.totalTime
-            let url = oneRecipe.recipe.url
-
-            let imageUrl = oneRecipe.recipe.image
+            let title = recipe.recipe.label
+            let rate = "\(recipe.recipe.yield)"
+            let duration = recipe.recipe.totalTime
+            let recipeUrl = recipe.recipe.url
+            let imageUrl = recipe.recipe.image
+            
             self.getImage(from: imageUrl) { recipeImage in
-                recipes.append(RecipeModel(title: title, ingredients: allIngredients, rate: rate, image: recipeImage, duration: Double(duration), url: url))
+                recipes.append(RecipeModel(title: title, ingredients: ingredients, rate: rate, image: recipeImage, duration: Double(duration), url: recipeUrl))
                 myGroup.leave()
             }
         }
