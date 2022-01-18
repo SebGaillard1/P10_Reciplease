@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-final class CoreDataStack {
+open class CoreDataStack {
     //MARK: - Properties
     private let persistantContainerName = "P10_Reciplease"
     
@@ -21,9 +21,7 @@ final class CoreDataStack {
     }
     
     //MARK: - Private
-    private init() {}
-    
-    private lazy var persistantContainer: NSPersistentContainer = {
+    lazy var persistantContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: persistantContainerName)
         container.loadPersistentStores { storeDescription, error in
             if let error = error as NSError? {

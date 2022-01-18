@@ -11,10 +11,10 @@ import UIKit
 
 final class FavoriteRecipeRepository {
     //MARK: - Properties
-    private let coreDataStack: CoreDataStack
+    private var coreDataStack: CoreDataStack = CoreDataStack.sharedInstance
     
     //MARK: - Init
-    init(coreDataStack: CoreDataStack = CoreDataStack.sharedInstance) {
+    init(coreDataStack: CoreDataStack) {
         self.coreDataStack = coreDataStack
     }
     

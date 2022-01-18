@@ -20,8 +20,8 @@ class RecipeDetailsViewController: UIViewController {
     //MARK: - Properties
     var recipe: RecipeModel!
     
-    private let favoriteRecipeRepository = FavoriteRecipeRepository()
-    private let recipeIngredientRepository = RecipeIngredientRepository()
+    private let favoriteRecipeRepository = FavoriteRecipeRepository(coreDataStack: CoreDataStack.sharedInstance)
+    private let recipeIngredientRepository = RecipeIngredientRepository(coreDataStack: CoreDataStack.sharedInstance)
     
     //MARK: - AlertController from notification
     @objc private func presentAlert(notification: Notification) {

@@ -17,7 +17,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchForRecipesButton: UIButton!
     
     //MARK: - Properties
-    private let ingredientRepository = FridgeIngredientRepository()
+    private let ingredientRepository = FridgeIngredientRepository(coreDataStack: CoreDataStack.sharedInstance)
     private var ingredientsArray = [FridgeIngredient]()
     
     private var recipes = [RecipeModel]()

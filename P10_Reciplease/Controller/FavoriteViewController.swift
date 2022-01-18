@@ -15,7 +15,7 @@ class FavoriteViewController: UIViewController {
     //MARK: - Properties
     private let cellId = "SearchResultTableViewCell"
     
-    private let favoriteRecipeRepository = FavoriteRecipeRepository()
+    private let favoriteRecipeRepository = FavoriteRecipeRepository(coreDataStack: CoreDataStack.sharedInstance)
     private var selectedRecipe = 0
     private var favoriteRecipes = [RecipeModel]() {
         didSet {

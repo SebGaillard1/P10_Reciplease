@@ -7,31 +7,23 @@
 
 import Foundation
 import CoreData
-import P10_Reciplease
+@testable import P10_Reciplease
 
 class TestCoreDataStack: CoreDataStack {
-  override init() {
-    super.init()
 
-    // 1
-    let persistentStoreDescription = NSPersistentStoreDescription()
-    persistentStoreDescription.type = NSInMemoryStoreType
+    override init() {
+        super.init()
 
-    // 2
-    let container = NSPersistentContainer(
-      name: CoreDataStack.modelName,
-      managedObjectModel: CoreDataStack.model)
-
-    // 3
-    container.persistentStoreDescriptions = [persistentStoreDescription]
-
-    container.loadPersistentStores { _, error in
-      if let error = error as NSError? {
-        fatalError("Unresolved error \(error), \(error.userInfo)")
-      }
+        let persistentStoreDescription = NSPersistentStoreDescription()
+        persistentStoreDescription.type = NSInMemoryStoreType
+        
+        let container = NSPersistentContainer(name: "P10_Reciplease")
+        container.persistentStoreDescriptions = [persistentStoreDescription]
+        container.loadPersistentStores { _, error in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        }
+        persistantContainer = container
     }
-
-    // 4
-    storeContainer = container
-  }
 }

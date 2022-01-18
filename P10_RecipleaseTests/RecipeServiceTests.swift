@@ -21,7 +21,7 @@ class RecipeServiceTests: XCTestCase {
         let session = Session(configuration: configuration)
         recipeService = RecipeService(session: session)
         
-        let ingredient = FridgeIngredient()
+        let ingredient = FridgeIngredient(context: TestCoreDataStack.sharedInstance.viewContext)
         ingredient.name = "Chicken"
         fridgeIngredients = [ingredient]
     }
