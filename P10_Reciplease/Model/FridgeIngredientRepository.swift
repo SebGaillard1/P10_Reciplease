@@ -33,11 +33,7 @@ final class FridgeIngredientRepository {
         let ingredient = FridgeIngredient(context: viewContext)
         ingredient.name = name
         
-        if saveContext() {
-            completion(true)
-        } else {
-            completion(false)
-        }
+        saveContext() ? completion(true) : completion(false)
     }
     
     func getFridgeIngredients(completion: (_ success: Bool, _ ingredients: [FridgeIngredient]) -> Void) {
@@ -64,21 +60,12 @@ final class FridgeIngredientRepository {
             }
         }
         
-        if saveContext() {
-            completion(true)
-        } else {
-            completion(false)
-        }
+        saveContext() ? completion(true) : completion(false)
     }
     
     func removeIngredient(ingredient: FridgeIngredient, completion: (_ success: Bool) -> Void) {
         viewContext.delete(ingredient)
-        
-        if saveContext() {
-            completion(true)
-        } else {
-            completion(false)
-        }
+        saveContext() ? completion(true) : completion(false)
     }
     
     private func saveContext() -> Bool {

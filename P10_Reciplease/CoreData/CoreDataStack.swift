@@ -11,25 +11,26 @@ import CoreData
 open class CoreDataStack {
     //MARK: - Properties
     private let persistantContainerName = "P10_Reciplease"
-    let persistantContainer: NSPersistentContainer
     
     //MARK: - Singleton
     static let sharedInstance = CoreDataStack()
 
     //MARK: - Public
-    var viewContext: NSManagedObjectContext {
-        return CoreDataStack.sharedInstance.persistantContainer.viewContext
-    }
-    
+    let viewContext: NSManagedObjectContext
+    let persistantContainer: NSPersistentContainer
+
     //MARK: - Private
     private init() {
         persistantContainer = NSPersistentContainer(name: persistantContainerName)
+        let description = persistantContainer.persistentStoreDescriptions.first
+        description?.type = NSSQLiteStoreType
         
-        let container = NSPersistentContainer(name: persistantContainerName)
-        container.loadPersistentStores { storeDescription, error in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo) for \(storeDescription.description)")
+        persistantContainer.loadPersistentStores { description, error in
+            guard error == nil else {
+                fatalError("was unable to load store \(error!)")
             }
         }
+        
+        viewContext = persistantContainer.viewContext
     }
 }
