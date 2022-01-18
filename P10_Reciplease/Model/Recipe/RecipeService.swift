@@ -78,7 +78,7 @@ class RecipeService {
         AF.request(url).responseData { response in
             if response.error == nil {
                 if let data = response.data {
-                    completion(UIImage(data: data)!)
+                    completion(UIImage(data: data) ?? UIImage(named: "Food")!)
                 }
             } else {
                 completion(UIImage(named: "Food")!)
