@@ -10,11 +10,11 @@ import CoreData
 
 final class FridgeIngredientRepository {
     //MARK: - Properties
-    private var coreDataStack: CoreDataStack = CoreDataStack.sharedInstance
-
+    let viewContext: NSManagedObjectContext
+    
     //MARK: - Init
-    init(coreDataStack: CoreDataStack) {
-        self.coreDataStack = coreDataStack
+    init(viewContext: NSManagedObjectContext = CoreDataStack.sharedInstance.viewContext) {
+        self.viewContext = viewContext
     }
     
     //MARK: - Alert Notification
@@ -30,11 +30,11 @@ final class FridgeIngredientRepository {
             return
         }
         
-        let ingredient = FridgeIngredient(context: coreDataStack.viewContext)
+        let ingredient = FridgeIngredient(context: viewContext)
         ingredient.name = name
         
         do {
-            try coreDataStack.viewContext.save()
+            try viewContext.save()
             completion(true)
         } catch {
             self.alertNotification(message: "Unable to save \(name)")
@@ -45,7 +45,7 @@ final class FridgeIngredientRepository {
     func getFridgeIngredients(completion: (_ success: Bool, _ ingredients: [FridgeIngredient]) -> Void) {
         let request: NSFetchRequest<FridgeIngredient> = FridgeIngredient.fetchRequest()
         
-        guard let ingredients = try? coreDataStack.viewContext.fetch(request) else {
+        guard let ingredients = try? viewContext.fetch(request) else {
             self.alertNotification(message: "Error while retrieving fridge ingredients")
             completion(false, [])
             return
@@ -58,7 +58,7 @@ final class FridgeIngredientRepository {
         getFridgeIngredients { success, ingredients in
             if success {
                 for ingredient in ingredients {
-                    coreDataStack.viewContext.delete(ingredient)
+                    viewContext.delete(ingredient)
                 }
             } else {
                 self.alertNotification(message: "Error while retrieving fridge ingredients")
@@ -67,7 +67,7 @@ final class FridgeIngredientRepository {
         }
         
         do {
-            try coreDataStack.viewContext.save()
+            try viewContext.save()
             completion(true)
         } catch {
             completion(false)
@@ -76,10 +76,10 @@ final class FridgeIngredientRepository {
     }
     
     func removeIngredient(ingredient: FridgeIngredient, completion: (_ success: Bool) -> Void) {
-        coreDataStack.viewContext.delete(ingredient)
+        viewContext.delete(ingredient)
         
         do {
-            try coreDataStack.viewContext.save()
+            try viewContext.save()
             completion(true)
         } catch {
             completion(false)

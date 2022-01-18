@@ -10,6 +10,8 @@ import Alamofire
 @testable import P10_Reciplease
 
 class RecipeServiceTests: XCTestCase {
+    var coreDataStack: CoreDataTestStack!
+
     private var recipeService: RecipeService!
     private var fridgeIngredients: [FridgeIngredient]!
     
@@ -21,7 +23,8 @@ class RecipeServiceTests: XCTestCase {
         let session = Session(configuration: configuration)
         recipeService = RecipeService(session: session)
         
-        let ingredient = FridgeIngredient(context: TestCoreDataStack.sharedInstance.viewContext)
+        coreDataStack = CoreDataTestStack()
+        let ingredient = FridgeIngredient(context: coreDataStack.viewContext)
         ingredient.name = "Chicken"
         fridgeIngredients = [ingredient]
     }

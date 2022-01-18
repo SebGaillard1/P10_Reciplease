@@ -11,6 +11,7 @@ import CoreData
 open class CoreDataStack {
     //MARK: - Properties
     private let persistantContainerName = "P10_Reciplease"
+    let persistantContainer: NSPersistentContainer
     
     //MARK: - Singleton
     static let sharedInstance = CoreDataStack()
@@ -21,13 +22,14 @@ open class CoreDataStack {
     }
     
     //MARK: - Private
-    lazy var persistantContainer: NSPersistentContainer = {
+    private init() {
+        persistantContainer = NSPersistentContainer(name: persistantContainerName)
+        
         let container = NSPersistentContainer(name: persistantContainerName)
         container.loadPersistentStores { storeDescription, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo) for \(storeDescription.description)")
             }
         }
-        return container
-    }()
+    }
 }

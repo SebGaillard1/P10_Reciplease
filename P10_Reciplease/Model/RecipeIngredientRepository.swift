@@ -10,14 +10,13 @@ import CoreData
 
 final class RecipeIngredientRepository {
     //MARK: - Properties
-    private var coreDataStack: CoreDataStack = CoreDataStack.sharedInstance
-    private let favoriteRecipeRepository = FavoriteRecipeRepository(coreDataStack: CoreDataStack.sharedInstance)
-    
+    let viewContext: NSManagedObjectContext
+    private let favoriteRecipeRepository = FavoriteRecipeRepository()
+
     //MARK: - Init
-    init(coreDataStack: CoreDataStack) {
-        self.coreDataStack = coreDataStack
+    init(viewContext: NSManagedObjectContext = CoreDataStack.sharedInstance.viewContext) {
+        self.viewContext = viewContext
     }
-    
     //MARK: - Alert Notification
     private func alertNotification(message: String) {
         let alertName = Notification.Name("alert")
@@ -29,7 +28,7 @@ final class RecipeIngredientRepository {
         favoriteRecipeRepository.getFavoriteRecipe(named: recipe.title) { success, recipe in
             if success {
                 for ingredientModel in ingredientsModel {
-                    let ingredient = RecipeIngredient(context: coreDataStack.viewContext)
+                    let ingredient = RecipeIngredient(context: viewContext)
                     ingredient.recipe = recipe
                     ingredient.text = ingredientModel.text
                     ingredient.quantity = ingredientModel.quantity
@@ -39,7 +38,7 @@ final class RecipeIngredientRepository {
                     ingredient.foodCategory = ingredientModel.foodCategory
                     
                     do {
-                        try coreDataStack.viewContext.save()
+                        try viewContext.save()
                     } catch {
                         self.alertNotification(message: "Unable to save \(ingredient.text ?? "an ingredient")")
                         completion(false)
