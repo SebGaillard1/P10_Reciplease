@@ -10,12 +10,13 @@ import CoreData
 
 final class RecipeIngredientRepository {
     //MARK: - Properties
-    let viewContext: NSManagedObjectContext
-    private let favoriteRecipeRepository = FavoriteRecipeRepository()
+    private let viewContext: NSManagedObjectContext
+    private let favoriteRecipeRepository: FavoriteRecipeRepository
 
     //MARK: - Init
-    init(viewContext: NSManagedObjectContext = CoreDataStack.sharedInstance.viewContext) {
+    init(viewContext: NSManagedObjectContext = CoreDataStack.sharedInstance.viewContext, repository: FavoriteRecipeRepository = FavoriteRecipeRepository()) {
         self.viewContext = viewContext
+        self.favoriteRecipeRepository = repository
     }
     //MARK: - Alert Notification
     private func alertNotification(message: String) {

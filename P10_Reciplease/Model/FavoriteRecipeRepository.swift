@@ -11,7 +11,7 @@ import UIKit
 
 final class FavoriteRecipeRepository {
     //MARK: - Properties
-    let viewContext: NSManagedObjectContext
+    private let viewContext: NSManagedObjectContext
     
     //MARK: - Init
     init(viewContext: NSManagedObjectContext = CoreDataStack.sharedInstance.viewContext) {

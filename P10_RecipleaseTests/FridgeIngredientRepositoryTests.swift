@@ -48,4 +48,54 @@ class FridgeIngredientRepositoryTest: XCTestCase {
             }
         }
     }
+
+    func testGivenAnIngredientWithEmptyNameWhenSavingItThenShouldPostFail() {
+        // Given
+        let ingredient = ""
+        // When
+        fridgeIngredientRepository.saveFridgeIngredient(named: ingredient) { success in
+            // Then
+            XCTAssertFalse(success)
+        }
+    }
+    
+    func testRemoveFridgeIngredient() {
+        // Given
+        let ingredients = "Chicken"
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        fridgeIngredientRepository.saveFridgeIngredient(named: ingredients) { success in
+            // Then
+            fridgeIngredientRepository.getFridgeIngredients { success, ingredients in
+                fridgeIngredientRepository.removeIngredient(ingredient: ingredients[0]) { success in
+                    XCTAssertTrue(success)
+                    fridgeIngredientRepository.getFridgeIngredients { success, ingredients in
+                        XCTAssertTrue(success)
+                        XCTAssertEqual(ingredients.count, 0)
+                        expectation.fulfill()
+                    }
+                }
+            }
+        }
+    }
+    
+    func testRemoveAllFridgeIngredients() {
+        // Given
+        let ingredients = "Chicken"
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        fridgeIngredientRepository.saveFridgeIngredient(named: ingredients) { success in
+            // Then
+            fridgeIngredientRepository.getFridgeIngredients { success, ingredients in
+                fridgeIngredientRepository.removeAllIngredients { success in
+                    XCTAssertTrue(success)
+                    fridgeIngredientRepository.getFridgeIngredients { success, ingredients in
+                        XCTAssertTrue(success)
+                        XCTAssertEqual(ingredients.count, 0)
+                        expectation.fulfill()
+                    }
+                }
+            }
+        }
+    }
 }
