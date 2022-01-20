@@ -113,7 +113,7 @@ final class FavoriteRecipeRepository {
         completion(true, allIngredients)
     }
     
-    func removeAllFavoriteRecipes(_ completion: (Bool) -> Void) {
+    func removeAllFavoriteRecipes(completion: (_ success: Bool) -> Void) {
         getAllFavoriteRecipes { success, recipes in
             if success {
                 for recipe in recipes {

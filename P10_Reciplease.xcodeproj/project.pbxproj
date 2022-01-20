@@ -15,6 +15,7 @@
 		5716480327905E9E00FE7BFA /* P10_Reciplease.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5716480127905E9E00FE7BFA /* P10_Reciplease.xcdatamodeld */; };
 		5716480527905E9F00FE7BFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5716480427905E9F00FE7BFA /* Assets.xcassets */; };
 		5716480827905E9F00FE7BFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5716480627905E9F00FE7BFA /* LaunchScreen.storyboard */; };
+		572F34882799B49300FDE22C /* FavoriteRecipeRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572F34872799B49300FDE22C /* FavoriteRecipeRepositoryTests.swift */; };
 		573FDE9D27971839003FE262 /* FakeResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573FDE9C27971839003FE262 /* FakeResponseData.swift */; };
 		573FDE9F2797184C003FE262 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573FDE9E2797184C003FE262 /* MockURLProtocol.swift */; };
 		573FDEA127971902003FE262 /* Recipes.json in Resources */ = {isa = PBXBuildFile; fileRef = 573FDEA027971902003FE262 /* Recipes.json */; };
@@ -71,6 +72,7 @@
 		5716480727905E9F00FE7BFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5716480927905E9F00FE7BFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = P10_Reciplease/SupportingFiles/Info.plist; sourceTree = SOURCE_ROOT; };
 		5716480E27905E9F00FE7BFA /* P10_RecipleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = P10_RecipleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		572F34872799B49300FDE22C /* FavoriteRecipeRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeRepositoryTests.swift; sourceTree = "<group>"; };
 		573FDE9C27971839003FE262 /* FakeResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeResponseData.swift; sourceTree = "<group>"; };
 		573FDE9E2797184C003FE262 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
 		573FDEA027971902003FE262 /* Recipes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Recipes.json; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				573FDEAD27977976003FE262 /* NoRecipe.json */,
 				573FDEA2279721F1003FE262 /* RecipeServiceTests.swift */,
 				573FDEA927973499003FE262 /* RecipeIngredientRepositoryTests.swift */,
+				572F34872799B49300FDE22C /* FavoriteRecipeRepositoryTests.swift */,
 				573FDEAB27975D61003FE262 /* FridgeIngredientRepositoryTests.swift */,
 				573FDEA427972B00003FE262 /* CoreDataTestStack.swift */,
 				573FDE9E2797184C003FE262 /* MockURLProtocol.swift */,
@@ -475,6 +478,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				573FDE9D27971839003FE262 /* FakeResponseData.swift in Sources */,
+				572F34882799B49300FDE22C /* FavoriteRecipeRepositoryTests.swift in Sources */,
 				573FDE9F2797184C003FE262 /* MockURLProtocol.swift in Sources */,
 				573FDEA3279721F1003FE262 /* RecipeServiceTests.swift in Sources */,
 				573FDEA527972B00003FE262 /* CoreDataTestStack.swift in Sources */,
