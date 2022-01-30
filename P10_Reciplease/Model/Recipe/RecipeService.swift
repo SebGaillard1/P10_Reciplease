@@ -63,7 +63,7 @@ class RecipeService {
     }
     
     func getImage(forRecipe recipe: RecipeModel, completion: @escaping (_ recipe: RecipeModel) -> Void) {
-        getImage(from: recipe.imageUrl) { recipeImage in
+        downloadImage(from: recipe.imageUrl) { recipeImage in
             let recipeModel = RecipeModel(title: recipe.title,
                                           ingredients: recipe.ingredients,
                                           rate: recipe.rate,
@@ -78,7 +78,7 @@ class RecipeService {
     //MARK: - Private
     private init() {}
     
-    private func getImage(from url: String, completion: @escaping (_ recipeImage: UIImage) -> Void) {
+    private func downloadImage(from url: String, completion: @escaping (_ recipeImage: UIImage) -> Void) {
         AF.request(url).responseData { response in
             if response.error == nil {
                 if let data = response.data {
@@ -120,9 +120,9 @@ class RecipeService {
             let duration = recipe.recipe.totalTime
             let recipeUrl = recipe.recipe.url
             let imageUrl = recipe.recipe.image
-            let placeholderImage = UIImage(named: "1")!
+            let placeholderImage = UIImage(named: "placeholder")!
             
-            recipes.append(RecipeModel(title: title, ingredients: ingredients, rate: rate, image: placeholderImage, imageUrl: imageUrl ,duration: Double(duration), url: recipeUrl))
+            recipes.append(RecipeModel(title: title, ingredients: ingredients, rate: rate, image: placeholderImage, imageUrl: imageUrl ,duration: Int16(duration), url: recipeUrl))
         }
         
         return recipes

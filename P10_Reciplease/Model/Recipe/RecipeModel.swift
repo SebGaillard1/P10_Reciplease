@@ -14,7 +14,7 @@ struct RecipeModel {
     let rate: String
     let image: UIImage
     let imageUrl: String
-    let duration: Double
+    let duration: Int16
     let url: String
     
     var simpleIngredientsList: String {

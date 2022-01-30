@@ -4,7 +4,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Recipe" representedClassName=".Recipe" syncable="YES" codeGenerationType="category">
-        <attribute name="duration" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="duration" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="imageData" attributeType="Binary"/>
         <attribute name="ingredient" attributeType="String"/>
         <attribute name="rate" attributeType="String"/>
