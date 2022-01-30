@@ -95,12 +95,7 @@ extension FavoriteViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SearchResultTableViewCell else { return UITableViewCell() }
-        cell.recipeTitleLabel.text = favoriteRecipes[indexPath.row].title
-        cell.recipeIngredientsLabel.text = favoriteRecipes[indexPath.row].simpleIngredientsList
-        cell.recipeRateLabel.text = "👍\(favoriteRecipes[indexPath.row].rate)"
-        cell.recipeTimeLabel.text = "\(favoriteRecipes[indexPath.row].duration.getStringFormattedTime())"
-        cell.recipeImageView.image = favoriteRecipes[indexPath.row].image
-        cell.recipeImageView.contentMode = .scaleAspectFill
+        cell.configure(with: favoriteRecipes[indexPath.row])
         
         return cell
     }

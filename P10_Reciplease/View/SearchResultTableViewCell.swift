@@ -25,18 +25,13 @@ class SearchResultTableViewCell: UITableViewCell {
         addGradient()
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    
-    func configure(title: String, ingredients: String, image: UIImage, rate: String?, time: String?) {
-        recipeTitleLabel.text = title
-        recipeIngredientsLabel.text = ingredients
-        recipeImageView.image = image
-        recipeRateLabel.text = rate
-        recipeTimeLabel.text = time
+    func configure(with recipe: RecipeModel) {
+        recipeTitleLabel.text = recipe.title
+        recipeIngredientsLabel.text = recipe.simpleIngredientsList
+        recipeRateLabel.text = "👍\(recipe.rate)"
+        recipeTimeLabel.text = "\(recipe.duration.getStringFormattedTime())"
+        recipeImageView.image = recipe.image
+        recipeImageView.contentMode = .scaleAspectFill
     }
     
     private func addGradient() {

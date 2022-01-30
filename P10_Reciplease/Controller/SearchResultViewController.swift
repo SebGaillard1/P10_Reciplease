@@ -53,12 +53,7 @@ extension SearchResultViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SearchResultTableViewCell else { return UITableViewCell() }
-        cell.recipeTitleLabel.text = recipes[indexPath.row].title
-        cell.recipeIngredientsLabel.text = recipes[indexPath.row].simpleIngredientsList
-        cell.recipeRateLabel.text = "👍\(recipes[indexPath.row].rate)"
-        cell.recipeTimeLabel.text = "\(recipes[indexPath.row].duration.getStringFormattedTime())"
-        cell.recipeImageView.image = recipes[indexPath.row].image
-        cell.recipeImageView.contentMode = .scaleAspectFill
+        cell.configure(with: recipes[indexPath.row])
         
         return cell
     }
