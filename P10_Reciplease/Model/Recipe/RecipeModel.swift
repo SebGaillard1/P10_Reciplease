@@ -13,6 +13,7 @@ struct RecipeModel {
     let ingredients: [RecipeIngredientModel]
     let rate: String
     let image: UIImage
+    let imageUrl: String
     let duration: Double
     let url: String
     

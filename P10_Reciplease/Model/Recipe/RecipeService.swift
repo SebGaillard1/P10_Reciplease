@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 class RecipeService {
     //MARK: - Singleton
@@ -50,29 +51,32 @@ class RecipeService {
                 return
             }
             
-            self.createRecipeModels(from: recipesData) { recipes in
-                if !recipes.isEmpty {
-                    completion(true, recipes, recipesData.links.next.href)
-                } else {
-                    self.alertNotification(message: "No recipes found for these ingredients!")
-                    completion(false, [], nil)
-                }
+            let recipes = self.createRecipeModels(from: recipesData)
+            
+            if !recipes.isEmpty {
+                completion(true, recipes, recipesData.links.next.href)
+            } else {
+                self.alertNotification(message: "No recipes found for these ingredients!")
+                completion(false, [], nil)
             }
         }
     }
     
+    func getImage(forRecipe recipe: RecipeModel, completion: @escaping (_ recipe: RecipeModel) -> Void) {
+        getImage(from: recipe.imageUrl) { recipeImage in
+            let recipeModel = RecipeModel(title: recipe.title,
+                                          ingredients: recipe.ingredients,
+                                          rate: recipe.rate,
+                                          image: recipeImage,
+                                          imageUrl: recipe.imageUrl,
+                                          duration: recipe.duration,
+                                          url: recipe.url)
+            completion(recipeModel)
+        }
+    }
+
     //MARK: - Private
     private init() {}
-    
-    private func getIngredientsString(from ingredients: [FridgeIngredient]) -> String {
-        var ingredientsString = ""
-        
-        for ingredient in ingredients {
-            ingredientsString += "\(ingredient.name ?? "") "
-        }
-        
-        return ingredientsString
-    }
     
     private func getImage(from url: String, completion: @escaping (_ recipeImage: UIImage) -> Void) {
         AF.request(url).responseData { response in
@@ -86,13 +90,20 @@ class RecipeService {
         }
     }
     
-    private func createRecipeModels(from data: RecipeData, completion: @escaping (_ recipes: [RecipeModel]) -> Void) {
+    private func getIngredientsString(from ingredients: [FridgeIngredient]) -> String {
+        var ingredientsString = ""
+        
+        for ingredient in ingredients {
+            ingredientsString += "\(ingredient.name ?? "") "
+        }
+        
+        return ingredientsString
+    }
+    
+    private func createRecipeModels(from data: RecipeData) -> [RecipeModel] {
         var recipes = [RecipeModel]()
-        let myGroup = DispatchGroup()
         
         for recipe in data.hits {
-            myGroup.enter()
-            
             var ingredients = [RecipeIngredientModel]()
             for ingredient in recipe.recipe.ingredients {
                 let newIngredient = RecipeIngredientModel(text: ingredient.text,
@@ -109,16 +120,11 @@ class RecipeService {
             let duration = recipe.recipe.totalTime
             let recipeUrl = recipe.recipe.url
             let imageUrl = recipe.recipe.image
+            let placeholderImage = UIImage(named: "1")!
             
-            self.getImage(from: imageUrl) { recipeImage in
-                recipes.append(RecipeModel(title: title, ingredients: ingredients, rate: rate, image: recipeImage, duration: Double(duration), url: recipeUrl))
-                myGroup.leave()
-            }
+            recipes.append(RecipeModel(title: title, ingredients: ingredients, rate: rate, image: placeholderImage, imageUrl: imageUrl ,duration: Double(duration), url: recipeUrl))
         }
         
-        // Execute completionHandler asyncronously when all request are finished
-        myGroup.notify(queue: .main) {
-            completion(recipes)
-        }
+        return recipes
     }
 }

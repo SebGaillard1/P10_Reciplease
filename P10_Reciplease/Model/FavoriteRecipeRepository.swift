@@ -69,6 +69,7 @@ final class FavoriteRecipeRepository {
                                                           ingredients: ingredients,
                                                           rate: recipe.rate!,
                                                           image: (UIImage(data: recipe.imageData!) ?? UIImage(named: "Food"))!,
+                                                          imageUrl: "",
                                                           duration: recipe.duration,
                                                           url: recipe.url!))
                 }

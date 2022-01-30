@@ -35,8 +35,23 @@ class SearchResultViewController: UIViewController {
         resultRecipesTableView.dataSource = self
         resultRecipesTableView.delegate = self
         resultRecipesTableView.register(UINib.init(nibName: cellId, bundle: nil), forCellReuseIdentifier: cellId)
+        
+        setBackgroundImage(forRecipes: recipes)
     }
-
+    
+    //MARK: - Private
+    private func setBackgroundImage(forRecipes recipes: [RecipeModel]) {
+        for (index, recipe) in recipes.enumerated() {
+            RecipeService.shared.getImage(forRecipe: recipe) { recipe in
+                let index = self.recipes.count - recipes.count + index
+                self.recipes[index] = recipe
+                DispatchQueue.main.async {
+                    self.resultRecipesTableView.reloadData()
+                }
+            }
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToRecipeDetails" {
             guard let selectedRecipe = selectedRecipeIndex else { return }
@@ -46,6 +61,7 @@ class SearchResultViewController: UIViewController {
     }
 }
 
+//MARK: - Extensions
 extension SearchResultViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recipes.count
@@ -75,6 +91,7 @@ extension SearchResultViewController: UITableViewDelegate {
                 if success {
                     self.recipes.append(contentsOf: recipes)
                     self.nextPageUrl = nextPageUrl
+                    self.setBackgroundImage(forRecipes: recipes)
                     tableView.reloadData()
                 }
             }
