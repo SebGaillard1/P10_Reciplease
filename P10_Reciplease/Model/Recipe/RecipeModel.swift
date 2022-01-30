@@ -30,7 +30,7 @@ struct RecipeModel {
     var detailIngredientsList: String {
         var string = ""
         for ingredient in ingredients {
-            string += "- \(ingredient.text)\n"
+            string += "- \(ingredient.text)\n\n"
         }
         return string
     }

@@ -24,7 +24,7 @@ class RecipeIngredientRepositoryTests: XCTestCase {
         recipeIngredientRepository = RecipeIngredientRepository(viewContext: coreDataStack.viewContext, repository: favoriteRecipeRepository)
         
         ingredient = RecipeIngredientModel(text: "Tomato", quantity: 3.0, measure: "g", food: "tomato", weight: 0.5, foodCategory: "Vegetables")
-        recipe = RecipeModel(title: "Chicken Massala", ingredients: [ingredient], rate: "8", image: UIImage(named: "Food")!, duration: 8, url: "url")
+        recipe = RecipeModel(title: "Chicken Massala", ingredients: [ingredient], rate: "8", image: UIImage(named: "Food")!, imageUrl: "", duration: 8, url: "url")
     }
 
     //MARK: - RecipeIngredient Tests

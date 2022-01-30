@@ -22,7 +22,7 @@ class FavoriteRecipeRepositoryTests: XCTestCase {
         favoriteRecipeRepository = FavoriteRecipeRepository(viewContext: coreDataStack.viewContext)
         
         ingredient = RecipeIngredientModel(text: "Tomato", quantity: 3.0, measure: "g", food: "tomato", weight: 0.5, foodCategory: "Vegetables")
-        recipe = RecipeModel(title: "Chicken Massala", ingredients: [ingredient], rate: "8", image: UIImage(named: "Food")!, duration: 8, url: "url")
+        recipe = RecipeModel(title: "Chicken Massala", ingredients: [ingredient], rate: "8", image: UIImage(named: "Food")!, imageUrl: "", duration: 8, url: "url")
     }
     
     func testGivenARecipeWhenSavingItToFavoriteThenShouldPostSuccess() {
@@ -51,7 +51,7 @@ class FavoriteRecipeRepositoryTests: XCTestCase {
         favoriteRecipeRepository.saveRecipeAsFavorite(recipe: recipe) { success in
             XCTAssertTrue(success)
         }
-        let recipe2 = RecipeModel(title: "Tartiflette", ingredients: [ingredient], rate: "5", image: UIImage(named: "Food")!, duration: 5, url: "url")
+        let recipe2 = RecipeModel(title: "Tartiflette", ingredients: [ingredient], rate: "5", image: UIImage(named: "Food")!, imageUrl: "", duration: 5, url: "url")
         favoriteRecipeRepository.saveRecipeAsFavorite(recipe: recipe2) { success in
             XCTAssertTrue(success)
         }
@@ -87,7 +87,7 @@ class FavoriteRecipeRepositoryTests: XCTestCase {
         favoriteRecipeRepository.saveRecipeAsFavorite(recipe: recipe) { success in
             XCTAssertTrue(success)
         }
-        let recipe2 = RecipeModel(title: "Tartiflette", ingredients: [ingredient], rate: "5", image: UIImage(named: "Food")!, duration: 5, url: "url")
+        let recipe2 = RecipeModel(title: "Tartiflette", ingredients: [ingredient], rate: "5", image: UIImage(named: "Food")!, imageUrl: "", duration: 5, url: "url")
         favoriteRecipeRepository.saveRecipeAsFavorite(recipe: recipe2) { success in
             XCTAssertTrue(success)
         }
@@ -104,7 +104,7 @@ class FavoriteRecipeRepositoryTests: XCTestCase {
     
     func testGivenRecipeWithBadImageWhenSavingItThenShouldFailed() {
         // Given
-        let recipeWithBadImage = RecipeModel(title: "Recipe", ingredients: [ingredient], rate: "9", image: UIImage(), duration: 3, url: "url")
+        let recipeWithBadImage = RecipeModel(title: "Recipe", ingredients: [ingredient], rate: "9", image: UIImage(), imageUrl: "", duration: 3, url: "url")
         // When
         favoriteRecipeRepository.saveRecipeAsFavorite(recipe: recipeWithBadImage) { success in
             // Then

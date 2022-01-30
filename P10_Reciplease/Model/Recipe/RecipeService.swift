@@ -62,7 +62,7 @@ class RecipeService {
         }
     }
     
-    func getImage(forRecipe recipe: RecipeModel, completion: @escaping (_ recipe: RecipeModel) -> Void) {
+    func getImage(forRecipe recipe: RecipeModel, completion: @escaping (_ recipeWithImage: RecipeModel) -> Void) {
         downloadImage(from: recipe.imageUrl) { recipeImage in
             let recipeModel = RecipeModel(title: recipe.title,
                                           ingredients: recipe.ingredients,
@@ -122,7 +122,7 @@ class RecipeService {
             let imageUrl = recipe.recipe.image
             let placeholderImage = UIImage(named: "placeholder")!
             
-            recipes.append(RecipeModel(title: title, ingredients: ingredients, rate: rate, image: placeholderImage, imageUrl: imageUrl ,duration: Int16(duration), url: recipeUrl))
+            recipes.append(RecipeModel(title: title, ingredients: ingredients, rate: rate, image: placeholderImage, imageUrl: imageUrl , duration: Int16(duration), url: recipeUrl))
         }
         
         return recipes

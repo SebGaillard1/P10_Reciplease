@@ -282,19 +282,22 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i39-2h-fGh">
                                 <rect key="frame" x="0.0" y="437.5" width="414" height="301.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adx-PA-cDQ">
-                                        <rect key="frame" x="10" y="10" width="41.5" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adx-PA-cDQ">
+                                        <rect key="frame" x="10" y="10" width="393.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="adx-PA-cDQ" firstAttribute="leading" secondItem="i39-2h-fGh" secondAttribute="leading" constant="10" id="NUS-qI-1cV"/>
-                                    <constraint firstAttribute="bottom" secondItem="adx-PA-cDQ" secondAttribute="bottom" id="c5r-kG-LQA"/>
-                                    <constraint firstItem="adx-PA-cDQ" firstAttribute="top" secondItem="i39-2h-fGh" secondAttribute="top" constant="10" id="qPW-zI-Cnv"/>
-                                    <constraint firstAttribute="trailing" secondItem="adx-PA-cDQ" secondAttribute="trailing" constant="10" id="sq7-BF-obj"/>
+                                    <constraint firstItem="adx-PA-cDQ" firstAttribute="bottom" secondItem="hvV-JX-xmc" secondAttribute="bottom" constant="10" id="QfE-2a-fEN"/>
+                                    <constraint firstItem="adx-PA-cDQ" firstAttribute="trailing" secondItem="hvV-JX-xmc" secondAttribute="trailing" id="TtS-bc-SzA"/>
+                                    <constraint firstItem="adx-PA-cDQ" firstAttribute="top" secondItem="hvV-JX-xmc" secondAttribute="top" constant="10" id="YDI-WJ-1dx"/>
+                                    <constraint firstItem="adx-PA-cDQ" firstAttribute="leading" secondItem="hvV-JX-xmc" secondAttribute="leading" constant="10" id="YUe-BQ-6JV"/>
+                                    <constraint firstItem="adx-PA-cDQ" firstAttribute="width" secondItem="pNG-Rr-tSE" secondAttribute="width" multiplier="0.95" id="aq9-QQ-ucd"/>
                                 </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="hvV-JX-xmc"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="pNG-Rr-tSE"/>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBG-0j-ts2">
                                 <rect key="frame" x="30" y="749" width="354" height="54"/>
