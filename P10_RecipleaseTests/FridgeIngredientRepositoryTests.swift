@@ -98,4 +98,9 @@ class FridgeIngredientRepositoryTest: XCTestCase {
             }
         }
     }
+    
+    func testCantSave() {
+        // Given
+        
+    }
 }

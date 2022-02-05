@@ -21,6 +21,12 @@ class FakeResponseData {
         return try! Data(contentsOf: url)
     }
     
+    static var imageData: Data? {
+        let bundle = Bundle.main
+        let url = bundle.url(forResource: "image", withExtension: ".png")!
+        return try! Data(contentsOf: url)
+    }
+    
     static let incorrectData = "erreur".data(using: .utf8)
     
     //MARK: - Response

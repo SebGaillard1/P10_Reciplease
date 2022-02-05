@@ -11,7 +11,7 @@ import Alamofire
 
 class RecipeServiceTests: XCTestCase {
     var coreDataStack: CoreDataTestStack!
-
+    
     private var recipeService: RecipeService!
     private var fridgeIngredients: [FridgeIngredient]!
     
@@ -28,7 +28,7 @@ class RecipeServiceTests: XCTestCase {
         ingredient.name = "Chicken"
         fridgeIngredients = [ingredient]
     }
-
+    
     override func tearDown() {
         super.tearDown()
         
@@ -54,7 +54,7 @@ class RecipeServiceTests: XCTestCase {
             XCTAssertNil(nextPageUrl)
             expectation.fulfill()
         }
-
+        
         wait(for: [expectation], timeout: 0.1)
     }
     
@@ -76,7 +76,7 @@ class RecipeServiceTests: XCTestCase {
             XCTAssertNil(nextPageUrl)
             expectation.fulfill()
         }
-
+        
         wait(for: [expectation], timeout: 0.1)
     }
     
@@ -98,7 +98,7 @@ class RecipeServiceTests: XCTestCase {
             XCTAssertNil(nextPageUrl)
             expectation.fulfill()
         }
-
+        
         wait(for: [expectation], timeout: 0.1)
     }
     
@@ -120,7 +120,7 @@ class RecipeServiceTests: XCTestCase {
             XCTAssertNotNil(nextPageUrl)
             expectation.fulfill()
         }
-
+        
         wait(for: [expectation], timeout: 1)
     }
     
@@ -141,7 +141,7 @@ class RecipeServiceTests: XCTestCase {
             XCTAssertTrue(recipes.isEmpty)
             XCTAssertNil(nextPageUrl)
             expectation.fulfill()        }
-
+        
         wait(for: [expectation], timeout: 0.1)
     }
     
@@ -162,7 +162,7 @@ class RecipeServiceTests: XCTestCase {
             XCTAssertTrue(recipes.isEmpty)
             XCTAssertNil(nextPageUrl)
             expectation.fulfill()        }
-
+        
         wait(for: [expectation], timeout: 0.1)
     }
     
@@ -184,8 +184,54 @@ class RecipeServiceTests: XCTestCase {
             XCTAssertTrue(recipes.isEmpty)
             XCTAssertNil(nextPageUrl)
             expectation.fulfill()        }
-
+        
         wait(for: [expectation], timeout: 0.1)
     }
     
+    func testGivenImageDataWithNoErrorAndGoodResponseWhenDownloadingImageThenShouldPostDownloadedImage() {
+        // Given
+        MockURLProtocol.loadingHandler = { request in
+            let data: Data? = FakeResponseData.imageData
+            let response: HTTPURLResponse = FakeResponseData.responseOK
+            let error: Error? = nil
+            return (response, data, error)
+        }
+        
+        let recipe = RecipeModel(title: "Exemple", ingredients: [RecipeIngredientModel](), rate: "1", image: UIImage(), imageUrl: "https://www.edamam.com/web-img/e42/e42f9119813e890af34c259785ae1cfb.jpg", duration: 12, url: "www.url.fr")
+        
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        
+        recipeService.getImage(forRecipe: recipe) { recipeWithImage in
+            // Then
+            XCTAssertNotNil(recipeWithImage)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 0.1)
+    }
+    
+    func testGivenAnErrorWhenDownloadingImageThenShouldPostDefaultImage() {
+        // Given
+        MockURLProtocol.loadingHandler = { request in
+            let data: Data? = FakeResponseData.incorrectData
+            let response: HTTPURLResponse = FakeResponseData.responseKO
+            let error: Error? = Alamofire.AFError.invalidURL(url: "badurl")
+            return (response, data, error)
+        }
+        
+        let recipe = RecipeModel(title: "Exemple", ingredients: [RecipeIngredientModel](), rate: "1", image: UIImage(), imageUrl: "badurl", duration: 12, url: "www.url.fr")
+        
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        
+        recipeService.getImage(forRecipe: recipe) { recipeWithImage in
+            // Then
+            XCTAssertNotNil(recipeWithImage)
+            XCTAssertEqual(recipeWithImage.image.pngData(), UIImage(named: "Food")?.pngData())
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 0.1)
+    }
 }
