@@ -12,7 +12,7 @@ final class RecipeIngredientRepository {
     //MARK: - Properties
     private let viewContext: NSManagedObjectContext
     private let favoriteRecipeRepository: FavoriteRecipeRepository
-
+    
     //MARK: - Init
     init(viewContext: NSManagedObjectContext = CoreDataStack.sharedInstance.viewContext, repository: FavoriteRecipeRepository = FavoriteRecipeRepository()) {
         self.viewContext = viewContext
@@ -39,7 +39,9 @@ final class RecipeIngredientRepository {
                     ingredient.foodCategory = ingredientModel.foodCategory
                     
                     do {
-                        try viewContext.save()
+                        if viewContext.hasChanges {
+                            try viewContext.save()
+                        }
                     } catch {
                         self.alertNotification(message: "Unable to save \(ingredient.text ?? "an ingredient")")
                         completion(false)

@@ -70,7 +70,9 @@ final class FridgeIngredientRepository {
     
     private func saveContext() -> Bool {
         do {
-            try viewContext.save()
+            if viewContext.hasChanges {
+                try viewContext.save()
+            }
             return true
         } catch {
             self.alertNotification(message: "Error while saving context!")
