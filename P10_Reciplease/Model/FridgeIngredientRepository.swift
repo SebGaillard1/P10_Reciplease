@@ -10,17 +10,12 @@ import CoreData
 
 final class FridgeIngredientRepository {
     //MARK: - Properties
+    private let coreDataStackShared = CoreDataStack.sharedInstance
     private let viewContext: NSManagedObjectContext
     
     //MARK: - Init
     init(viewContext: NSManagedObjectContext = CoreDataStack.sharedInstance.viewContext) {
         self.viewContext = viewContext
-    }
-    
-    //MARK: - Alert Notification
-    private func alertNotification(message: String) {
-        let alertName = Notification.Name("alert")
-        NotificationCenter.default.post(name: alertName, object: nil, userInfo: ["message": message])
     }
     
     //MARK: - Repository
@@ -33,19 +28,15 @@ final class FridgeIngredientRepository {
         let ingredient = FridgeIngredient(context: viewContext)
         ingredient.name = name
         
-        saveContext() ? completion(true) : completion(false)
+        if coreDataStackShared.saveContext() { completion(true) }
     }
     
     func getFridgeIngredients(completion: (_ success: Bool, _ ingredients: [FridgeIngredient]) -> Void) {
         let request: NSFetchRequest<FridgeIngredient> = FridgeIngredient.fetchRequest()
         
-        guard let ingredients = try? viewContext.fetch(request) else {
-            self.alertNotification(message: "Error while retrieving fridge ingredients")
-            completion(false, [])
-            return
+        if let ingredients = try? viewContext.fetch(request) {
+            completion(true, ingredients)
         }
-        
-        completion(true, ingredients)
     }
     
     func removeAllIngredients(completion: (_ success: Bool) -> Void) {
@@ -54,29 +45,14 @@ final class FridgeIngredientRepository {
                 for ingredient in ingredients {
                     viewContext.delete(ingredient)
                 }
-            } else {
-                self.alertNotification(message: "Error while retrieving fridge ingredients")
-                completion(false)
             }
         }
         
-        saveContext() ? completion(true) : completion(false)
+        if coreDataStackShared.saveContext() { completion(true) }
     }
     
     func removeIngredient(ingredient: FridgeIngredient, completion: (_ success: Bool) -> Void) {
         viewContext.delete(ingredient)
-        saveContext() ? completion(true) : completion(false)
-    }
-    
-    private func saveContext() -> Bool {
-        do {
-            if viewContext.hasChanges {
-                try viewContext.save()
-            }
-            return true
-        } catch {
-            self.alertNotification(message: "Error while saving context!")
-            return false
-        }
+        if coreDataStackShared.saveContext() { completion(true) }
     }
 }

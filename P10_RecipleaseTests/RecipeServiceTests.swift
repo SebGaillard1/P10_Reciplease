@@ -99,7 +99,7 @@ class RecipeServiceTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 0.1)
+        wait(for: [expectation], timeout: 1)
     }
     
     func testFetchRecipesShouldPostSuccessIfDataGoodResponseNoError() {
@@ -208,7 +208,7 @@ class RecipeServiceTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 0.1)
+        wait(for: [expectation], timeout: 1)
     }
     
     func testGivenAnErrorWhenDownloadingImageThenShouldPostDefaultImage() {

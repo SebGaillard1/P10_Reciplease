@@ -33,4 +33,15 @@ open class CoreDataStack {
         
         viewContext = persistantContainer.viewContext
     }
+    
+    func saveContext() -> Bool {
+        do {
+            if viewContext.hasChanges {
+                try viewContext.save()
+            }
+            return true
+        } catch {
+            return false
+        }
+    }
 }

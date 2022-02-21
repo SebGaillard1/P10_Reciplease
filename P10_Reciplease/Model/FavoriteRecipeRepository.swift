@@ -11,6 +11,7 @@ import UIKit
 
 final class FavoriteRecipeRepository {
     //MARK: - Properties
+    private let coreDataStackShared = CoreDataStack.sharedInstance
     private let viewContext: NSManagedObjectContext
     
     //MARK: - Init
@@ -40,30 +41,27 @@ final class FavoriteRecipeRepository {
         recipe.duration = recipeModel.duration
         recipe.url = recipeModel.url
         
-        saveContext() ? completion(true) : completion(false)
+        if coreDataStackShared.saveContext() { completion(true) }
     }
     
     func getFavoriteRecipe(named name: String, completion: (_ success: Bool, _ recipe: Recipe?) -> Void) {
         let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         request.predicate = NSPredicate(format: "title == %@", name)
         
-        guard let recipes = try? viewContext.fetch(request) else {
-            self.alertNotification(message: "Error while retrieving the favorite recipe!")
-            completion(false, nil)
-            return
+        if let recipes = try? viewContext.fetch(request) {
+            completion(true, recipes[0])
+
         }
-        
-        completion(true, recipes[0])
     }
     
     func getAllFavoriteRecipesModel(completion: (_ success: Bool, _ recipes: [RecipeModel]) -> Void) {
         getAllFavoriteRecipes { success, recipes in
-            guard success else { completion(false, []); return }
+            guard success else { return }
             
             var recipesWithUIImage = [RecipeModel]()
             for recipe in recipes {
                 getIngredientModels(forRecipe: recipe) { success, ingredients in
-                    guard success else { completion(false, []); return }
+                    guard success else { return }
                     
                     recipesWithUIImage.append(RecipeModel(title: recipe.title!,
                                                           ingredients: ingredients,
@@ -82,24 +80,16 @@ final class FavoriteRecipeRepository {
     private func getAllFavoriteRecipes(completion: (_ success: Bool, _ recipes: [Recipe]) -> Void) {
         let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         
-        guard let recipes = try? viewContext.fetch(request) else {
-            self.alertNotification(message: "Error while retrieving your favorites recipes!")
-            completion(false, [])
-            return
+        if let recipes = try? viewContext.fetch(request) {
+            completion(true, recipes)
         }
-        
-        completion(true, recipes)
     }
     
     func getIngredientModels(forRecipe recipe: Recipe, completion: (_ success: Bool, _ ingredients: [RecipeIngredientModel]) -> Void) {
         let request: NSFetchRequest<RecipeIngredient> = RecipeIngredient.fetchRequest()
         request.predicate = NSPredicate(format: "recipe.title == %@", recipe.title!)
         
-        guard let ingredients = try? viewContext.fetch(request) else {
-            self.alertNotification(message: "Error while retrieving the ingredients!")
-            completion(false, [])
-            return
-        }
+        guard let ingredients = try? viewContext.fetch(request) else { return }
         
         var allIngredients = [RecipeIngredientModel]()
         for ingredient in ingredients {
@@ -120,54 +110,31 @@ final class FavoriteRecipeRepository {
                 for recipe in recipes {
                     viewContext.delete(recipe)
                 }
-            } else {
-                self.alertNotification(message: "Error while removing your favorites recipes!")
-                completion(false)
             }
         }
         
-        saveContext() ? completion(true) : completion(false)
+        if coreDataStackShared.saveContext() { completion(true) }
     }
     
     func removeFromFavorite(recipe: RecipeModel, completion: (_ success: Bool) -> Void) {
         let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         request.predicate = NSPredicate(format: "title == %@", recipe.title)
         
-        guard let recipes = try? viewContext.fetch(request) else {
-            self.alertNotification(message: "Error while removing the recipe from favorite!")
-            completion(false)
-            return
+        if let recipes = try? viewContext.fetch(request) {
+            for recipe in recipes {
+                viewContext.delete(recipe)
+            }
         }
-        
-        for recipe in recipes {
-            viewContext.delete(recipe)
-        }
-        
-        saveContext() ? completion(true) : completion(false)
+
+        if coreDataStackShared.saveContext() { completion(true) }
     }
     
     func isRecipeFavorite(recipe: RecipeModel, completion: (_ favorite: Bool) -> Void) {
         let request: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         request.predicate = NSPredicate(format: "title == %@", recipe.title)
         
-        guard let recipes = try? viewContext.fetch(request) else {
-            self.alertNotification(message: "Error while retrieving favorites recipes")
-            completion(false)
-            return
-        }
-        
-        recipes.isEmpty ? completion(false) : completion(true)
-    }
-    
-    private func saveContext() -> Bool {
-        do {
-            if viewContext.hasChanges {
-                try viewContext.save()
-            }
-            return true
-        } catch {
-            self.alertNotification(message: "Error while saving context!")
-            return false
+        if let recipes = try? viewContext.fetch(request) {
+            recipes.isEmpty ? completion(false) : completion(true)
         }
     }
 }
