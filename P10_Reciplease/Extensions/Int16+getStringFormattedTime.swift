@@ -8,7 +8,7 @@
 import Foundation
 
 extension Int16 {
-    func getStringFormattedTime() -> String {
+    public func getStringFormattedTime() -> String {
         switch self {
         case 0:
             return ""

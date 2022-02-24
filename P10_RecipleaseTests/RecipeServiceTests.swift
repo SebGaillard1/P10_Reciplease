@@ -188,6 +188,12 @@ class RecipeServiceTests: XCTestCase {
         wait(for: [expectation], timeout: 0.1)
     }
     
+    func testGivenARecipeWithIngredientsWhenGettingSimpleListIngredientsThenShouldGetSimpleList() {
+        let ingredients = [RecipeIngredientModel(text: "Chichien", quantity: 5, measure: "p", food: "Chicken", weight: 7, foodCategory: "Meat"), RecipeIngredientModel(text: "Chichien", quantity: 5, measure: "p", food: "Chicken", weight: 7, foodCategory: "Meat")]
+        let recipe = RecipeModel(title: "Exemple", ingredients: ingredients, rate: "1", image: UIImage(), imageUrl: "https://www.edamam.com/web-img/e42/e42f9119813e890af34c259785ae1cfb.jpg", duration: 12, url: "www.url.fr")
+        XCTAssertEqual(recipe.simpleIngredientsList, "Chicken, Chicken")
+    }
+    
     func testGivenImageDataWithNoErrorAndGoodResponseWhenDownloadingImageThenShouldPostDownloadedImage() {
         // Given
         MockURLProtocol.loadingHandler = { request in

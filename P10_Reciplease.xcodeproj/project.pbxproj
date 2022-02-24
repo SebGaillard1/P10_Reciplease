@@ -45,6 +45,7 @@
 		57C2C0422790724100EF509E /* FridgeIngredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C2C0412790724100EF509E /* FridgeIngredient.swift */; };
 		57C2C044279074FD00EF509E /* FridgeIngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C2C043279074FD00EF509E /* FridgeIngredientRepository.swift */; };
 		57C2C0462790754A00EF509E /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C2C0452790754A00EF509E /* CoreDataStack.swift */; };
+		57CE505827C572BE0016CDBF /* ExtensionsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CE505727C572BE0016CDBF /* ExtensionsTestCase.swift */; };
 		86E4D751874B52EED89239A8 /* Pods_P10_RecipleaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCBB49463E0CC6BB55DEE3E /* Pods_P10_RecipleaseTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -102,6 +103,7 @@
 		57C2C0412790724100EF509E /* FridgeIngredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FridgeIngredient.swift; sourceTree = "<group>"; };
 		57C2C043279074FD00EF509E /* FridgeIngredientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FridgeIngredientRepository.swift; sourceTree = "<group>"; };
 		57C2C0452790754A00EF509E /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		57CE505727C572BE0016CDBF /* ExtensionsTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsTestCase.swift; sourceTree = "<group>"; };
 		5F0A1E115EE9BD15107113AE /* Pods-P10_Reciplease.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-P10_Reciplease.release.xcconfig"; path = "Target Support Files/Pods-P10_Reciplease/Pods-P10_Reciplease.release.xcconfig"; sourceTree = "<group>"; };
 		A15581FB9952C5A1D3CA2AC1 /* Pods-P10_Reciplease.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-P10_Reciplease.debug.xcconfig"; path = "Target Support Files/Pods-P10_Reciplease/Pods-P10_Reciplease.debug.xcconfig"; sourceTree = "<group>"; };
 		ECCBB49463E0CC6BB55DEE3E /* Pods_P10_RecipleaseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_P10_RecipleaseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,12 +165,12 @@
 		5716481127905E9F00FE7BFA /* P10_RecipleaseTests */ = {
 			isa = PBXGroup;
 			children = (
-				573FDEA027971902003FE262 /* Recipes.json */,
-				573FDEAD27977976003FE262 /* NoRecipe.json */,
+				57CE505927C577560016CDBF /* JSON */,
 				573FDEA2279721F1003FE262 /* RecipeServiceTests.swift */,
 				573FDEA927973499003FE262 /* RecipeIngredientRepositoryTests.swift */,
 				572F34872799B49300FDE22C /* FavoriteRecipeRepositoryTests.swift */,
 				573FDEAB27975D61003FE262 /* FridgeIngredientRepositoryTests.swift */,
+				57CE505727C572BE0016CDBF /* ExtensionsTestCase.swift */,
 				573FDEA427972B00003FE262 /* CoreDataTestStack.swift */,
 				573FDE9E2797184C003FE262 /* MockURLProtocol.swift */,
 				573FDE9C27971839003FE262 /* FakeResponseData.swift */,
@@ -203,9 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				5795572D27932ECE00A2C45E /* Recipe */,
-				57C2C043279074FD00EF509E /* FridgeIngredientRepository.swift */,
-				5769F6352790ACEA009726F7 /* FavoriteRecipeRepository.swift */,
-				5795572E27932F1A00A2C45E /* RecipeIngredientRepository.swift */,
+				57CE505A27C577700016CDBF /* CoreDataRepos */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -253,6 +253,25 @@
 				576E480F2791AF6200996F3B /* RecipeModel.swift */,
 			);
 			path = Recipe;
+			sourceTree = "<group>";
+		};
+		57CE505927C577560016CDBF /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				573FDEA027971902003FE262 /* Recipes.json */,
+				573FDEAD27977976003FE262 /* NoRecipe.json */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		57CE505A27C577700016CDBF /* CoreDataRepos */ = {
+			isa = PBXGroup;
+			children = (
+				57C2C043279074FD00EF509E /* FridgeIngredientRepository.swift */,
+				5769F6352790ACEA009726F7 /* FavoriteRecipeRepository.swift */,
+				5795572E27932F1A00A2C45E /* RecipeIngredientRepository.swift */,
+			);
+			path = CoreDataRepos;
 			sourceTree = "<group>";
 		};
 		BBD9F0CA14551D6AE93760DE /* Pods */ = {
@@ -484,6 +503,7 @@
 				573FDEA527972B00003FE262 /* CoreDataTestStack.swift in Sources */,
 				573FDEAA27973499003FE262 /* RecipeIngredientRepositoryTests.swift in Sources */,
 				573FDEAC27975D61003FE262 /* FridgeIngredientRepositoryTests.swift in Sources */,
+				57CE505827C572BE0016CDBF /* ExtensionsTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

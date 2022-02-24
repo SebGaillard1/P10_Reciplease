@@ -8,7 +8,7 @@
 import Foundation
 
 extension String {
-    func onlyLetters() -> String {
+    public func onlyLetters() -> String {
         var charset = CharacterSet.letters
         charset.insert(",")
         charset.insert(" ")
